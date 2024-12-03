@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Shellscripts.OpenEHR.TestConsole": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
