@@ -1,0 +1,17 @@
+{
+    "uid": {
+        "_type": "HIER_OBJECT_ID",
+        "value": "5f0841de-9409-4270-919f-6896cc7f4f5e"
+    },
+    "owner_id": {
+        "_type": "OBJECT_REF",
+        "namespace": "local",
+        "type": "ehr",
+        "id": {
+            "_type": "HIER_OBJECT_ID",
+            "value": "eecf24e0-5ac9-4bfc-b958-475162940444"
+        }
+    },
+    "time_created": "2024-08-30T21:45:33.389606Z",
+    "_type": "VERSIONED_EHR_STATUS"
+}

@@ -1,0 +1,236 @@
+[
+    {
+        "concept": "heart_anamnesis",
+        "template_id": "heart_anamnesis",
+        "archetype_id": "openEHR-EHR-COMPOSITION.encounter.v1",
+        "created_timestamp": "2024-08-30T21:52:09.530Z"
+    },
+    {
+        "concept": "Station�rer Versorgungsfall",
+        "template_id": "Station�rer Versorgungsfall",
+        "archetype_id": "openEHR-EHR-COMPOSITION.fall.v1",
+        "created_timestamp": "2024-08-30T21:55:50.537Z"
+    },
+    {
+        "concept": "Blutdruck",
+        "template_id": "Blutdruck",
+        "archetype_id": "openEHR-EHR-COMPOSITION.registereintrag.v1",
+        "created_timestamp": "2024-08-30T21:56:04.521Z"
+    },
+    {
+        "concept": "beispiel",
+        "template_id": "beispiel",
+        "archetype_id": "openEHR-EHR-COMPOSITION.report.v1",
+        "created_timestamp": "2024-09-02T13:40:17.765Z"
+    },
+    {
+        "concept": "PGX - Minimal Pharmacogenetics diagnostic report",
+        "template_id": "PGX - Minimal Pharmacogenetics diagnostic report",
+        "archetype_id": "openEHR-EHR-COMPOSITION.report-result.v1",
+        "created_timestamp": "2024-09-02T15:44:10.416Z"
+    },
+    {
+        "concept": "ecg_result",
+        "template_id": "ecg_result",
+        "archetype_id": "openEHR-EHR-COMPOSITION.report.v1",
+        "created_timestamp": "2024-09-04T10:36:12.742Z"
+    },
+    {
+        "concept": "RSK - Generic import",
+        "template_id": "RSK - Generic import",
+        "archetype_id": "openEHR-EHR-COMPOSITION.rs_generic_import.v1",
+        "created_timestamp": "2024-09-04T16:12:24.520Z"
+    },
+    {
+        "concept": "Tenetti_Test",
+        "template_id": "Tenetti_Test",
+        "archetype_id": "openEHR-EHR-COMPOSITION.report.v1",
+        "created_timestamp": "2024-09-08T17:23:56.094Z"
+    },
+    {
+        "concept": "at0000",
+        "template_id": "EDSS_Assessment",
+        "archetype_id": "openEHR-EHR-GENERIC_ENTRY.EDSS_Assessment.v1",
+        "created_timestamp": "2024-09-09T13:12:46.705Z"
+    },
+    {
+        "concept": "averbis_arztbrief",
+        "template_id": "averbis_arztbrief",
+        "archetype_id": "openEHR-EHR-COMPOSITION.report.v1",
+        "created_timestamp": "2024-09-25T06:22:22.754Z"
+    },
+    {
+        "concept": "Herzkatheter",
+        "template_id": "Herzkatheter",
+        "archetype_id": "openEHR-EHR-COMPOSITION.report.v1",
+        "created_timestamp": "2024-09-25T07:36:11.640Z"
+    },
+    {
+        "concept": "pulse_oximetry_patient_v6",
+        "template_id": "pulse_oximetry_patient_v6",
+        "archetype_id": "openEHR-EHR-COMPOSITION.self_reported_data.v1",
+        "created_timestamp": "2024-09-26T08:28:22.076Z"
+    },
+    {
+        "concept": "adipositas_monitoring.v0.0.1",
+        "template_id": "adipositas_monitoring.v0.0.1",
+        "archetype_id": "openEHR-EHR-COMPOSITION.self_monitoring.v0",
+        "created_timestamp": "2024-09-26T08:28:35.391Z"
+    },
+    {
+        "concept": "ips_medicationlist.1.0.0",
+        "template_id": "ips_medicationlist.1.0.0",
+        "archetype_id": "openEHR-EHR-COMPOSITION.medication_list.v1",
+        "created_timestamp": "2024-10-04T14:11:05.055Z"
+    },
+    {
+        "concept": "KDS_Medikamentenverabreichungen",
+        "template_id": "KDS_Medikamentenverabreichungen",
+        "archetype_id": "openEHR-EHR-COMPOSITION.report.v1",
+        "created_timestamp": "2024-10-10T15:49:18.613Z"
+    },
+    {
+        "concept": "vg_BodyWeight.v1.0.0",
+        "template_id": "vg_BodyWeight.v1.0.0",
+        "archetype_id": "openEHR-EHR-COMPOSITION.report.v1",
+        "created_timestamp": "2024-10-11T11:19:13.515Z"
+    },
+    {
+        "concept": "International Patient Summary",
+        "template_id": "International Patient Summary",
+        "archetype_id": "openEHR-EHR-COMPOSITION.health_summary.v1",
+        "created_timestamp": "2024-09-27T08:46:52.201Z"
+    },
+    {
+        "concept": "International Patient Summary",
+        "template_id": "International Patient Summary",
+        "archetype_id": "openEHR-EHR-COMPOSITION.health_summary.v1",
+        "created_timestamp": "2024-09-26T08:28:30.034Z"
+    },
+    {
+        "concept": "Intensivmedizinisches Monitoring Blutdruck",
+        "template_id": "Intensivmedizinisches Monitoring Blutdruck",
+        "archetype_id": "openEHR-EHR-COMPOSITION.report.v1",
+        "created_timestamp": "2024-10-29T20:41:50.396Z"
+    },
+    {
+        "concept": "singleOrdinalTestTemplate.v0.1.0",
+        "template_id": "singleOrdinalTestTemplate.v0.1.0",
+        "archetype_id": "openEHR-EHR-COMPOSITION.encounter.v1",
+        "created_timestamp": "2024-10-30T10:28:06.393Z"
+    },
+    {
+        "concept": "Test_quantity_dv_interval_dv_date_time_open_constraint.v0",
+        "template_id": "Test_quantity_dv_interval_dv_date_time_open_constraint.v0",
+        "archetype_id": "openEHR-EHR-COMPOSITION.report.v1",
+        "created_timestamp": "2024-10-31T16:15:39.418Z"
+    },
+    {
+        "concept": "family_history",
+        "template_id": "family_history",
+        "archetype_id": "openEHR-EHR-COMPOSITION.family_history.v0",
+        "created_timestamp": "2024-10-31T16:18:54.781Z"
+    },
+    {
+        "concept": "vg_GCS.v1.0.1",
+        "template_id": "vg_GCS.v1.0.1",
+        "archetype_id": "openEHR-EHR-COMPOSITION.report.v1",
+        "created_timestamp": "2024-11-07T12:48:12.827Z"
+    },
+    {
+        "concept": "singleDateTestTemplate.v0.1.0",
+        "template_id": "singleDateTestTemplate.v0.1.0",
+        "archetype_id": "openEHR-EHR-COMPOSITION.encounter.v1",
+        "created_timestamp": "2024-11-08T08:06:10.791Z"
+    },
+    {
+        "concept": "vg_ServiceRequest.v1.1.0",
+        "template_id": "vg_ServiceRequest.v1.1.0",
+        "archetype_id": "openEHR-EHR-COMPOSITION.report.v1",
+        "created_timestamp": "2024-11-11T08:49:35.531Z"
+    },
+    {
+        "concept": "vg_procedure.v1.1.0",
+        "template_id": "vg_procedure.v1.1.0",
+        "archetype_id": "openEHR-EHR-COMPOSITION.report.v1",
+        "created_timestamp": "2024-11-11T09:17:20.922Z"
+    },
+    {
+        "concept": "singleDateTimeTestTemplate.v0.1.0",
+        "template_id": "singleDateTimeTestTemplate.v0.1.0",
+        "archetype_id": "openEHR-EHR-COMPOSITION.encounter.v1",
+        "created_timestamp": "2024-11-11T12:37:00.660Z"
+    },
+    {
+        "concept": "COLNEC Patient Blood Pressure.v0",
+        "template_id": "patient_blood_pressure.v1",
+        "archetype_id": "openEHR-EHR-COMPOSITION.encounter.v1",
+        "created_timestamp": "2024-11-12T07:43:24.707Z"
+    },
+    {
+        "concept": "KDS_Laborbericht",
+        "template_id": "KDS_Laborbericht",
+        "archetype_id": "openEHR-EHR-COMPOSITION.report-result.v1",
+        "created_timestamp": "2024-11-12T23:29:22.855Z"
+    },
+    {
+        "concept": "vg_MedicationRequest.v1.0.1",
+        "template_id": "vg_MedicationRequest.v1.0.1",
+        "archetype_id": "openEHR-EHR-COMPOSITION.report.v1",
+        "created_timestamp": "2024-11-13T15:40:27.626Z"
+    },
+    {
+        "concept": "emergency_anamnesis",
+        "template_id": "emergency_anamnesis",
+        "archetype_id": "openEHR-EHR-COMPOSITION.report.v1",
+        "created_timestamp": "2024-11-14T10:51:01.350Z"
+    },
+    {
+        "concept": "notaufnahme",
+        "template_id": "notaufnahme",
+        "archetype_id": "openEHR-EHR-COMPOSITION.report.v1",
+        "created_timestamp": "2024-11-15T12:22:23.227Z"
+    },
+    {
+        "concept": "Vital signs",
+        "template_id": "Vital signs",
+        "archetype_id": "openEHR-EHR-COMPOSITION.encounter.v1",
+        "created_timestamp": "2024-11-16T10:55:35.244Z"
+    },
+    {
+        "concept": "cistec.openehr.gcs.v1",
+        "template_id": "cistec.openehr.gcs.v1",
+        "archetype_id": "openEHR-EHR-COMPOSITION.encounter.v1",
+        "created_timestamp": "2024-11-18T17:16:22.043Z"
+    },
+    {
+        "concept": "OPENOUT - H1 Hip Arthroplasty.v0",
+        "template_id": "OPENOUT - H1 Hip Arthroplasty.v0",
+        "archetype_id": "openEHR-EHR-COMPOSITION.care_pathway_management.v0",
+        "created_timestamp": "2024-11-20T23:50:48.248Z"
+    },
+    {
+        "concept": "Genomics example template",
+        "template_id": "Genomics example template",
+        "archetype_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
+        "created_timestamp": "2024-11-26T16:01:42.754Z"
+    },
+    {
+        "concept": "textComposition",
+        "template_id": "textComposition",
+        "archetype_id": "openEHR-EHR-COMPOSITION.encounter.v1",
+        "created_timestamp": "2024-11-26T17:37:26.325Z"
+    },
+    {
+        "concept": "vg_Pflegegrad_v1.0.0",
+        "template_id": "vg_Pflegegrad_v1.0.0",
+        "archetype_id": "openEHR-EHR-COMPOSITION.report.v1",
+        "created_timestamp": "2024-11-28T10:22:47.426Z"
+    },
+    {
+        "concept": "vg_OxygenSaturation.v1.0.1",
+        "template_id": "vg_OxygenSaturation.v1.0.1",
+        "archetype_id": "openEHR-EHR-COMPOSITION.report.v1",
+        "created_timestamp": "2024-11-29T14:16:01.840Z"
+    }
+]
