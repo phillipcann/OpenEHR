@@ -29,6 +29,11 @@
             deserialisedObject = JsonSerializer.Deserialize<ADL14_TemplateListItem[]>(assetFileContent);
 
             Assert.True(deserialisedObject.Count() == expectedCount, "Unexpected number of items in collection");
+            foreach (var item in deserialisedObject)
+            {
+                Assert.NotNull(item.Concept);
+                Assert.False(string.IsNullOrWhiteSpace(item.Concept));
+            }
         }
 
 
