@@ -1,16 +1,16 @@
 ﻿namespace Shellscripts.OpenEHR.TestConsole
 {
-    using System.Net.Http.Headers;
-    using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
-    using Microsoft.Extensions.Configuration;
+
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
+
+    using Shellscripts.OpenEHR.Configuration;
     using Shellscripts.OpenEHR.Models.Ehr;
     using Shellscripts.OpenEHR.Rest;
-    using Shellscripts.OpenEHR.Serialisation.Converters;
+    
 
     internal class Program
     {
@@ -28,9 +28,9 @@
             #region Host Setup
 
             var host = Host.CreateDefaultBuilder(args).
-                ConfigureAppConfiguration((context, builder) => ConfigureAppConfiguration(context, builder, args)).
-                ConfigureLogging(ConfigureLogging).
-                ConfigureServices(ConfigureServices).
+                ConfigureAppConfiguration((context, builder) => ContainerConfiguration.ConfigureAppConfiguration(context, builder, args)).
+                ConfigureLogging(ContainerConfiguration.ConfigureLogging).
+                ConfigureServices(ContainerConfiguration.ConfigureServices).
                 Build();
 
             logger = host.Services.GetRequiredService<ILoggerFactory>().CreateLogger("Program");
@@ -105,72 +105,7 @@
         #endregion
 
 
-        #region Setup
 
-        private static void ConfigureAppConfiguration(HostBuilderContext context, IConfigurationBuilder builder, string[] args)
-        {
-            string env = context.HostingEnvironment.EnvironmentName;
-
-            builder
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env}.json", optional: false, reloadOnChange: true)
-                .AddEnvironmentVariables()
-                .AddCommandLine(args);
-        }
-
-        private static void ConfigureLogging(HostBuilderContext context, ILoggingBuilder builder)
-        {
-            builder.ClearProviders();
-
-            if (context.HostingEnvironment.IsDevelopment())
-            {
-                builder
-                    .AddConsole()
-                    .AddDebug();
-            }
-        }
-
-        private static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
-        {
-            //services.AddTransient(provider =>
-            //{
-            //    var config = provider.GetRequiredService<IConfiguration>();
-            //    var systemUri = config.GetSection("HttpClients").GetValue<string>("EhrClient1:SystemUri", string.Empty);
-            //    return new UriAppendingHandler(systemUri);
-            //});
-
-            services.AddHttpClient<IEhrClient, EhrClient>((services, client) =>
-            {
-                var config = services.GetRequiredService<IConfiguration>();
-                var httpClientConfig = config.GetSection("HttpClients");
-
-                var baseUrl = new Uri(httpClientConfig.GetValue("EhrClient1:BaseUrl", string.Empty));
-                var timeout = httpClientConfig.GetValue("EhrClient1:Timeout", 30);
-                var preferType = httpClientConfig.GetValue("EhrClient1:PreferType", "minimal");
-                var acceptType = httpClientConfig.GetValue("EhrClient1:AcceptType", "application/xml");
-
-                client.DefaultRequestHeaders.Add("User-Agent", "Shellscripts.OpenEhr");
-                client.DefaultRequestHeaders.Add("Prefer", preferType);
-                client.DefaultRequestHeaders.Add("Accept", acceptType);
-                client.Timeout = TimeSpan.FromSeconds(timeout);
-                client.BaseAddress = baseUrl;
-            });
-                //.AddHttpMessageHandler<UriAppendingHandler>();
-
-            // Singletons
-            services.AddSingleton(provider =>
-            {
-                var options = new JsonSerializerOptions()
-                {
-                    DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
-                    WriteIndented = true
-                };
-                
-                options.Converters.Add(new DvDateTimeConverter());
-                return options;
-            });
-        }
-
-        #endregion
+        
     }
 }

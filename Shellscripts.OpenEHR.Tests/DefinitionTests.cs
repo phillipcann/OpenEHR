@@ -1,13 +1,12 @@
 ﻿namespace Shellscripts.OpenEHR.Tests
 {
-    using System.Text.Json.Serialization;
     using Shellscripts.OpenEHR.Tests.Context;
     using Xunit.Abstractions;
 
     public class DefinitionTests : BaseTest
     {
 
-        public DefinitionTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
+        public DefinitionTests(ITestOutputHelper outputHelper, TestFixture testFixture) : base(outputHelper, testFixture) { }
         
 
         //[Fact]

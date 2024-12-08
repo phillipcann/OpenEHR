@@ -36,9 +36,13 @@
             }
             catch (HttpRequestException hEx) when (hEx.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
+                _logger.LogWarning(hEx, hEx.Message);
+
                 // TODO : This will be a use case for re-negotiating the credentials / token
 
-                _logger.LogWarning(hEx, hEx.Message);
+                
+
+
                 return await action(_client, cancellationToken);
             }
         }

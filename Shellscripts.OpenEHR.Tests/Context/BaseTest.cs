@@ -1,31 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Xunit.Abstractions;
-
-namespace Shellscripts.OpenEHR.Tests.Context
+﻿namespace Shellscripts.OpenEHR.Tests.Context
 {
-    public class TestContext : IDisposable
-    {
+    using System.Text;
+    using Microsoft.Extensions.Configuration;
+    using Xunit;
+    using Xunit.Abstractions;
 
 
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-    }
-
+    [Collection("TestCollection")]
     public abstract class BaseTest
     {
+        private readonly TestFixture _fixture;
+
         internal ITestOutputHelper OutputHelper { get; }
 
-        public BaseTest(ITestOutputHelper outputHelper)
+        internal IConfiguration Configuration => _fixture.Configuration;
+        internal IServiceProvider Services => _fixture.ServiceProvider;
+
+        public BaseTest(ITestOutputHelper outputHelper, TestFixture testFixture)
         {
             this.OutputHelper = outputHelper;
+            this._fixture = testFixture;
         }
 
         internal static async Task<string> LoadAssetAsync(string assetFile)
@@ -65,6 +59,5 @@ namespace Shellscripts.OpenEHR.Tests.Context
 
             return await File.ReadAllTextAsync(fullPath, Encoding.UTF8);
         }
-
     }
 }

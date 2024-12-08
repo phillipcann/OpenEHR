@@ -1,27 +1,23 @@
 ﻿namespace Shellscripts.OpenEHR.Tests
 {
     using System.Text.Json;
-    using Shellscripts.OpenEHR.Models.Ehr;
-    using Shellscripts.OpenEHR.Serialisation.Converters;
+    using Microsoft.Extensions.DependencyInjection;
+    using Shellscripts.OpenEHR.Models.Ehr;    
     using Shellscripts.OpenEHR.Tests.Context;
     using Xunit;
     using Xunit.Abstractions;
 
     public class DeserialisationTest : BaseTest
     {
-        public DeserialisationTest(ITestOutputHelper outputHelper) : base(outputHelper) { }
+        public DeserialisationTest(ITestOutputHelper outputHelper, TestFixture testFixture) : base(outputHelper, testFixture) { }
 
         [Fact]
         [Trait(name: "Category", value: "Unit Test")]
         public async Task Can_DeserialiseVersionedEhrStatusResponse_Success()
         {
             // arrange
+            var options = Services.GetRequiredService<JsonSerializerOptions>();
             string assetFileContent = await LoadAssetAsync("Ehr/VersionedEhrStatusResponse.json");
-            var options = new JsonSerializerOptions()
-            {
-                DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
-            };
-            options.Converters.Add(new DvDateTimeConverter());
 
             // act
             var dataObject = JsonSerializer.Deserialize<VersionedEhrStatus>(assetFileContent, options);
@@ -32,7 +28,42 @@
             Assert.NotNull(serialisedObject);
             Assert.NotEmpty(serialisedObject);
         }
+
+        [Fact]
+        [Trait(name: "Category", value: "Unit Test")]
+        public async Task Can_DeserialiserEhrResponse_Success()
+        {
+            // arrange
+            var options = Services.GetRequiredService<JsonSerializerOptions>();
+            string assetFileContent = await LoadAssetAsync("Ehr/GetEhrResponse.json");
+
+            // act
+            var dataObject = JsonSerializer.Deserialize<Ehr>(assetFileContent, options);
+            var serialisedObject = JsonSerializer.Serialize(dataObject, options);
+
+            // assert
+            Assert.NotNull(dataObject);
+            Assert.NotNull(serialisedObject);
+            Assert.NotEmpty(serialisedObject);
+
+        }
+
+        [Fact]
+        [Trait(name: "Category", value: "Unit Test")]
+        public async Task Can_DeserialiserCompositionResponse_Success()
+        {
+            // arrange
+            var options = Services.GetRequiredService<JsonSerializerOptions>();
+            string assetFileContent = await LoadAssetAsync("Ehr/GetCompositionResponse.json");
+
+            // act
+            var dataObject = JsonSerializer.Deserialize<Composition>(assetFileContent, options);
+            var serialisedObject = JsonSerializer.Serialize(dataObject, options);
+
+            // assert
+            Assert.NotNull(dataObject);
+            Assert.NotNull(serialisedObject);
+            Assert.NotEmpty(serialisedObject);
+        }
     }
-
-
 }
