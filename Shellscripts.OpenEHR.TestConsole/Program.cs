@@ -2,10 +2,14 @@
 {
     using System.Net.Http.Headers;
     using System.Text;
+    using System.Text.Json;
+    using System.Threading.Tasks;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
+    using Shellscripts.OpenEHR.Models.Ehr;
+    using Shellscripts.OpenEHR.Rest;
 
     internal class Program
     {
@@ -81,34 +85,30 @@
             // Get the Client Factory
             //var clientFactory = host.Services.GetRequiredService<IHttpClientFactory>();
             
-            var config = host.Services.GetRequiredService<IConfiguration>();
-            var section = config.GetSection("HttpClients");
-            var logger = host.Services.GetRequiredService<ILogger<EhrClient>>();
-            //using var client = new EhrClient(logger);
-            
+            var client = host.Services.GetRequiredService<IEhrClient>();
 
-            var baseUrl = new Uri(section.GetValue("EhrClient1:BaseUrl", string.Empty));
-            var openEhrUri = section.GetValue("EhrClient1:OpenEhrUri", string.Empty);
 
-            //var timeout = section.GetValue("EhrClient1:Timeout", 30);
-            //var preferType = section.GetValue("EhrClient1:PreferType", "minimal");
-            //var acceptType = section.GetValue("EhrClient1:AcceptType", "application/xml");
-            //client.DefaultRequestHeaders.Add("User-Agent", "Shellscripts.OpenEhr");
-            //client.DefaultRequestHeaders.Add("Prefer", preferType);
-            //client.DefaultRequestHeaders.Add("Accept", acceptType);
-            //client.Timeout = TimeSpan.FromSeconds(timeout);
-            //client.BaseAddress = baseUrl;
+            //
+            var results = await client.ExecuteAsync(async (c, ct) =>
+            {
+                var rm = await c.GetAsync("/ehrbase-ehrbase/ehrbase/rest/openehr/v1/ehr/eecf24e0-5ac9-4bfc-b958-475162940444/versioned_ehr_status");
 
-            using var client = new HttpClient() { BaseAddress = baseUrl };
+                rm.EnsureSuccessStatusCode();
+
+                var stringContent = await rm.Content.ReadAsStringAsync();
+
+                var deserialisedData = JsonSerializer.Deserialize<VersionedEhrStatus>(stringContent);
+
+                return deserialisedData;
+            });
+
+            ;
 
             // Get The Templates
-            var request = new HttpRequestMessage(HttpMethod.Get, $"{openEhrUri}/definition/template/adl1.4");            
-            var templates = await client.SendAsync(request);
-            
-
-            templates.EnsureSuccessStatusCode();
-
-            var templatesString = await templates.Content.ReadAsStringAsync();
+            //var request = new HttpRequestMessage(HttpMethod.Get, $"{openEhrUri}/definition/template/adl1.4");            
+            //var templates = await client.SendAsync(request);
+            //templates.EnsureSuccessStatusCode();
+            //var templatesString = await templates.Content.ReadAsStringAsync();
 
             ;
         }
@@ -149,25 +149,19 @@
             
             
             // HttpClientFactory Clients
-            services.AddHttpClient("EhrClientWithBasicCreds")
-                .ConfigureHttpClient((services, client) => 
+            services.AddHttpClient<IEhrClient, EhrClient>((services, client) =>                 
             {
                 var config = services.GetRequiredService<IConfiguration>();
                 var httpClientConfig = config.GetSection("HttpClients");
 
                 var baseUrl = new Uri(httpClientConfig.GetValue("EhrClient1:BaseUrl", string.Empty));
                 var timeout = httpClientConfig.GetValue("EhrClient1:Timeout", 30);
-                //var username = httpClientConfig.GetValue("EhrClient1:Username", string.Empty);
-                //var password = httpClientConfig.GetValue("EhrClient1:Password", string.Empty);
-                //var basicToken = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{password}"));
                 var preferType = httpClientConfig.GetValue("EhrClient1:PreferType", "minimal");
                 var acceptType = httpClientConfig.GetValue("EhrClient1:AcceptType", "application/xml");
 
                 client.DefaultRequestHeaders.Add("User-Agent", "Shellscripts.OpenEhr");
                 client.DefaultRequestHeaders.Add("Prefer", preferType);
                 client.DefaultRequestHeaders.Add("Accept", acceptType);
-                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", basicToken);
-
                 client.Timeout = TimeSpan.FromSeconds(timeout);
                 client.BaseAddress = baseUrl;
             });
