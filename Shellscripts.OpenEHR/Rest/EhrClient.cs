@@ -48,12 +48,4 @@
 
         #endregion
     }
-
-    public class UriAppendingHandler : DelegatingHandler
-    {
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            return base.SendAsync(request, cancellationToken);
-        }
-    }
 }

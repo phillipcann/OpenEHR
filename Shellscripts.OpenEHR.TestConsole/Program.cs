@@ -90,7 +90,7 @@
             // Test the ExecuteAsync Method
             var results = await client.ExecuteAsync(async (c, ct) =>
             {
-                var rm = await c.GetAsync("/ehrbase-ehrbase/ehrbase/rest/openehr/v1/ehr/eecf24e0-5ac9-4bfc-b958-475162940444/versioned_ehr_status");
+                var rm = await c.GetAsync("/ehr/eecf24e0-5ac9-4bfc-b958-475162940444/versioned_ehr_status");
 
                 rm.EnsureSuccessStatusCode();
 
@@ -132,13 +132,14 @@
 
         private static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
         {
-            // Transients
-            //services.AddTransient<EhrClient>();
+            //services.AddTransient(provider =>
+            //{
+            //    var config = provider.GetRequiredService<IConfiguration>();
+            //    var systemUri = config.GetSection("HttpClients").GetValue<string>("EhrClient1:SystemUri", string.Empty);
+            //    return new UriAppendingHandler(systemUri);
+            //});
 
-            
-            
-            // HttpClientFactory Clients
-            services.AddHttpClient<IEhrClient, EhrClient>((services, client) =>                 
+            services.AddHttpClient<IEhrClient, EhrClient>((services, client) =>
             {
                 var config = services.GetRequiredService<IConfiguration>();
                 var httpClientConfig = config.GetSection("HttpClients");
@@ -154,6 +155,7 @@
                 client.Timeout = TimeSpan.FromSeconds(timeout);
                 client.BaseAddress = baseUrl;
             });
+                //.AddHttpMessageHandler<UriAppendingHandler>();
 
             // Singletons
             services.AddSingleton(provider =>
