@@ -10,6 +10,7 @@
     using Microsoft.Extensions.Logging;
     using Shellscripts.OpenEHR.Models.Ehr;
     using Shellscripts.OpenEHR.Rest;
+    using Shellscripts.OpenEHR.Serialisation.Converters;
 
     internal class Program
     {
@@ -83,12 +84,10 @@
         private static async Task OptionOne(IHost host)
         {
             // Get the Client Factory
-            //var clientFactory = host.Services.GetRequiredService<IHttpClientFactory>();
-            
             var client = host.Services.GetRequiredService<IEhrClient>();
+            var options = host.Services.GetRequiredService<JsonSerializerOptions>();
 
-
-            //
+            // Test the ExecuteAsync Method
             var results = await client.ExecuteAsync(async (c, ct) =>
             {
                 var rm = await c.GetAsync("/ehrbase-ehrbase/ehrbase/rest/openehr/v1/ehr/eecf24e0-5ac9-4bfc-b958-475162940444/versioned_ehr_status");
@@ -97,20 +96,10 @@
 
                 var stringContent = await rm.Content.ReadAsStringAsync();
 
-                var deserialisedData = JsonSerializer.Deserialize<VersionedEhrStatus>(stringContent);
+                var deserialisedData = JsonSerializer.Deserialize<VersionedEhrStatus>(stringContent, options);
 
                 return deserialisedData;
             });
-
-            ;
-
-            // Get The Templates
-            //var request = new HttpRequestMessage(HttpMethod.Get, $"{openEhrUri}/definition/template/adl1.4");            
-            //var templates = await client.SendAsync(request);
-            //templates.EnsureSuccessStatusCode();
-            //var templatesString = await templates.Content.ReadAsStringAsync();
-
-            ;
         }
 
         #endregion
@@ -164,6 +153,19 @@
                 client.DefaultRequestHeaders.Add("Accept", acceptType);
                 client.Timeout = TimeSpan.FromSeconds(timeout);
                 client.BaseAddress = baseUrl;
+            });
+
+            // Singletons
+            services.AddSingleton(provider =>
+            {
+                var options = new JsonSerializerOptions()
+                {
+                    DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
+                    WriteIndented = true
+                };
+                
+                options.Converters.Add(new DvDateTimeConverter());
+                return options;
             });
         }
 
