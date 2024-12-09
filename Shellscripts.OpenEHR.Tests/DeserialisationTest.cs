@@ -2,14 +2,15 @@
 {
     using System.Text.Json;
     using Microsoft.Extensions.DependencyInjection;
-    using Shellscripts.OpenEHR.Models.Ehr;    
+    using Shellscripts.OpenEHR.Models.Ehr;
     using Shellscripts.OpenEHR.Tests.Context;
     using Xunit;
     using Xunit.Abstractions;
 
-    public class DeserialisationTest : BaseTest
+    public class DeserialisationTests : BaseTest
     {
-        public DeserialisationTest(ITestOutputHelper outputHelper, TestFixture testFixture) : base(outputHelper, testFixture) { }
+        public DeserialisationTests(ITestOutputHelper outputHelper, TestFixture testFixture) 
+            : base(outputHelper, testFixture) { }
 
         [Fact]
         [Trait(name: "Category", value: "Unit Test")]
@@ -40,6 +41,8 @@
             // act
             var dataObject = JsonSerializer.Deserialize<Ehr>(assetFileContent, options);
             var serialisedObject = JsonSerializer.Serialize(dataObject, options);
+            
+            // TODO : Whilst this works, this MIGHT be problematic with the serialise piece including null properties in segments that shouldnt have the properties at all.
 
             // assert
             Assert.NotNull(dataObject);

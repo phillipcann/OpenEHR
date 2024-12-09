@@ -51,13 +51,6 @@
 
         public static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
         {            
-            //services.AddTransient(provider =>
-            //{
-            //    var config = provider.GetRequiredService<IConfiguration>();
-            //    var systemUri = config.GetSection("HttpClients").GetValue<string>("EhrClient1:SystemUri", string.Empty);
-            //    return new UriAppendingHandler(systemUri);
-            //});
-
             services.AddHttpClient<IEhrClient, EhrClient>((services, client) =>
             {
                 var config = services.GetRequiredService<IConfiguration>();
@@ -74,19 +67,24 @@
                 client.Timeout = TimeSpan.FromSeconds(timeout);
                 client.BaseAddress = baseUrl;
             });
-            //.AddHttpMessageHandler<UriAppendingHandler>();
 
             // Singletons
             services.AddSingleton<DvDateTimeConverter>();
+            services.AddSingleton<ObjectRefConverter>();
             services.AddSingleton(provider =>
             {
                 var options = new JsonSerializerOptions()
                 {
-                    DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
-                    WriteIndented = true
-                };
+                    DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,                    
+                    WriteIndented = true,
+
+                    IgnoreReadOnlyFields = true,
+                    IgnoreReadOnlyProperties = true
+                };                
 
                 options.Converters.Add(provider.GetRequiredService<DvDateTimeConverter>());
+                options.Converters.Add(provider.GetRequiredService<ObjectRefConverter>());
+
                 return options;
             });
         }

@@ -6,11 +6,8 @@
 
     #region 5.4 - https://specifications.openehr.org/releases/BASE/latest/base_types.html#_class_descriptions
 
-    public class Uid
+    public abstract class Uid
     {
-        [JsonPropertyName("_type")]
-        public string Type { get; set; }
-
         [JsonPropertyName("value")]
         public string Value { get; set; }
     }
@@ -21,7 +18,7 @@
 
     public class InternetId : Uid { }
 
-    public class ObjectId
+    public abstract class ObjectId
     {
         [JsonPropertyName("value")]
         public string Value { get; set; }
@@ -63,7 +60,7 @@
         [JsonPropertyName("namespace")]
         public string Namespace { get; set; }
 
-        [JsonPropertyName("type")]
+        [JsonPropertyName("type")]        
         public string Type { get; set; }
 
         [JsonPropertyName("id")]

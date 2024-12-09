@@ -25,8 +25,6 @@
 
         public override DvDateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            _logger.LogInformation($"TokenType: {reader.TokenType}.");
-
             // Handle case where "time_created" is a simple string
             if (reader.TokenType == JsonTokenType.String)
             {
@@ -47,14 +45,15 @@
                 };
             }
 
-            throw new JsonException("Invalid format for time_created");
+            var invalidFormatMessage = $"Invalid format for time_created with TokenType: {reader.TokenType}";
+            _logger.LogError(invalidFormatMessage);
+            throw new JsonException(invalidFormatMessage);
         }
 
         public override void Write(Utf8JsonWriter writer, DvDateTime value, JsonSerializerOptions options)
         {
             // Always write as an object for consistency
             writer.WriteStartObject();
-            //writer.WriteString("_type", "DV_DATE_TIME");      // Not required when submitting the Json
             writer.WriteString("value", value.Value);
             writer.WriteEndObject();
         }
