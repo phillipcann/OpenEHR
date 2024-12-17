@@ -2,7 +2,7 @@
 {
     using System;
     using System.Text.Json.Serialization;
-    using System.Text.Json;    
+    using System.Text.Json;
     using Shellscripts.OpenEHR.Models.BaseTypes;
     using Microsoft.Extensions.Logging;
 
@@ -32,11 +32,11 @@
 
                 // Check the _type field in the "id" property to determine the type.
                 JsonElement idElement = new JsonElement();
-                if (!root.TryGetProperty("id", out idElement))
+                if (root.TryGetProperty("id", out idElement))
                 {
                     // Id is value for HIER_OBJECT_ID
                 }
-                else if (!root.TryGetProperty("uid", out idElement))
+                else if (root.TryGetProperty("uid", out idElement))
                 {
                     // Uid is value for OBJECT_VERSION_ID
                 }

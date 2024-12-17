@@ -1,0 +1,1824 @@
+{
+    "_type": "COMPOSITION",
+    "name": {
+        "_type": "DV_TEXT",
+        "value": "heart_anamnesis"
+    },
+    "archetype_details": {
+        "archetype_id": {
+            "value": "openEHR-EHR-COMPOSITION.encounter.v1"
+        },
+        "template_id": {
+            "value": "heart_anamnesis"
+        },
+        "rm_version": "1.0.4"
+    },
+    "language": {
+        "_type": "CODE_PHRASE",
+        "terminology_id": {
+            "_type": "TERMINOLOGY_ID",
+            "value": "ISO_639-1"
+        },
+        "code_string": "en"
+    },
+    "territory": {
+        "_type": "CODE_PHRASE",
+        "terminology_id": {
+            "_type": "TERMINOLOGY_ID",
+            "value": "ISO_3166-1"
+        },
+        "code_string": "DE"
+    },
+    "category": {
+        "_type": "DV_CODED_TEXT",
+        "value": "event",
+        "defining_code": {
+            "_type": "CODE_PHRASE",
+            "terminology_id": {
+                "_type": "TERMINOLOGY_ID",
+                "value": "openehr"
+            },
+            "code_string": "433"
+        }
+    },
+    "composer": {
+        "_type": "PARTY_IDENTIFIED",
+        "name": "Max Mustermann"
+    },
+    "context": {
+        "_type": "EVENT_CONTEXT",
+        "start_time": {
+            "_type": "DV_DATE_TIME",
+            "value": "2022-02-03T04:05:06"
+        },
+        "end_time": {
+            "_type": "DV_DATE_TIME",
+            "value": "2022-02-03T04:05:06"
+        },
+        "setting": {
+            "_type": "DV_CODED_TEXT",
+            "value": "home",
+            "defining_code": {
+                "_type": "CODE_PHRASE",
+                "terminology_id": {
+                    "_type": "TERMINOLOGY_ID",
+                    "value": "openehr"
+                },
+                "code_string": "225"
+            }
+        },
+        "health_care_facility": {
+            "_type": "PARTY_IDENTIFIED",
+            "name": "DOE, John"
+        }
+    },
+    "content": [
+        {
+            "_type": "SECTION",
+            "name": {
+                "_type": "DV_TEXT",
+                "value": "Vital signs"
+            },
+            "archetype_details": {
+                "archetype_id": {
+                    "value": "openEHR-EHR-SECTION.vital_signs.v0"
+                },
+                "rm_version": "1.0.4"
+            },
+            "items": [
+                {
+                    "_type": "OBSERVATION",
+                    "name": {
+                        "_type": "DV_TEXT",
+                        "value": "Blood pressure"
+                    },
+                    "archetype_details": {
+                        "archetype_id": {
+                            "value": "openEHR-EHR-OBSERVATION.blood_pressure.v2"
+                        },
+                        "rm_version": "1.0.4"
+                    },
+                    "language": {
+                        "_type": "CODE_PHRASE",
+                        "terminology_id": {
+                            "_type": "TERMINOLOGY_ID",
+                            "value": "ISO_639-1"
+                        },
+                        "code_string": "en"
+                    },
+                    "encoding": {
+                        "_type": "CODE_PHRASE",
+                        "terminology_id": {
+                            "_type": "TERMINOLOGY_ID",
+                            "value": "IANA_character-sets"
+                        },
+                        "code_string": "ISO-10646-UTF-1"
+                    },
+                    "workflow_id": {
+                        "_type": "OBJECT_REF",
+                        "namespace": "unknown",
+                        "type": "ANY",
+                        "id": {
+                            "_type": "GENERIC_ID",
+                            "value": "9eb02724-847a-3b03-98c6-de27f3a95b69",
+                            "scheme": "scheme"
+                        }
+                    },
+                    "subject": {
+                        "_type": "PARTY_SELF"
+                    },
+                    "provider": {
+                        "_type": "PARTY_SELF"
+                    },
+                    "guideline_id": {
+                        "_type": "OBJECT_REF",
+                        "namespace": "unknown",
+                        "type": "ANY",
+                        "id": {
+                            "_type": "GENERIC_ID",
+                            "value": "1e4ab026-2a2e-3eff-9541-54da03b6a255",
+                            "scheme": "scheme"
+                        }
+                    },
+                    "data": {
+                        "name": {
+                            "_type": "DV_TEXT",
+                            "value": "History"
+                        },
+                        "origin": {
+                            "_type": "DV_DATE_TIME",
+                            "value": "2022-02-03T04:05:06"
+                        },
+                        "period": {
+                            "_type": "DV_DURATION",
+                            "value": "PT0S"
+                        },
+                        "duration": {
+                            "_type": "DV_DURATION",
+                            "value": "PT0S"
+                        },
+                        "events": [
+                            {
+                                "_type": "INTERVAL_EVENT",
+                                "name": {
+                                    "_type": "DV_TEXT",
+                                    "value": "Any event"
+                                },
+                                "time": {
+                                    "_type": "DV_DATE_TIME",
+                                    "value": "2022-02-03T04:05:06"
+                                },
+                                "data": {
+                                    "_type": "ITEM_TREE",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "blood pressure"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Systolic"
+                                            },
+                                            "value": {
+                                                "_type": "DV_QUANTITY",
+                                                "units": "mm[Hg]",
+                                                "magnitude": 500.0
+                                            },
+                                            "archetype_node_id": "at0004"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Diastolic"
+                                            },
+                                            "value": {
+                                                "_type": "DV_QUANTITY",
+                                                "units": "mm[Hg]",
+                                                "magnitude": 500.0
+                                            },
+                                            "archetype_node_id": "at0005"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0003"
+                                },
+                                "width": {
+                                    "_type": "DV_DURATION",
+                                    "value": "PT42H"
+                                },
+                                "math_function": {
+                                    "_type": "DV_CODED_TEXT",
+                                    "value": "minimum",
+                                    "defining_code": {
+                                        "_type": "CODE_PHRASE",
+                                        "terminology_id": {
+                                            "_type": "TERMINOLOGY_ID",
+                                            "value": "openehr"
+                                        },
+                                        "code_string": "145"
+                                    }
+                                },
+                                "archetype_node_id": "at0006"
+                            },
+                            {
+                                "_type": "POINT_EVENT",
+                                "name": {
+                                    "_type": "DV_TEXT",
+                                    "value": "Any event"
+                                },
+                                "time": {
+                                    "_type": "DV_DATE_TIME",
+                                    "value": "2022-02-03T04:05:06"
+                                },
+                                "data": {
+                                    "_type": "ITEM_TREE",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "blood pressure"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Systolic"
+                                            },
+                                            "value": {
+                                                "_type": "DV_QUANTITY",
+                                                "units": "mm[Hg]",
+                                                "magnitude": 500.0
+                                            },
+                                            "archetype_node_id": "at0004"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Diastolic"
+                                            },
+                                            "value": {
+                                                "_type": "DV_QUANTITY",
+                                                "units": "mm[Hg]",
+                                                "magnitude": 500.0
+                                            },
+                                            "archetype_node_id": "at0005"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0003"
+                                },
+                                "archetype_node_id": "at0006"
+                            },
+                            {
+                                "_type": "INTERVAL_EVENT",
+                                "name": {
+                                    "_type": "DV_TEXT",
+                                    "value": "Any event"
+                                },
+                                "time": {
+                                    "_type": "DV_DATE_TIME",
+                                    "value": "2022-02-03T04:05:06"
+                                },
+                                "data": {
+                                    "_type": "ITEM_TREE",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "blood pressure"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Systolic"
+                                            },
+                                            "value": {
+                                                "_type": "DV_QUANTITY",
+                                                "units": "mm[Hg]",
+                                                "magnitude": 500.0
+                                            },
+                                            "archetype_node_id": "at0004"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Diastolic"
+                                            },
+                                            "value": {
+                                                "_type": "DV_QUANTITY",
+                                                "units": "mm[Hg]",
+                                                "magnitude": 500.0
+                                            },
+                                            "archetype_node_id": "at0005"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0003"
+                                },
+                                "width": {
+                                    "_type": "DV_DURATION",
+                                    "value": "PT42H"
+                                },
+                                "math_function": {
+                                    "_type": "DV_CODED_TEXT",
+                                    "value": "minimum",
+                                    "defining_code": {
+                                        "_type": "CODE_PHRASE",
+                                        "terminology_id": {
+                                            "_type": "TERMINOLOGY_ID",
+                                            "value": "openehr"
+                                        },
+                                        "code_string": "145"
+                                    }
+                                },
+                                "archetype_node_id": "at0006"
+                            }
+                        ],
+                        "archetype_node_id": "at0001"
+                    },
+                    "archetype_node_id": "openEHR-EHR-OBSERVATION.blood_pressure.v2"
+                },
+                {
+                    "_type": "OBSERVATION",
+                    "name": {
+                        "_type": "DV_TEXT",
+                        "value": "Pulse/Heart beat"
+                    },
+                    "archetype_details": {
+                        "archetype_id": {
+                            "value": "openEHR-EHR-OBSERVATION.pulse.v2"
+                        },
+                        "rm_version": "1.0.4"
+                    },
+                    "language": {
+                        "_type": "CODE_PHRASE",
+                        "terminology_id": {
+                            "_type": "TERMINOLOGY_ID",
+                            "value": "ISO_639-1"
+                        },
+                        "code_string": "en"
+                    },
+                    "encoding": {
+                        "_type": "CODE_PHRASE",
+                        "terminology_id": {
+                            "_type": "TERMINOLOGY_ID",
+                            "value": "IANA_character-sets"
+                        },
+                        "code_string": "ISO-10646-UTF-1"
+                    },
+                    "workflow_id": {
+                        "_type": "OBJECT_REF",
+                        "namespace": "unknown",
+                        "type": "ANY",
+                        "id": {
+                            "_type": "GENERIC_ID",
+                            "value": "beb23d22-5e68-390b-bc33-e022e3dd447c",
+                            "scheme": "scheme"
+                        }
+                    },
+                    "subject": {
+                        "_type": "PARTY_SELF"
+                    },
+                    "provider": {
+                        "_type": "PARTY_SELF"
+                    },
+                    "guideline_id": {
+                        "_type": "OBJECT_REF",
+                        "namespace": "unknown",
+                        "type": "ANY",
+                        "id": {
+                            "_type": "GENERIC_ID",
+                            "value": "98c5f964-f089-3966-bdae-fce8f8070cda",
+                            "scheme": "scheme"
+                        }
+                    },
+                    "data": {
+                        "name": {
+                            "_type": "DV_TEXT",
+                            "value": "history"
+                        },
+                        "origin": {
+                            "_type": "DV_DATE_TIME",
+                            "value": "2022-02-03T04:05:06"
+                        },
+                        "period": {
+                            "_type": "DV_DURATION",
+                            "value": "PT0S"
+                        },
+                        "duration": {
+                            "_type": "DV_DURATION",
+                            "value": "PT0S"
+                        },
+                        "events": [
+                            {
+                                "_type": "INTERVAL_EVENT",
+                                "name": {
+                                    "_type": "DV_TEXT",
+                                    "value": "Any event"
+                                },
+                                "time": {
+                                    "_type": "DV_DATE_TIME",
+                                    "value": "2022-02-03T04:05:06"
+                                },
+                                "data": {
+                                    "_type": "ITEM_TREE",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "structure"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Presence"
+                                            },
+                                            "value": {
+                                                "_type": "DV_CODED_TEXT",
+                                                "value": "Present",
+                                                "defining_code": {
+                                                    "_type": "CODE_PHRASE",
+                                                    "terminology_id": {
+                                                        "_type": "TERMINOLOGY_ID",
+                                                        "value": "local"
+                                                    },
+                                                    "code_string": "at1024"
+                                                }
+                                            },
+                                            "archetype_node_id": "at1005"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Rate"
+                                            },
+                                            "value": {
+                                                "_type": "DV_QUANTITY",
+                                                "units": "/min",
+                                                "magnitude": 500.0
+                                            },
+                                            "archetype_node_id": "at0004"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0001"
+                                },
+                                "width": {
+                                    "_type": "DV_DURATION",
+                                    "value": "PT42H"
+                                },
+                                "math_function": {
+                                    "_type": "DV_CODED_TEXT",
+                                    "value": "minimum",
+                                    "defining_code": {
+                                        "_type": "CODE_PHRASE",
+                                        "terminology_id": {
+                                            "_type": "TERMINOLOGY_ID",
+                                            "value": "openehr"
+                                        },
+                                        "code_string": "145"
+                                    }
+                                },
+                                "archetype_node_id": "at0003"
+                            },
+                            {
+                                "_type": "POINT_EVENT",
+                                "name": {
+                                    "_type": "DV_TEXT",
+                                    "value": "Any event"
+                                },
+                                "time": {
+                                    "_type": "DV_DATE_TIME",
+                                    "value": "2022-02-03T04:05:06"
+                                },
+                                "data": {
+                                    "_type": "ITEM_TREE",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "structure"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Presence"
+                                            },
+                                            "value": {
+                                                "_type": "DV_CODED_TEXT",
+                                                "value": "Present",
+                                                "defining_code": {
+                                                    "_type": "CODE_PHRASE",
+                                                    "terminology_id": {
+                                                        "_type": "TERMINOLOGY_ID",
+                                                        "value": "local"
+                                                    },
+                                                    "code_string": "at1024"
+                                                }
+                                            },
+                                            "archetype_node_id": "at1005"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Rate"
+                                            },
+                                            "value": {
+                                                "_type": "DV_QUANTITY",
+                                                "units": "/min",
+                                                "magnitude": 500.0
+                                            },
+                                            "archetype_node_id": "at0004"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0001"
+                                },
+                                "archetype_node_id": "at0003"
+                            },
+                            {
+                                "_type": "INTERVAL_EVENT",
+                                "name": {
+                                    "_type": "DV_TEXT",
+                                    "value": "Any event"
+                                },
+                                "time": {
+                                    "_type": "DV_DATE_TIME",
+                                    "value": "2022-02-03T04:05:06"
+                                },
+                                "data": {
+                                    "_type": "ITEM_TREE",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "structure"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Presence"
+                                            },
+                                            "value": {
+                                                "_type": "DV_CODED_TEXT",
+                                                "value": "Present",
+                                                "defining_code": {
+                                                    "_type": "CODE_PHRASE",
+                                                    "terminology_id": {
+                                                        "_type": "TERMINOLOGY_ID",
+                                                        "value": "local"
+                                                    },
+                                                    "code_string": "at1024"
+                                                }
+                                            },
+                                            "archetype_node_id": "at1005"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Rate"
+                                            },
+                                            "value": {
+                                                "_type": "DV_QUANTITY",
+                                                "units": "/min",
+                                                "magnitude": 500.0
+                                            },
+                                            "archetype_node_id": "at0004"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0001"
+                                },
+                                "width": {
+                                    "_type": "DV_DURATION",
+                                    "value": "PT42H"
+                                },
+                                "math_function": {
+                                    "_type": "DV_CODED_TEXT",
+                                    "value": "minimum",
+                                    "defining_code": {
+                                        "_type": "CODE_PHRASE",
+                                        "terminology_id": {
+                                            "_type": "TERMINOLOGY_ID",
+                                            "value": "openehr"
+                                        },
+                                        "code_string": "145"
+                                    }
+                                },
+                                "archetype_node_id": "at0003"
+                            }
+                        ],
+                        "archetype_node_id": "at0002"
+                    },
+                    "archetype_node_id": "openEHR-EHR-OBSERVATION.pulse.v2"
+                }
+            ],
+            "archetype_node_id": "openEHR-EHR-SECTION.vital_signs.v0"
+        },
+        {
+            "_type": "SECTION",
+            "name": {
+                "_type": "DV_TEXT",
+                "value": "Body Assessment"
+            },
+            "archetype_details": {
+                "archetype_id": {
+                    "value": "openEHR-EHR-SECTION.adhoc.v1"
+                },
+                "rm_version": "1.0.4"
+            },
+            "items": [
+                {
+                    "_type": "OBSERVATION",
+                    "name": {
+                        "_type": "DV_TEXT",
+                        "value": "Waist circumference"
+                    },
+                    "archetype_details": {
+                        "archetype_id": {
+                            "value": "openEHR-EHR-OBSERVATION.waist_circumference.v1"
+                        },
+                        "rm_version": "1.0.4"
+                    },
+                    "language": {
+                        "_type": "CODE_PHRASE",
+                        "terminology_id": {
+                            "_type": "TERMINOLOGY_ID",
+                            "value": "ISO_639-1"
+                        },
+                        "code_string": "en"
+                    },
+                    "encoding": {
+                        "_type": "CODE_PHRASE",
+                        "terminology_id": {
+                            "_type": "TERMINOLOGY_ID",
+                            "value": "IANA_character-sets"
+                        },
+                        "code_string": "ISO-10646-UTF-1"
+                    },
+                    "workflow_id": {
+                        "_type": "OBJECT_REF",
+                        "namespace": "unknown",
+                        "type": "ANY",
+                        "id": {
+                            "_type": "GENERIC_ID",
+                            "value": "29385161-3acb-3ea5-93bc-3134baa0bd8a",
+                            "scheme": "scheme"
+                        }
+                    },
+                    "subject": {
+                        "_type": "PARTY_SELF"
+                    },
+                    "provider": {
+                        "_type": "PARTY_SELF"
+                    },
+                    "guideline_id": {
+                        "_type": "OBJECT_REF",
+                        "namespace": "unknown",
+                        "type": "ANY",
+                        "id": {
+                            "_type": "GENERIC_ID",
+                            "value": "a6cd00be-b8b2-3441-8e56-7e114d5669bd",
+                            "scheme": "scheme"
+                        }
+                    },
+                    "data": {
+                        "name": {
+                            "_type": "DV_TEXT",
+                            "value": "Event Series"
+                        },
+                        "origin": {
+                            "_type": "DV_DATE_TIME",
+                            "value": "2022-02-03T04:05:06"
+                        },
+                        "period": {
+                            "_type": "DV_DURATION",
+                            "value": "PT0S"
+                        },
+                        "duration": {
+                            "_type": "DV_DURATION",
+                            "value": "PT0S"
+                        },
+                        "events": [
+                            {
+                                "_type": "INTERVAL_EVENT",
+                                "name": {
+                                    "_type": "DV_TEXT",
+                                    "value": "Any event"
+                                },
+                                "time": {
+                                    "_type": "DV_DATE_TIME",
+                                    "value": "2022-02-03T04:05:06"
+                                },
+                                "data": {
+                                    "_type": "ITEM_TREE",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Tree"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Waist circumference"
+                                            },
+                                            "value": {
+                                                "_type": "DV_QUANTITY",
+                                                "units": "cm",
+                                                "magnitude": 250.0
+                                            },
+                                            "archetype_node_id": "at0004"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0003"
+                                },
+                                "width": {
+                                    "_type": "DV_DURATION",
+                                    "value": "PT42H"
+                                },
+                                "math_function": {
+                                    "_type": "DV_CODED_TEXT",
+                                    "value": "minimum",
+                                    "defining_code": {
+                                        "_type": "CODE_PHRASE",
+                                        "terminology_id": {
+                                            "_type": "TERMINOLOGY_ID",
+                                            "value": "openehr"
+                                        },
+                                        "code_string": "145"
+                                    }
+                                },
+                                "archetype_node_id": "at0010"
+                            },
+                            {
+                                "_type": "POINT_EVENT",
+                                "name": {
+                                    "_type": "DV_TEXT",
+                                    "value": "Any event"
+                                },
+                                "time": {
+                                    "_type": "DV_DATE_TIME",
+                                    "value": "2022-02-03T04:05:06"
+                                },
+                                "data": {
+                                    "_type": "ITEM_TREE",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Tree"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Waist circumference"
+                                            },
+                                            "value": {
+                                                "_type": "DV_QUANTITY",
+                                                "units": "cm",
+                                                "magnitude": 250.0
+                                            },
+                                            "archetype_node_id": "at0004"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0003"
+                                },
+                                "archetype_node_id": "at0010"
+                            },
+                            {
+                                "_type": "INTERVAL_EVENT",
+                                "name": {
+                                    "_type": "DV_TEXT",
+                                    "value": "Any event"
+                                },
+                                "time": {
+                                    "_type": "DV_DATE_TIME",
+                                    "value": "2022-02-03T04:05:06"
+                                },
+                                "data": {
+                                    "_type": "ITEM_TREE",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Tree"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Waist circumference"
+                                            },
+                                            "value": {
+                                                "_type": "DV_QUANTITY",
+                                                "units": "cm",
+                                                "magnitude": 250.0
+                                            },
+                                            "archetype_node_id": "at0004"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0003"
+                                },
+                                "width": {
+                                    "_type": "DV_DURATION",
+                                    "value": "PT42H"
+                                },
+                                "math_function": {
+                                    "_type": "DV_CODED_TEXT",
+                                    "value": "minimum",
+                                    "defining_code": {
+                                        "_type": "CODE_PHRASE",
+                                        "terminology_id": {
+                                            "_type": "TERMINOLOGY_ID",
+                                            "value": "openehr"
+                                        },
+                                        "code_string": "145"
+                                    }
+                                },
+                                "archetype_node_id": "at0010"
+                            }
+                        ],
+                        "archetype_node_id": "at0001"
+                    },
+                    "archetype_node_id": "openEHR-EHR-OBSERVATION.waist_circumference.v1"
+                },
+                {
+                    "_type": "OBSERVATION",
+                    "name": {
+                        "_type": "DV_TEXT",
+                        "value": "Hip circumference"
+                    },
+                    "archetype_details": {
+                        "archetype_id": {
+                            "value": "openEHR-EHR-OBSERVATION.hip_circumference.v1"
+                        },
+                        "rm_version": "1.0.4"
+                    },
+                    "language": {
+                        "_type": "CODE_PHRASE",
+                        "terminology_id": {
+                            "_type": "TERMINOLOGY_ID",
+                            "value": "ISO_639-1"
+                        },
+                        "code_string": "en"
+                    },
+                    "encoding": {
+                        "_type": "CODE_PHRASE",
+                        "terminology_id": {
+                            "_type": "TERMINOLOGY_ID",
+                            "value": "IANA_character-sets"
+                        },
+                        "code_string": "ISO-10646-UTF-1"
+                    },
+                    "workflow_id": {
+                        "_type": "OBJECT_REF",
+                        "namespace": "unknown",
+                        "type": "ANY",
+                        "id": {
+                            "_type": "GENERIC_ID",
+                            "value": "12dfdd9d-d204-311e-a60a-760bcc21e613",
+                            "scheme": "scheme"
+                        }
+                    },
+                    "subject": {
+                        "_type": "PARTY_SELF"
+                    },
+                    "provider": {
+                        "_type": "PARTY_SELF"
+                    },
+                    "guideline_id": {
+                        "_type": "OBJECT_REF",
+                        "namespace": "unknown",
+                        "type": "ANY",
+                        "id": {
+                            "_type": "GENERIC_ID",
+                            "value": "c80ca234-31bb-3330-be5c-7a59d6d2728d",
+                            "scheme": "scheme"
+                        }
+                    },
+                    "data": {
+                        "name": {
+                            "_type": "DV_TEXT",
+                            "value": "Event Series"
+                        },
+                        "origin": {
+                            "_type": "DV_DATE_TIME",
+                            "value": "2022-02-03T04:05:06"
+                        },
+                        "period": {
+                            "_type": "DV_DURATION",
+                            "value": "PT0S"
+                        },
+                        "duration": {
+                            "_type": "DV_DURATION",
+                            "value": "PT0S"
+                        },
+                        "events": [
+                            {
+                                "_type": "INTERVAL_EVENT",
+                                "name": {
+                                    "_type": "DV_TEXT",
+                                    "value": "Any event"
+                                },
+                                "time": {
+                                    "_type": "DV_DATE_TIME",
+                                    "value": "2022-02-03T04:05:06"
+                                },
+                                "data": {
+                                    "_type": "ITEM_TREE",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Tree"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Hip circumference"
+                                            },
+                                            "value": {
+                                                "_type": "DV_QUANTITY",
+                                                "units": "cm",
+                                                "magnitude": 200.0
+                                            },
+                                            "archetype_node_id": "at0004"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0003"
+                                },
+                                "width": {
+                                    "_type": "DV_DURATION",
+                                    "value": "PT42H"
+                                },
+                                "math_function": {
+                                    "_type": "DV_CODED_TEXT",
+                                    "value": "minimum",
+                                    "defining_code": {
+                                        "_type": "CODE_PHRASE",
+                                        "terminology_id": {
+                                            "_type": "TERMINOLOGY_ID",
+                                            "value": "openehr"
+                                        },
+                                        "code_string": "145"
+                                    }
+                                },
+                                "archetype_node_id": "at0010"
+                            },
+                            {
+                                "_type": "POINT_EVENT",
+                                "name": {
+                                    "_type": "DV_TEXT",
+                                    "value": "Any event"
+                                },
+                                "time": {
+                                    "_type": "DV_DATE_TIME",
+                                    "value": "2022-02-03T04:05:06"
+                                },
+                                "data": {
+                                    "_type": "ITEM_TREE",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Tree"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Hip circumference"
+                                            },
+                                            "value": {
+                                                "_type": "DV_QUANTITY",
+                                                "units": "cm",
+                                                "magnitude": 200.0
+                                            },
+                                            "archetype_node_id": "at0004"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0003"
+                                },
+                                "archetype_node_id": "at0010"
+                            },
+                            {
+                                "_type": "INTERVAL_EVENT",
+                                "name": {
+                                    "_type": "DV_TEXT",
+                                    "value": "Any event"
+                                },
+                                "time": {
+                                    "_type": "DV_DATE_TIME",
+                                    "value": "2022-02-03T04:05:06"
+                                },
+                                "data": {
+                                    "_type": "ITEM_TREE",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Tree"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Hip circumference"
+                                            },
+                                            "value": {
+                                                "_type": "DV_QUANTITY",
+                                                "units": "cm",
+                                                "magnitude": 200.0
+                                            },
+                                            "archetype_node_id": "at0004"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0003"
+                                },
+                                "width": {
+                                    "_type": "DV_DURATION",
+                                    "value": "PT42H"
+                                },
+                                "math_function": {
+                                    "_type": "DV_CODED_TEXT",
+                                    "value": "minimum",
+                                    "defining_code": {
+                                        "_type": "CODE_PHRASE",
+                                        "terminology_id": {
+                                            "_type": "TERMINOLOGY_ID",
+                                            "value": "openehr"
+                                        },
+                                        "code_string": "145"
+                                    }
+                                },
+                                "archetype_node_id": "at0010"
+                            }
+                        ],
+                        "archetype_node_id": "at0001"
+                    },
+                    "archetype_node_id": "openEHR-EHR-OBSERVATION.hip_circumference.v1"
+                },
+                {
+                    "_type": "OBSERVATION",
+                    "name": {
+                        "_type": "DV_TEXT",
+                        "value": "body_fat_percentage"
+                    },
+                    "archetype_details": {
+                        "archetype_id": {
+                            "value": "openEHR-EHR-OBSERVATION.body_fat.v0"
+                        },
+                        "rm_version": "1.0.4"
+                    },
+                    "language": {
+                        "_type": "CODE_PHRASE",
+                        "terminology_id": {
+                            "_type": "TERMINOLOGY_ID",
+                            "value": "ISO_639-1"
+                        },
+                        "code_string": "en"
+                    },
+                    "encoding": {
+                        "_type": "CODE_PHRASE",
+                        "terminology_id": {
+                            "_type": "TERMINOLOGY_ID",
+                            "value": "IANA_character-sets"
+                        },
+                        "code_string": "ISO-10646-UTF-1"
+                    },
+                    "workflow_id": {
+                        "_type": "OBJECT_REF",
+                        "namespace": "unknown",
+                        "type": "ANY",
+                        "id": {
+                            "_type": "GENERIC_ID",
+                            "value": "11cec7b4-3e88-3ca7-94bb-0537e7205fd5",
+                            "scheme": "scheme"
+                        }
+                    },
+                    "subject": {
+                        "_type": "PARTY_SELF"
+                    },
+                    "provider": {
+                        "_type": "PARTY_SELF"
+                    },
+                    "protocol": {
+                        "_type": "ITEM_TREE",
+                        "name": {
+                            "_type": "DV_TEXT",
+                            "value": "Item tree"
+                        },
+                        "items": [
+                            {
+                                "_type": "ELEMENT",
+                                "name": {
+                                    "_type": "DV_TEXT",
+                                    "value": "method"
+                                },
+                                "value": {
+                                    "_type": "DV_CODED_TEXT",
+                                    "value": "bioelectrical impedance analysis",
+                                    "defining_code": {
+                                        "_type": "CODE_PHRASE",
+                                        "terminology_id": {
+                                            "_type": "TERMINOLOGY_ID",
+                                            "value": "local"
+                                        },
+                                        "code_string": "at0008"
+                                    }
+                                },
+                                "archetype_node_id": "at0007"
+                            }
+                        ],
+                        "archetype_node_id": "at0005"
+                    },
+                    "guideline_id": {
+                        "_type": "OBJECT_REF",
+                        "namespace": "unknown",
+                        "type": "ANY",
+                        "id": {
+                            "_type": "GENERIC_ID",
+                            "value": "a8189ff3-b515-3fc7-8ed2-37f2de07ce52",
+                            "scheme": "scheme"
+                        }
+                    },
+                    "data": {
+                        "name": {
+                            "_type": "DV_TEXT",
+                            "value": "History"
+                        },
+                        "origin": {
+                            "_type": "DV_DATE_TIME",
+                            "value": "2022-02-03T04:05:06"
+                        },
+                        "period": {
+                            "_type": "DV_DURATION",
+                            "value": "PT0S"
+                        },
+                        "duration": {
+                            "_type": "DV_DURATION",
+                            "value": "PT0S"
+                        },
+                        "events": [
+                            {
+                                "_type": "INTERVAL_EVENT",
+                                "name": {
+                                    "_type": "DV_TEXT",
+                                    "value": "Any event"
+                                },
+                                "time": {
+                                    "_type": "DV_DATE_TIME",
+                                    "value": "2022-02-03T04:05:06"
+                                },
+                                "state": {
+                                    "_type": "ITEM_TREE",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Item tree"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "No food intake 12 hours before measurement"
+                                            },
+                                            "value": {
+                                                "_type": "DV_BOOLEAN",
+                                                "value": true
+                                            },
+                                            "archetype_node_id": "at0015"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "No beverages within 2 hours before measurement"
+                                            },
+                                            "value": {
+                                                "_type": "DV_BOOLEAN",
+                                                "value": true
+                                            },
+                                            "archetype_node_id": "at0016"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0014"
+                                },
+                                "data": {
+                                    "_type": "ITEM_TREE",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Tree"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "body_fat_percentage"
+                                            },
+                                            "value": {
+                                                "_type": "DV_PROPORTION",
+                                                "numerator": 50.0,
+                                                "denominator": 100.0,
+                                                "type": 3
+                                            },
+                                            "archetype_node_id": "at0004"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "comment"
+                                            },
+                                            "value": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Lorem ipsum"
+                                            },
+                                            "archetype_node_id": "at0018"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0003"
+                                },
+                                "width": {
+                                    "_type": "DV_DURATION",
+                                    "value": "PT42H"
+                                },
+                                "math_function": {
+                                    "_type": "DV_CODED_TEXT",
+                                    "value": "minimum",
+                                    "defining_code": {
+                                        "_type": "CODE_PHRASE",
+                                        "terminology_id": {
+                                            "_type": "TERMINOLOGY_ID",
+                                            "value": "openehr"
+                                        },
+                                        "code_string": "145"
+                                    }
+                                },
+                                "archetype_node_id": "at0002"
+                            },
+                            {
+                                "_type": "POINT_EVENT",
+                                "name": {
+                                    "_type": "DV_TEXT",
+                                    "value": "Any event"
+                                },
+                                "time": {
+                                    "_type": "DV_DATE_TIME",
+                                    "value": "2022-02-03T04:05:06"
+                                },
+                                "state": {
+                                    "_type": "ITEM_TREE",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Item tree"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "No food intake 12 hours before measurement"
+                                            },
+                                            "value": {
+                                                "_type": "DV_BOOLEAN",
+                                                "value": true
+                                            },
+                                            "archetype_node_id": "at0015"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "No beverages within 2 hours before measurement"
+                                            },
+                                            "value": {
+                                                "_type": "DV_BOOLEAN",
+                                                "value": true
+                                            },
+                                            "archetype_node_id": "at0016"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0014"
+                                },
+                                "data": {
+                                    "_type": "ITEM_TREE",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Tree"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "body_fat_percentage"
+                                            },
+                                            "value": {
+                                                "_type": "DV_PROPORTION",
+                                                "numerator": 50.0,
+                                                "denominator": 100.0,
+                                                "type": 3
+                                            },
+                                            "archetype_node_id": "at0004"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "comment"
+                                            },
+                                            "value": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Lorem ipsum"
+                                            },
+                                            "archetype_node_id": "at0018"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0003"
+                                },
+                                "archetype_node_id": "at0002"
+                            },
+                            {
+                                "_type": "INTERVAL_EVENT",
+                                "name": {
+                                    "_type": "DV_TEXT",
+                                    "value": "Any event"
+                                },
+                                "time": {
+                                    "_type": "DV_DATE_TIME",
+                                    "value": "2022-02-03T04:05:06"
+                                },
+                                "state": {
+                                    "_type": "ITEM_TREE",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Item tree"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "No food intake 12 hours before measurement"
+                                            },
+                                            "value": {
+                                                "_type": "DV_BOOLEAN",
+                                                "value": true
+                                            },
+                                            "archetype_node_id": "at0015"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "No beverages within 2 hours before measurement"
+                                            },
+                                            "value": {
+                                                "_type": "DV_BOOLEAN",
+                                                "value": true
+                                            },
+                                            "archetype_node_id": "at0016"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0014"
+                                },
+                                "data": {
+                                    "_type": "ITEM_TREE",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Tree"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "body_fat_percentage"
+                                            },
+                                            "value": {
+                                                "_type": "DV_PROPORTION",
+                                                "numerator": 50.0,
+                                                "denominator": 100.0,
+                                                "type": 3
+                                            },
+                                            "archetype_node_id": "at0004"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "comment"
+                                            },
+                                            "value": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Lorem ipsum"
+                                            },
+                                            "archetype_node_id": "at0018"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0003"
+                                },
+                                "width": {
+                                    "_type": "DV_DURATION",
+                                    "value": "PT42H"
+                                },
+                                "math_function": {
+                                    "_type": "DV_CODED_TEXT",
+                                    "value": "minimum",
+                                    "defining_code": {
+                                        "_type": "CODE_PHRASE",
+                                        "terminology_id": {
+                                            "_type": "TERMINOLOGY_ID",
+                                            "value": "openehr"
+                                        },
+                                        "code_string": "145"
+                                    }
+                                },
+                                "archetype_node_id": "at0002"
+                            }
+                        ],
+                        "archetype_node_id": "at0001"
+                    },
+                    "archetype_node_id": "openEHR-EHR-OBSERVATION.body_fat.v0"
+                },
+                {
+                    "_type": "OBSERVATION",
+                    "name": {
+                        "_type": "DV_TEXT",
+                        "value": "Body segment circumference"
+                    },
+                    "archetype_details": {
+                        "archetype_id": {
+                            "value": "openEHR-EHR-OBSERVATION.body_segment_circumference.v1"
+                        },
+                        "rm_version": "1.0.4"
+                    },
+                    "language": {
+                        "_type": "CODE_PHRASE",
+                        "terminology_id": {
+                            "_type": "TERMINOLOGY_ID",
+                            "value": "ISO_639-1"
+                        },
+                        "code_string": "en"
+                    },
+                    "encoding": {
+                        "_type": "CODE_PHRASE",
+                        "terminology_id": {
+                            "_type": "TERMINOLOGY_ID",
+                            "value": "IANA_character-sets"
+                        },
+                        "code_string": "ISO-10646-UTF-1"
+                    },
+                    "workflow_id": {
+                        "_type": "OBJECT_REF",
+                        "namespace": "unknown",
+                        "type": "ANY",
+                        "id": {
+                            "_type": "GENERIC_ID",
+                            "value": "6a7ba774-87ad-3a7c-a687-bc59c11f10e7",
+                            "scheme": "scheme"
+                        }
+                    },
+                    "subject": {
+                        "_type": "PARTY_SELF"
+                    },
+                    "provider": {
+                        "_type": "PARTY_SELF"
+                    },
+                    "guideline_id": {
+                        "_type": "OBJECT_REF",
+                        "namespace": "unknown",
+                        "type": "ANY",
+                        "id": {
+                            "_type": "GENERIC_ID",
+                            "value": "b62dbb54-0415-31f3-8cac-c8127fb96043",
+                            "scheme": "scheme"
+                        }
+                    },
+                    "data": {
+                        "name": {
+                            "_type": "DV_TEXT",
+                            "value": "Event Series"
+                        },
+                        "origin": {
+                            "_type": "DV_DATE_TIME",
+                            "value": "2022-02-03T04:05:06"
+                        },
+                        "period": {
+                            "_type": "DV_DURATION",
+                            "value": "PT0S"
+                        },
+                        "duration": {
+                            "_type": "DV_DURATION",
+                            "value": "PT0S"
+                        },
+                        "events": [
+                            {
+                                "_type": "INTERVAL_EVENT",
+                                "name": {
+                                    "_type": "DV_TEXT",
+                                    "value": "Any event"
+                                },
+                                "time": {
+                                    "_type": "DV_DATE_TIME",
+                                    "value": "2022-02-03T04:05:06"
+                                },
+                                "data": {
+                                    "_type": "ITEM_TREE",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "ItemTree"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Body segment name"
+                                            },
+                                            "value": {
+                                                "_type": "DV_CODED_TEXT",
+                                                "value": "Arm Circumference",
+                                                "defining_code": {
+                                                    "_type": "CODE_PHRASE",
+                                                    "terminology_id": {
+                                                        "_type": "TERMINOLOGY_ID",
+                                                        "value": "local"
+                                                    },
+                                                    "code_string": "at0017"
+                                                }
+                                            },
+                                            "archetype_node_id": "at0004"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Laterality"
+                                            },
+                                            "value": {
+                                                "_type": "DV_CODED_TEXT",
+                                                "value": "Left",
+                                                "defining_code": {
+                                                    "_type": "CODE_PHRASE",
+                                                    "terminology_id": {
+                                                        "_type": "TERMINOLOGY_ID",
+                                                        "value": "local"
+                                                    },
+                                                    "code_string": "at0006"
+                                                }
+                                            },
+                                            "archetype_node_id": "at0005"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Circumference"
+                                            },
+                                            "value": {
+                                                "_type": "DV_QUANTITY",
+                                                "units": "cm",
+                                                "magnitude": 21.0
+                                            },
+                                            "archetype_node_id": "at0008"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Comment"
+                                            },
+                                            "value": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Lorem ipsum"
+                                            },
+                                            "archetype_node_id": "at0009"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0003"
+                                },
+                                "width": {
+                                    "_type": "DV_DURATION",
+                                    "value": "PT42H"
+                                },
+                                "math_function": {
+                                    "_type": "DV_CODED_TEXT",
+                                    "value": "minimum",
+                                    "defining_code": {
+                                        "_type": "CODE_PHRASE",
+                                        "terminology_id": {
+                                            "_type": "TERMINOLOGY_ID",
+                                            "value": "openehr"
+                                        },
+                                        "code_string": "145"
+                                    }
+                                },
+                                "archetype_node_id": "at0002"
+                            },
+                            {
+                                "_type": "POINT_EVENT",
+                                "name": {
+                                    "_type": "DV_TEXT",
+                                    "value": "Any event"
+                                },
+                                "time": {
+                                    "_type": "DV_DATE_TIME",
+                                    "value": "2022-02-03T04:05:06"
+                                },
+                                "data": {
+                                    "_type": "ITEM_TREE",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "ItemTree"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Body segment name"
+                                            },
+                                            "value": {
+                                                "_type": "DV_CODED_TEXT",
+                                                "value": "Arm Circumference",
+                                                "defining_code": {
+                                                    "_type": "CODE_PHRASE",
+                                                    "terminology_id": {
+                                                        "_type": "TERMINOLOGY_ID",
+                                                        "value": "local"
+                                                    },
+                                                    "code_string": "at0017"
+                                                }
+                                            },
+                                            "archetype_node_id": "at0004"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Laterality"
+                                            },
+                                            "value": {
+                                                "_type": "DV_CODED_TEXT",
+                                                "value": "Left",
+                                                "defining_code": {
+                                                    "_type": "CODE_PHRASE",
+                                                    "terminology_id": {
+                                                        "_type": "TERMINOLOGY_ID",
+                                                        "value": "local"
+                                                    },
+                                                    "code_string": "at0006"
+                                                }
+                                            },
+                                            "archetype_node_id": "at0005"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Circumference"
+                                            },
+                                            "value": {
+                                                "_type": "DV_QUANTITY",
+                                                "units": "cm",
+                                                "magnitude": 21.0
+                                            },
+                                            "archetype_node_id": "at0008"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Comment"
+                                            },
+                                            "value": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Lorem ipsum"
+                                            },
+                                            "archetype_node_id": "at0009"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0003"
+                                },
+                                "archetype_node_id": "at0002"
+                            },
+                            {
+                                "_type": "INTERVAL_EVENT",
+                                "name": {
+                                    "_type": "DV_TEXT",
+                                    "value": "Any event"
+                                },
+                                "time": {
+                                    "_type": "DV_DATE_TIME",
+                                    "value": "2022-02-03T04:05:06"
+                                },
+                                "data": {
+                                    "_type": "ITEM_TREE",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "ItemTree"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Body segment name"
+                                            },
+                                            "value": {
+                                                "_type": "DV_CODED_TEXT",
+                                                "value": "Arm Circumference",
+                                                "defining_code": {
+                                                    "_type": "CODE_PHRASE",
+                                                    "terminology_id": {
+                                                        "_type": "TERMINOLOGY_ID",
+                                                        "value": "local"
+                                                    },
+                                                    "code_string": "at0017"
+                                                }
+                                            },
+                                            "archetype_node_id": "at0004"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Laterality"
+                                            },
+                                            "value": {
+                                                "_type": "DV_CODED_TEXT",
+                                                "value": "Left",
+                                                "defining_code": {
+                                                    "_type": "CODE_PHRASE",
+                                                    "terminology_id": {
+                                                        "_type": "TERMINOLOGY_ID",
+                                                        "value": "local"
+                                                    },
+                                                    "code_string": "at0006"
+                                                }
+                                            },
+                                            "archetype_node_id": "at0005"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Circumference"
+                                            },
+                                            "value": {
+                                                "_type": "DV_QUANTITY",
+                                                "units": "cm",
+                                                "magnitude": 21.0
+                                            },
+                                            "archetype_node_id": "at0008"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Comment"
+                                            },
+                                            "value": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Lorem ipsum"
+                                            },
+                                            "archetype_node_id": "at0009"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0003"
+                                },
+                                "width": {
+                                    "_type": "DV_DURATION",
+                                    "value": "PT42H"
+                                },
+                                "math_function": {
+                                    "_type": "DV_CODED_TEXT",
+                                    "value": "minimum",
+                                    "defining_code": {
+                                        "_type": "CODE_PHRASE",
+                                        "terminology_id": {
+                                            "_type": "TERMINOLOGY_ID",
+                                            "value": "openehr"
+                                        },
+                                        "code_string": "145"
+                                    }
+                                },
+                                "archetype_node_id": "at0002"
+                            }
+                        ],
+                        "archetype_node_id": "at0001"
+                    },
+                    "archetype_node_id": "openEHR-EHR-OBSERVATION.body_segment_circumference.v1"
+                }
+            ],
+            "archetype_node_id": "openEHR-EHR-SECTION.adhoc.v1"
+        }
+    ],
+    "archetype_node_id": "openEHR-EHR-COMPOSITION.encounter.v1",
+    "uid": {
+        "_type": "OBJECT_VERSION_ID",
+        "value": "d226a782-65d1-40c3-9ed4-87de2a81b15a::local.ehrbase.org::1"
+    }
+}

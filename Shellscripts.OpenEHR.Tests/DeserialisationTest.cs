@@ -2,6 +2,7 @@
 {
     using System.Text.Json;
     using Microsoft.Extensions.DependencyInjection;
+    using Shellscripts.OpenEHR.Extensions;
     using Shellscripts.OpenEHR.Models.Ehr;
     using Shellscripts.OpenEHR.Tests.Context;
     using Xunit;
@@ -51,22 +52,35 @@
 
         }
 
-        [Fact]
+        [Theory]
         [Trait(name: "Category", value: "Unit Test")]
-        public async Task Can_DeserialiserCompositionResponse_Success()
+        [InlineData("cdc46572-9074-451e-aeee-843ae2e44ecd")]
+        [InlineData("35b5f439-32d9-49ac-aa93-383b7a7cfc6c")]
+        [InlineData("27df7fcc-0797-42a0-9ad1-ff7428fac33b")]
+        [InlineData("ae07e3ec-0435-40de-9e9d-34a71b211c20")]
+        [InlineData("d226a782-65d1-40c3-9ed4-87de2a81b15a")]
+        [InlineData("fee1f585-60ee-40c7-b07f-017e2f9318c2")]
+        [InlineData("95a1abd1-84c2-4a83-8723-e88c06e2fbb2")]
+        public async Task Can_DeserialiserCompositionResponse_Success(string assetFile)
         {
             // arrange
             var options = Services.GetRequiredService<JsonSerializerOptions>();
-            string assetFileContent = await LoadAssetAsync("Ehr/GetCompositionResponse.json");
+            string assetFileContent = await LoadAssetAsync($"Ehr/Compositions/{assetFile}.json");
 
             // act
             var dataObject = JsonSerializer.Deserialize<Composition>(assetFileContent, options);
             var serialisedObject = JsonSerializer.Serialize(dataObject, options);
 
+            // TODO : Got as far as Other Context - Items property. Might need a custom JsonConverter
+
             // assert
             Assert.NotNull(dataObject);
             Assert.NotNull(serialisedObject);
             Assert.NotEmpty(serialisedObject);
+
+            // at least check the uid has been deserialised from the json. this also checks the "Root" extension
+            // method works to extract just the guid part of the identifier from the Uid
+            Assert.Equal(dataObject.Uid.Root().Value, assetFile);
         }
     }
 }

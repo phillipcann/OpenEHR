@@ -1,0 +1,715 @@
+{
+    "_type": "COMPOSITION",
+    "name": {
+        "_type": "DV_TEXT",
+        "value": "Tenetti_Test"
+    },
+    "archetype_details": {
+        "archetype_id": {
+            "value": "openEHR-EHR-COMPOSITION.report.v1"
+        },
+        "template_id": {
+            "value": "Tenetti_Test"
+        },
+        "rm_version": "1.0.4"
+    },
+    "language": {
+        "_type": "CODE_PHRASE",
+        "terminology_id": {
+            "_type": "TERMINOLOGY_ID",
+            "value": "ISO_639-1"
+        },
+        "code_string": "de"
+    },
+    "territory": {
+        "_type": "CODE_PHRASE",
+        "terminology_id": {
+            "_type": "TERMINOLOGY_ID",
+            "value": "ISO_3166-1"
+        },
+        "code_string": "DE"
+    },
+    "category": {
+        "_type": "DV_CODED_TEXT",
+        "value": "event",
+        "defining_code": {
+            "_type": "CODE_PHRASE",
+            "terminology_id": {
+                "_type": "TERMINOLOGY_ID",
+                "value": "openehr"
+            },
+            "code_string": "433"
+        }
+    },
+    "composer": {
+        "_type": "PARTY_IDENTIFIED",
+        "name": "Max Mustermann"
+    },
+    "context": {
+        "_type": "EVENT_CONTEXT",
+        "start_time": {
+            "_type": "DV_DATE_TIME",
+            "value": "2022-02-03T04:05:06"
+        },
+        "end_time": {
+            "_type": "DV_DATE_TIME",
+            "value": "2022-02-03T04:05:06"
+        },
+        "setting": {
+            "_type": "DV_CODED_TEXT",
+            "value": "home",
+            "defining_code": {
+                "_type": "CODE_PHRASE",
+                "terminology_id": {
+                    "_type": "TERMINOLOGY_ID",
+                    "value": "openehr"
+                },
+                "code_string": "225"
+            }
+        },
+        "other_context": {
+            "_type": "ITEM_TREE",
+            "name": {
+                "_type": "DV_TEXT",
+                "value": "Tree"
+            },
+            "items": [
+                {
+                    "_type": "ELEMENT",
+                    "name": {
+                        "_type": "DV_TEXT",
+                        "value": "Bericht ID"
+                    },
+                    "value": {
+                        "_type": "DV_TEXT",
+                        "value": "Lorem ipsum"
+                    },
+                    "archetype_node_id": "at0002"
+                },
+                {
+                    "_type": "ELEMENT",
+                    "name": {
+                        "_type": "DV_TEXT",
+                        "value": "Status"
+                    },
+                    "value": {
+                        "_type": "DV_TEXT",
+                        "value": "Lorem ipsum"
+                    },
+                    "archetype_node_id": "at0005"
+                }
+            ],
+            "archetype_node_id": "at0001"
+        },
+        "health_care_facility": {
+            "_type": "PARTY_IDENTIFIED",
+            "name": "DOE, John"
+        }
+    },
+    "content": [
+        {
+            "_type": "OBSERVATION",
+            "name": {
+                "_type": "DV_TEXT",
+                "value": "Motilit�tstest nach Tinetti"
+            },
+            "archetype_details": {
+                "archetype_id": {
+                    "value": "openEHR-EHR-OBSERVATION.tinetti_mobility_test.v1"
+                },
+                "rm_version": "1.0.4"
+            },
+            "language": {
+                "_type": "CODE_PHRASE",
+                "terminology_id": {
+                    "_type": "TERMINOLOGY_ID",
+                    "value": "ISO_639-1"
+                },
+                "code_string": "de"
+            },
+            "encoding": {
+                "_type": "CODE_PHRASE",
+                "terminology_id": {
+                    "_type": "TERMINOLOGY_ID",
+                    "value": "IANA_character-sets"
+                },
+                "code_string": "ISO-10646-UTF-1"
+            },
+            "workflow_id": {
+                "_type": "OBJECT_REF",
+                "namespace": "unknown",
+                "type": "ANY",
+                "id": {
+                    "_type": "GENERIC_ID",
+                    "value": "c444fc28-a199-30ea-a32c-71a70aa3cc3d",
+                    "scheme": "scheme"
+                }
+            },
+            "subject": {
+                "_type": "PARTY_SELF"
+            },
+            "provider": {
+                "_type": "PARTY_SELF"
+            },
+            "guideline_id": {
+                "_type": "OBJECT_REF",
+                "namespace": "unknown",
+                "type": "ANY",
+                "id": {
+                    "_type": "GENERIC_ID",
+                    "value": "6fa544d0-66bd-3637-a44f-5b44ee1b3ae2",
+                    "scheme": "scheme"
+                }
+            },
+            "data": {
+                "name": {
+                    "_type": "DV_TEXT",
+                    "value": "Event Series"
+                },
+                "origin": {
+                    "_type": "DV_DATE_TIME",
+                    "value": "2022-02-03T04:05:06"
+                },
+                "period": {
+                    "_type": "DV_DURATION",
+                    "value": "PT0S"
+                },
+                "duration": {
+                    "_type": "DV_DURATION",
+                    "value": "PT0S"
+                },
+                "events": [
+                    {
+                        "_type": "INTERVAL_EVENT",
+                        "name": {
+                            "_type": "DV_TEXT",
+                            "value": "Jedes Ereignis"
+                        },
+                        "time": {
+                            "_type": "DV_DATE_TIME",
+                            "value": "2022-02-03T04:05:06"
+                        },
+                        "data": {
+                            "_type": "ITEM_TREE",
+                            "name": {
+                                "_type": "DV_TEXT",
+                                "value": "Baum"
+                            },
+                            "items": [
+                                {
+                                    "_type": "CLUSTER",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Teil 1: Balancetest"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Gleichgewicht im Sitzen"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "Unsicher",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "external"
+                                                        },
+                                                        "code_string": "at0005"
+                                                    }
+                                                },
+                                                "value": 0
+                                            },
+                                            "archetype_node_id": "at0004"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Aufstehen vom Stuhl"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "Nicht m�glich",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "external"
+                                                        },
+                                                        "code_string": "at0010"
+                                                    }
+                                                },
+                                                "value": 0
+                                            },
+                                            "archetype_node_id": "at0009"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Balance in den ersten 5 Sekunden"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "Unsicher",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "external"
+                                                        },
+                                                        "code_string": "at0017"
+                                                    }
+                                                },
+                                                "value": 0
+                                            },
+                                            "archetype_node_id": "at0016"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Stehsicherheit"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "Unsicher",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "external"
+                                                        },
+                                                        "code_string": "at0022"
+                                                    }
+                                                },
+                                                "value": 0
+                                            },
+                                            "archetype_node_id": "at0021"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Balance mit geschlossenen Augen"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "Unsicher",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "external"
+                                                        },
+                                                        "code_string": "at0027"
+                                                    }
+                                                },
+                                                "value": 0
+                                            },
+                                            "archetype_node_id": "at0026"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Drehung um 360� mit offenen Augen"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "Unsicher, braucht Hilfe",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "external"
+                                                        },
+                                                        "code_string": "at0031"
+                                                    }
+                                                },
+                                                "value": 0
+                                            },
+                                            "archetype_node_id": "at0030"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Sto� gegen die Brust (3x leicht)"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "W�rde ohne Hilfe oder Halt fallen",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "external"
+                                                        },
+                                                        "code_string": "at0036"
+                                                    }
+                                                },
+                                                "value": 0
+                                            },
+                                            "archetype_node_id": "at0035"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Hinsetzen"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "L�sst sich plumpsen, unzentriert, braucht Lehne",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "external"
+                                                        },
+                                                        "code_string": "at0041"
+                                                    }
+                                                },
+                                                "value": 0
+                                            },
+                                            "archetype_node_id": "at0040"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Punkte Balancetest"
+                                            },
+                                            "value": {
+                                                "_type": "DV_COUNT",
+                                                "magnitude": 8
+                                            },
+                                            "archetype_node_id": "at0044"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0008"
+                                },
+                                {
+                                    "_type": "CLUSTER",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Teil 2: Gehprobe"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Schrittausl�sung"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "Gehen ohne fremde Hilfe nicht m�glich",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "external"
+                                                        },
+                                                        "code_string": "at0049"
+                                                    }
+                                                },
+                                                "value": 0
+                                            },
+                                            "archetype_node_id": "at0048"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Schritth�he"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "Kein selbstst�ndiges Gehen m�glich",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "external"
+                                                        },
+                                                        "code_string": "at0054"
+                                                    }
+                                                },
+                                                "value": 0
+                                            },
+                                            "archetype_node_id": "at0053"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Schrittl�nge"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "Weniger als Fu�l�nge",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "external"
+                                                        },
+                                                        "code_string": "at0059"
+                                                    }
+                                                },
+                                                "value": 1
+                                            },
+                                            "archetype_node_id": "at0058"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Schrittsymmetrie"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "Schrittl�nge variiert, Hinken",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "external"
+                                                        },
+                                                        "code_string": "at0062"
+                                                    }
+                                                },
+                                                "value": 0
+                                            },
+                                            "archetype_node_id": "at0061"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Gangkontinuit�t"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "Kein selbstst�ndiges Gehen m�glich",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "external"
+                                                        },
+                                                        "code_string": "at0067"
+                                                    }
+                                                },
+                                                "value": 0
+                                            },
+                                            "archetype_node_id": "at0066"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Wegabweichung"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "Kein selbstst�ndiges Gehen m�glich",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "external"
+                                                        },
+                                                        "code_string": "at0072"
+                                                    }
+                                                },
+                                                "value": 0
+                                            },
+                                            "archetype_node_id": "at0071"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Rumpfstabilit�t"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "Abweichen, Schwanken, Unsicherheit",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "external"
+                                                        },
+                                                        "code_string": "at0077"
+                                                    }
+                                                },
+                                                "value": 0
+                                            },
+                                            "archetype_node_id": "at0076"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Schrittbreite"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "Breitbeinig oder �berkreuz",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "external"
+                                                        },
+                                                        "code_string": "at0081"
+                                                    }
+                                                },
+                                                "value": 0
+                                            },
+                                            "archetype_node_id": "at0080"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Punkte Gehprobe"
+                                            },
+                                            "value": {
+                                                "_type": "DV_COUNT",
+                                                "magnitude": 7
+                                            },
+                                            "archetype_node_id": "at0084"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0047"
+                                },
+                                {
+                                    "_type": "ELEMENT",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Gesamtpunktzahl"
+                                    },
+                                    "value": {
+                                        "_type": "DV_COUNT",
+                                        "magnitude": 14
+                                    },
+                                    "archetype_node_id": "at0085"
+                                },
+                                {
+                                    "_type": "ELEMENT",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Auswertung"
+                                    },
+                                    "value": {
+                                        "_type": "DV_CODED_TEXT",
+                                        "value": "0-9 Punkte",
+                                        "defining_code": {
+                                            "_type": "CODE_PHRASE",
+                                            "terminology_id": {
+                                                "_type": "TERMINOLOGY_ID",
+                                                "value": "local"
+                                            },
+                                            "code_string": "at0090"
+                                        }
+                                    },
+                                    "archetype_node_id": "at0089"
+                                },
+                                {
+                                    "_type": "ELEMENT",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Bemerkungen"
+                                    },
+                                    "value": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Lorem ipsum"
+                                    },
+                                    "archetype_node_id": "at0088"
+                                },
+                                {
+                                    "_type": "ELEMENT",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Hilfsmittel"
+                                    },
+                                    "value": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Lorem ipsum"
+                                    },
+                                    "archetype_node_id": "at0046"
+                                }
+                            ],
+                            "archetype_node_id": "at0003"
+                        },
+                        "width": {
+                            "_type": "DV_DURATION",
+                            "value": "PT42H"
+                        },
+                        "math_function": {
+                            "_type": "DV_CODED_TEXT",
+                            "value": "minimum",
+                            "defining_code": {
+                                "_type": "CODE_PHRASE",
+                                "terminology_id": {
+                                    "_type": "TERMINOLOGY_ID",
+                                    "value": "openehr"
+                                },
+                                "code_string": "145"
+                            }
+                        },
+                        "archetype_node_id": "at0002"
+                    }
+                ],
+                "archetype_node_id": "at0001"
+            },
+            "archetype_node_id": "openEHR-EHR-OBSERVATION.tinetti_mobility_test.v1"
+        }
+    ],
+    "archetype_node_id": "openEHR-EHR-COMPOSITION.report.v1",
+    "uid": {
+        "_type": "OBJECT_VERSION_ID",
+        "value": "27df7fcc-0797-42a0-9ad1-ff7428fac33b::local.ehrbase.org::1"
+    }
+}

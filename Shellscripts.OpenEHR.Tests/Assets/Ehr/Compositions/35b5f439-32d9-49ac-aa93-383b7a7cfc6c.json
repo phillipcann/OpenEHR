@@ -1,0 +1,334 @@
+{
+    "_type": "COMPOSITION",
+    "name": {
+        "_type": "DV_TEXT",
+        "value": "Tenetti_Test"
+    },
+    "archetype_details": {
+        "archetype_id": {
+            "value": "openEHR-EHR-COMPOSITION.report.v1"
+        },
+        "template_id": {
+            "value": "Tenetti_Test"
+        },
+        "rm_version": "1.0.4"
+    },
+    "language": {
+        "_type": "CODE_PHRASE",
+        "terminology_id": {
+            "_type": "TERMINOLOGY_ID",
+            "value": "ISO_639-1"
+        },
+        "code_string": "de"
+    },
+    "territory": {
+        "_type": "CODE_PHRASE",
+        "terminology_id": {
+            "_type": "TERMINOLOGY_ID",
+            "value": "ISO_3166-1"
+        },
+        "code_string": "SE"
+    },
+    "category": {
+        "_type": "DV_CODED_TEXT",
+        "value": "event",
+        "defining_code": {
+            "_type": "CODE_PHRASE",
+            "terminology_id": {
+                "_type": "TERMINOLOGY_ID",
+                "value": "openehr"
+            },
+            "code_string": "433"
+        }
+    },
+    "composer": {
+        "_type": "PARTY_IDENTIFIED",
+        "name": "composer name"
+    },
+    "context": {
+        "_type": "EVENT_CONTEXT",
+        "start_time": {
+            "_type": "DV_DATE_TIME",
+            "value": "2024-09-08T18:30:28.943630122Z"
+        },
+        "setting": {
+            "_type": "DV_CODED_TEXT",
+            "value": "secondary medical care",
+            "defining_code": {
+                "_type": "CODE_PHRASE",
+                "terminology_id": {
+                    "_type": "TERMINOLOGY_ID",
+                    "value": "openehr"
+                },
+                "code_string": "232"
+            }
+        }
+    },
+    "content": [
+        {
+            "_type": "OBSERVATION",
+            "name": {
+                "_type": "DV_TEXT",
+                "value": "Motilit�tstest nach Tinetti"
+            },
+            "archetype_details": {
+                "archetype_id": {
+                    "value": "openEHR-EHR-OBSERVATION.tinetti_mobility_test.v1"
+                },
+                "rm_version": "1.0.4"
+            },
+            "language": {
+                "_type": "CODE_PHRASE",
+                "terminology_id": {
+                    "_type": "TERMINOLOGY_ID",
+                    "value": "ISO_639-1"
+                },
+                "code_string": "de"
+            },
+            "encoding": {
+                "_type": "CODE_PHRASE",
+                "terminology_id": {
+                    "_type": "TERMINOLOGY_ID",
+                    "value": "IANA_character-sets"
+                },
+                "code_string": "UTF-8"
+            },
+            "subject": {
+                "_type": "PARTY_SELF"
+            },
+            "data": {
+                "name": {
+                    "_type": "DV_TEXT",
+                    "value": "Event Series"
+                },
+                "origin": {
+                    "_type": "DV_DATE_TIME",
+                    "value": "2024-09-08T18:30:28.943124419Z"
+                },
+                "events": [
+                    {
+                        "_type": "POINT_EVENT",
+                        "name": {
+                            "_type": "DV_TEXT",
+                            "value": "Jedes Ereignis"
+                        },
+                        "time": {
+                            "_type": "DV_DATE_TIME",
+                            "value": "2024-09-08T18:30:28.943087619Z"
+                        },
+                        "data": {
+                            "_type": "ITEM_TREE",
+                            "name": {
+                                "_type": "DV_TEXT",
+                                "value": "Baum"
+                            },
+                            "items": [
+                                {
+                                    "_type": "CLUSTER",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Teil 1: Balancetest"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Gleichgewicht im Sitzen"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "Unsicher",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "local"
+                                                        },
+                                                        "code_string": "at0005"
+                                                    }
+                                                },
+                                                "value": 0
+                                            },
+                                            "archetype_node_id": "at0004"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Aufstehen vom Stuhl"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "In einer flie�enden Bewegung",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "local"
+                                                        },
+                                                        "code_string": "at0014"
+                                                    }
+                                                },
+                                                "value": 4
+                                            },
+                                            "archetype_node_id": "at0009"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Balance in den ersten 5 Sekunden"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "Sicher, ohne Halt",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "local"
+                                                        },
+                                                        "code_string": "at0019"
+                                                    }
+                                                },
+                                                "value": 2
+                                            },
+                                            "archetype_node_id": "at0016"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Punkte Balancetest"
+                                            },
+                                            "value": {
+                                                "_type": "DV_COUNT",
+                                                "magnitude": 6
+                                            },
+                                            "archetype_node_id": "at0044"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0008"
+                                },
+                                {
+                                    "_type": "CLUSTER",
+                                    "name": {
+                                        "_type": "DV_TEXT",
+                                        "value": "Teil 2: Gehprobe"
+                                    },
+                                    "items": [
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Schrittausl�sung"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "Beginnt ohne Z�gern zu gehen, flie�ende Bewegungen",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "local"
+                                                        },
+                                                        "code_string": "at0051"
+                                                    }
+                                                },
+                                                "value": 2
+                                            },
+                                            "archetype_node_id": "at0048"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Schritth�he"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "Fu� total vom Boden gel�st, max. 2-4cm �ber Untergrund",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "local"
+                                                        },
+                                                        "code_string": "at0056"
+                                                    }
+                                                },
+                                                "value": 2
+                                            },
+                                            "archetype_node_id": "at0053"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Schrittl�nge"
+                                            },
+                                            "value": {
+                                                "_type": "DV_ORDINAL",
+                                                "symbol": {
+                                                    "_type": "DV_CODED_TEXT",
+                                                    "value": "Weniger als Fu�l�nge",
+                                                    "defining_code": {
+                                                        "_type": "CODE_PHRASE",
+                                                        "terminology_id": {
+                                                            "_type": "TERMINOLOGY_ID",
+                                                            "value": "local"
+                                                        },
+                                                        "code_string": "at0059"
+                                                    }
+                                                },
+                                                "value": 1
+                                            },
+                                            "archetype_node_id": "at0058"
+                                        },
+                                        {
+                                            "_type": "ELEMENT",
+                                            "name": {
+                                                "_type": "DV_TEXT",
+                                                "value": "Punkte Gehprobe"
+                                            },
+                                            "value": {
+                                                "_type": "DV_COUNT",
+                                                "magnitude": 10
+                                            },
+                                            "archetype_node_id": "at0084"
+                                        }
+                                    ],
+                                    "archetype_node_id": "at0047"
+                                }
+                            ],
+                            "archetype_node_id": "at0003"
+                        },
+                        "archetype_node_id": "at0002"
+                    }
+                ],
+                "archetype_node_id": "at0001"
+            },
+            "archetype_node_id": "openEHR-EHR-OBSERVATION.tinetti_mobility_test.v1",
+            "uid": {
+                "_type": "HIER_OBJECT_ID",
+                "value": "0b5d57cd-0f3f-4373-a742-c71bdcef2284"
+            }
+        }
+    ],
+    "archetype_node_id": "openEHR-EHR-COMPOSITION.report.v1",
+    "uid": {
+        "_type": "OBJECT_VERSION_ID",
+        "value": "35b5f439-32d9-49ac-aa93-383b7a7cfc6c::local.ehrbase.org::1"
+    }
+}

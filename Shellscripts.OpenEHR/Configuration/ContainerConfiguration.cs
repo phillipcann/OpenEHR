@@ -71,6 +71,7 @@
             // Singletons
             services.AddSingleton<DvDateTimeConverter>();
             services.AddSingleton<ObjectRefConverter>();
+            services.AddSingleton<PartyProxyConverter>();
             services.AddSingleton(provider =>
             {
                 var options = new JsonSerializerOptions()
@@ -84,6 +85,7 @@
 
                 options.Converters.Add(provider.GetRequiredService<DvDateTimeConverter>());
                 options.Converters.Add(provider.GetRequiredService<ObjectRefConverter>());
+                options.Converters.Add(provider.GetRequiredService<PartyProxyConverter>());
 
                 return options;
             });
