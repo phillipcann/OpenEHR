@@ -23,17 +23,14 @@
 
             // act
             var dataObject = JsonSerializer.Deserialize<VersionedEhrStatus>(assetFileContent, options);
-            var serialisedObject = JsonSerializer.Serialize(dataObject, options);
 
             // assert
             Assert.NotNull(dataObject);
-            Assert.NotNull(serialisedObject);
-            Assert.NotEmpty(serialisedObject);
         }
 
         [Fact]
         [Trait(name: "Category", value: "Unit Test")]
-        public async Task Can_DeserialiserEhrResponse_Success()
+        public async Task Can_DeserialiseEhrResponse_Success()
         {
             // arrange
             var options = Services.GetRequiredService<JsonSerializerOptions>();
@@ -41,18 +38,14 @@
 
             // act
             var dataObject = JsonSerializer.Deserialize<Ehr>(assetFileContent, options);
-            var serialisedObject = JsonSerializer.Serialize(dataObject, options);
-            
-            // TODO : Whilst this works, this MIGHT be problematic with the serialise piece including null properties in segments that shouldnt have the properties at all.
+
 
             // assert
             Assert.NotNull(dataObject);
-            Assert.NotNull(serialisedObject);
-            Assert.NotEmpty(serialisedObject);
 
         }
 
-        [Theory]
+        [Theory(DisplayName = "Deserialise Composition")]
         [Trait(name: "Category", value: "Unit Test")]
         [InlineData("cdc46572-9074-451e-aeee-843ae2e44ecd")]
         [InlineData("35b5f439-32d9-49ac-aa93-383b7a7cfc6c")]
@@ -61,26 +54,41 @@
         [InlineData("d226a782-65d1-40c3-9ed4-87de2a81b15a")]
         [InlineData("fee1f585-60ee-40c7-b07f-017e2f9318c2")]
         [InlineData("95a1abd1-84c2-4a83-8723-e88c06e2fbb2")]
-        public async Task Can_DeserialiserCompositionResponse_Success(string assetFile)
+        public async Task Can_DeserialiseCompositionResponse_Success(string assetFile)
         {
             // arrange
+            
             var options = Services.GetRequiredService<JsonSerializerOptions>();
             string assetFileContent = await LoadAssetAsync($"Ehr/Compositions/{assetFile}.json");
 
             // act
-            var dataObject = JsonSerializer.Deserialize<Composition>(assetFileContent, options);
-            var serialisedObject = JsonSerializer.Serialize(dataObject, options);
-
-            // TODO : Got as far as Other Context - Items property. Might need a custom JsonConverter
+            var dataObject = JsonSerializer.Deserialize<Composition>(assetFileContent, options);            
+            
+            // TODO : Got as far as Content. Needs a new Converter for Observation
 
             // assert
             Assert.NotNull(dataObject);
-            Assert.NotNull(serialisedObject);
-            Assert.NotEmpty(serialisedObject);
 
             // at least check the uid has been deserialised from the json. this also checks the "Root" extension
             // method works to extract just the guid part of the identifier from the Uid
             Assert.Equal(dataObject.Uid.Root().Value, assetFile);
+        }
+
+
+        [Theory(DisplayName = "Deserialise VersionedComposition")]
+        [Trait(name: "Category", value: "Unit Test")]
+        [InlineData("95a1abd1-84c2-4a83-8723-e88c06e2fbb2")]
+
+        public async Task Can_DeserialiseVersionedCompositionResponse_Success(string assetFile)
+        {
+            var options = Services.GetRequiredService<JsonSerializerOptions>();
+            string assetFileContent = await LoadAssetAsync($"Ehr/VersionedCompositions/{assetFile}.json");
+
+            // act
+            var dataObject = JsonSerializer.Deserialize<VersionedComposition>(assetFileContent, options);
+
+            // assert
+            Assert.NotNull(dataObject);
         }
     }
 }

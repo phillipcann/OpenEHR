@@ -50,7 +50,8 @@
         }
 
         public static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
-        {            
+        {
+            // HttpClient
             services.AddHttpClient<IEhrClient, EhrClient>((services, client) =>
             {
                 var config = services.GetRequiredService<IConfiguration>();
@@ -68,10 +69,15 @@
                 client.BaseAddress = baseUrl;
             });
 
-            // Singletons
+            
+            
+            // JsonConverters
+            services.AddSingleton<DataValueConverter>();
             services.AddSingleton<DvDateTimeConverter>();
             services.AddSingleton<ObjectRefConverter>();
             services.AddSingleton<PartyProxyConverter>();
+            services.AddSingleton<ItemStructureConverter>();
+            services.AddSingleton<ItemArrayConverter>();
             services.AddSingleton(provider =>
             {
                 var options = new JsonSerializerOptions()
@@ -81,12 +87,15 @@
 
                     IgnoreReadOnlyFields = true,
                     IgnoreReadOnlyProperties = true
-                };                
-
+                };
+                
+                options.Converters.Add(provider.GetRequiredService<DataValueConverter>());
                 options.Converters.Add(provider.GetRequiredService<DvDateTimeConverter>());
                 options.Converters.Add(provider.GetRequiredService<ObjectRefConverter>());
                 options.Converters.Add(provider.GetRequiredService<PartyProxyConverter>());
-
+                options.Converters.Add(provider.GetRequiredService<ItemStructureConverter>());
+                options.Converters.Add(provider.GetRequiredService<ItemArrayConverter>());
+                
                 return options;
             });
         }

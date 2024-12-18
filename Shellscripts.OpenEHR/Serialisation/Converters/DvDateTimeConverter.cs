@@ -25,6 +25,8 @@
 
         public override DvDateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
+            // TODO : This should really be a DvTemporal Converter with DvDateTime as one of the types
+
             // Handle case where "time_created" is a simple string
             if (reader.TokenType == JsonTokenType.String)
             {

@@ -69,7 +69,7 @@
                         throw new JsonException(unknownTypeMessage);
                     }
 
-                    objRef.Id = (ObjectId)JsonSerializer.Deserialize(idElement.GetRawText() ?? string.Empty, typeMap[idType]);
+                    objRef.Id = (ObjectId)JsonSerializer.Deserialize(idElement.GetRawText() ?? string.Empty, typeMap[idType], options);
                 }
                 else
                 {

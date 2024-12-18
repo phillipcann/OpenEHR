@@ -8,6 +8,9 @@
     using Microsoft.Extensions.Hosting;    
     using Microsoft.Extensions.Hosting.Internal;
     using Xunit;
+    using Microsoft.Extensions.Logging;
+    using Xunit.Abstractions;
+    using Xunit.Sdk;
 
     /// <summary>
     /// TestFixture sets up the Configuration and Service registration that's used in the main application
@@ -27,7 +30,7 @@
             // Configuration
             var testConfigurationBuilder = new ConfigurationBuilder();
             ContainerConfiguration.ConfigureAppConfiguration(context, testConfigurationBuilder, args: Array.Empty<string>());
-            Configuration = testConfigurationBuilder.Build();
+            Configuration = testConfigurationBuilder.Build();            
 
             // Services
             var testServiceCollection = new ServiceCollection();
