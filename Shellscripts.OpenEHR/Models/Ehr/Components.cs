@@ -149,6 +149,18 @@
     #endregion
 
 
+    #region 7.2 - https://specifications.openehr.org/releases/RM/latest/ehr.html#_section_class
+
+    public class Section : ContentItem
+    {
+        [JsonPropertyName("items")]
+        public ContentItem[] Items { get; set; }
+    }
+
+    #endregion
+
+
+
     #region 8.3 - https://specifications.openehr.org/releases/RM/latest/ehr.html#_class_descriptions_5
 
     public class Entry : ContentItem

@@ -54,6 +54,8 @@
         [InlineData("d226a782-65d1-40c3-9ed4-87de2a81b15a")]
         [InlineData("fee1f585-60ee-40c7-b07f-017e2f9318c2")]
         [InlineData("95a1abd1-84c2-4a83-8723-e88c06e2fbb2")]
+        [InlineData("1beeaf0a-fbc6-4cef-b1bc-eba1a435fb8e")]
+        [InlineData("c3349156-99a2-47f9-afa8-8d3d1c25497d")]
         public async Task Can_DeserialiseCompositionResponse_Success(string assetFile)
         {
             // arrange

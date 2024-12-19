@@ -45,7 +45,7 @@
             }
             else
             {
-                // TODO : File Logging
+                // TODO : Add some file Logging. Serilog?
             }
         }
 
@@ -60,7 +60,7 @@
                 var baseUrl = new Uri(httpClientConfig.GetValue("EhrClient:BaseUrl", string.Empty));
                 var timeout = httpClientConfig.GetValue("EhrClient:Timeout", 30);
                 var preferType = httpClientConfig.GetValue("EhrClient:PreferType", "minimal");
-                var acceptType = httpClientConfig.GetValue("EhrClient:AcceptType", "application/xml");
+                var acceptType = httpClientConfig.GetValue("EhrClient:AcceptType", "application/json");
 
                 client.DefaultRequestHeaders.Add("User-Agent", "Shellscripts.OpenEhr");
                 client.DefaultRequestHeaders.Add("Prefer", preferType);
@@ -77,7 +77,12 @@
             services.AddSingleton<ObjectRefConverter>();
             services.AddSingleton<PartyProxyConverter>();
             services.AddSingleton<ItemStructureConverter>();
+            services.AddSingleton<ContentItemConverter>();
+
             services.AddSingleton<ItemArrayConverter>();
+            services.AddSingleton<EventArrayConverter>();
+
+
             services.AddSingleton(provider =>
             {
                 var options = new JsonSerializerOptions()
@@ -93,9 +98,12 @@
                 options.Converters.Add(provider.GetRequiredService<DvDateTimeConverter>());
                 options.Converters.Add(provider.GetRequiredService<ObjectRefConverter>());
                 options.Converters.Add(provider.GetRequiredService<PartyProxyConverter>());
-                options.Converters.Add(provider.GetRequiredService<ItemStructureConverter>());
+                options.Converters.Add(provider.GetRequiredService<ItemStructureConverter>());                
+                options.Converters.Add(provider.GetRequiredService<ContentItemConverter>());
+
                 options.Converters.Add(provider.GetRequiredService<ItemArrayConverter>());
-                
+                options.Converters.Add(provider.GetRequiredService<EventArrayConverter>());
+
                 return options;
             });
         }

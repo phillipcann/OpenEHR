@@ -139,7 +139,7 @@
     public class DvOrdinal : DvOrdered
     {
         [JsonPropertyName("symbol")]
-        public DvText Symbol { get; set; }
+        public DvCodedText Symbol { get; set; }
 
         [JsonPropertyName("value")]
         public int Value { get; set; }

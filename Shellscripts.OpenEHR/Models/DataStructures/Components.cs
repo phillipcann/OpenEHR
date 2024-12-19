@@ -72,7 +72,8 @@
 
     #region 6.2 - https://specifications.openehr.org/releases/RM/Release-1.1.0/data_structures.html#_class_descriptions_4
 
-    public class History : DataStructure
+    public class History<T> : DataStructure
+        where T : ItemStructure
     {
         [JsonPropertyName("origin")]
         public DvDateTime Origin { get; set; }
@@ -84,15 +85,12 @@
         public DvDuration Duration { get; set; }
 
         [JsonPropertyName("summary")]
-        public ItemStructure Summary { get; set; }
+        public T Summary { get; set; }
 
         [JsonPropertyName("events")]
         public Event[] Events { get; set; }
 
     }
-    public class History<T> : History
-        where T : class
-    { }
 
     public class Event : Locatable
     {
@@ -105,21 +103,22 @@
         [JsonPropertyName("data")]
         public object Data { get; set; }
     }
+
     public class Event<T> : Event
-        where T : class
+        where T : ItemStructure
     {
         [JsonPropertyName("data")]
         public new T Data { get; set; }
     }
 
-    public class PointEvent<T> : Event
-        where T : class
+    public class PointEvent<T> : Event<T>
+        where T : ItemStructure
     {
 
     }
 
-    public class InternalEvent<T> : Event
-        where T : class
+    public class IntervalEvent<T> : Event<T>
+        where T : ItemStructure
     {
         [JsonPropertyName("width")]
         public DvDuration Width { get; set; }
