@@ -53,7 +53,7 @@
                         switch (cKey)
                         {
                             case ConsoleKey.D1:
-                                await OptionOne(host);
+                                await LoadDataFromEHRSandboxExample(host);
                                 break;
 
                             case ConsoleKey.Q:
@@ -81,25 +81,22 @@
 
         #region Loop Methods
 
-        private static async Task OptionOne(IHost host)
+        private static async Task LoadDataFromEHRSandboxExample(IHost host)
         {
             // Get the Client Factory
             var client = host.Services.GetRequiredService<IEhrClient>();
             var options = host.Services.GetRequiredService<JsonSerializerOptions>();
+            var cancellationToken = CancellationToken.None;
 
-            // Test the ExecuteAsync Method
-            var results = await client.ExecuteAsync(async (c, ct) =>
-            {
-                var rm = await c.GetAsync("/ehr/eecf24e0-5ac9-4bfc-b958-475162940444/versioned_ehr_status");
+            var ehrId = "eecf24e0-5ac9-4bfc-b958-475162940444";
+            var compositionUid = "cdc46572-9074-451e-aeee-843ae2e44ecd::local.ehrbase.org::1";
+            var compositionId = "cdc46572-9074-451e-aeee-843ae2e44ecd";
 
-                rm.EnsureSuccessStatusCode();
+            Ehr ehr = await client.GetEhrAsync(ehrId, cancellationToken);
 
-                var stringContent = await rm.Content.ReadAsStringAsync();
+            Composition composition_object_1 = await client.GetCompositionAsync(ehrId, compositionId, cancellationToken);
 
-                var deserialisedData = JsonSerializer.Deserialize<VersionedEhrStatus>(stringContent, options);
-
-                return deserialisedData;
-            });
+            Composition composition_object_2 = await client.GetCompositionAsync(ehrId, compositionUid, cancellationToken);
         }
 
         #endregion

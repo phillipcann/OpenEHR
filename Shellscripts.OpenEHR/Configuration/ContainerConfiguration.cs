@@ -51,13 +51,15 @@
 
         public static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
         {
+            // Transients
+            services.AddTransient<EhrClientUrlHandler>();
+
             // HttpClient
             services.AddHttpClient<IEhrClient, EhrClient>((services, client) =>
             {
                 var config = services.GetRequiredService<IConfiguration>();
                 var httpClientConfig = config.GetSection("HttpClients");
-
-                var baseUrl = new Uri(httpClientConfig.GetValue("EhrClient:BaseUrl", string.Empty));
+                var baseUrl = httpClientConfig.GetValue("EhrClient:BaseUrl", string.Empty);
                 var timeout = httpClientConfig.GetValue("EhrClient:Timeout", 30);
                 var preferType = httpClientConfig.GetValue("EhrClient:PreferType", "minimal");
                 var acceptType = httpClientConfig.GetValue("EhrClient:AcceptType", "application/json");
@@ -66,8 +68,8 @@
                 client.DefaultRequestHeaders.Add("Prefer", preferType);
                 client.DefaultRequestHeaders.Add("Accept", acceptType);
                 client.Timeout = TimeSpan.FromSeconds(timeout);
-                client.BaseAddress = baseUrl;
-            });
+                client.BaseAddress = new Uri(baseUrl);
+            }).AddHttpMessageHandler<EhrClientUrlHandler>();
 
             
             
