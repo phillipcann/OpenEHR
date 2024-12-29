@@ -7,10 +7,9 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Hosting;    
     using Microsoft.Extensions.Hosting.Internal;
-    using Xunit;
     using Microsoft.Extensions.Logging;
-    using Xunit.Abstractions;
-    using Xunit.Sdk;
+    using Xunit;
+    
 
     /// <summary>
     /// TestFixture sets up the Configuration and Service registration that's used in the main application
@@ -34,6 +33,7 @@
 
             // Services
             var testServiceCollection = new ServiceCollection();
+            testServiceCollection.AddSingleton(Configuration);
             ContainerConfiguration.ConfigureServices(context, testServiceCollection);
             ServiceProvider = testServiceCollection.BuildServiceProvider();
         }
@@ -44,11 +44,6 @@
             if (ServiceProvider is IDisposable disposableSp)
             {
                 disposableSp.Dispose();
-            }
-
-            if (Configuration is IDisposable disposableCfg)
-            {
-                disposableCfg.Dispose();
             }
         }
     }

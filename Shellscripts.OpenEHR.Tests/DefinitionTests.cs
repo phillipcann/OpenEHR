@@ -45,8 +45,5 @@
             Assert.NotNull(deserialisedObject.Concept);
             Assert.False(string.IsNullOrWhiteSpace(deserialisedObject.Concept));
         }
-
     }
-
-
 }

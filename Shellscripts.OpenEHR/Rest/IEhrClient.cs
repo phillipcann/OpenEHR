@@ -12,5 +12,10 @@ namespace Shellscripts.OpenEHR.Rest
         Task<Composition?> GetCompositionAsync(string ehrId, string compositionId, CancellationToken cancellationToken);
         Task<VersionedComposition?> GetVersionedCompositionAsync(string ehrId, string compositionId, CancellationToken cancellationToken);
 
+
+
+        Task<TResult?> GetAsync<TResult>(string url, CancellationToken cancellationToken);
+        Task<TResult?> PostAsync<TModelObject, TResult>(string url, TModelObject data, CancellationToken cancellationToken);
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Shellscripts.OpenEHR.Rest
 {
+    using System.Text;
     using System.Text.Json;
     using Microsoft.Extensions.Logging;
     using Shellscripts.OpenEHR.Models.Ehr;
@@ -80,21 +81,27 @@
 
         #endregion
 
-        #region Private Methods
+        #region Public Methods
 
-        private async Task<TOut?> GetAsync<TOut>(string url, CancellationToken cancellationToken)
+        public async Task<TResult?> GetAsync<TResult>(string url, CancellationToken cancellationToken)
         {
             return await ExecuteAsync(async (client, cancellationToken) =>
             {
-                var responseMessage = await client.GetAsync(url, cancellationToken);
-
-                responseMessage.EnsureSuccessStatusCode();
-
-                var stringContent = await responseMessage.Content.ReadAsStringAsync(cancellationToken);
-
                 try
                 {
-                    return JsonSerializer.Deserialize<TOut>(stringContent, _options);
+                    var responseMessage = await client.GetAsync(url, cancellationToken);
+
+                    responseMessage.EnsureSuccessStatusCode();
+
+                    var stringContent = await responseMessage.Content.ReadAsStringAsync(cancellationToken);
+
+                    return JsonSerializer.Deserialize<TResult>(stringContent, _options);
+                }
+                catch (HttpRequestException hEx) when (hEx.StatusCode is System.Net.HttpStatusCode.BadRequest)
+                {
+                    _logger.LogError(hEx.Message, hEx);
+
+                    return default;
                 }
                 catch (JsonException jEx)
                 {
@@ -105,11 +112,36 @@
             }, cancellationToken);
         }
 
-        private async Task<TOut?> PostAsync<TIn, TOut>(string url, TIn data, CancellationToken cancellationToken)
+        public async Task<TResult?> PostAsync<TModelObject, TResult>(string url, TModelObject data, CancellationToken cancellationToken)
         {
-            // TODO : Create Implementation
-            await Task.Run(() => { });
-            throw new NotImplementedException();
+            return await ExecuteAsync(async (client, cancellationToken) =>
+            {
+                var serialisedData = JsonSerializer.Serialize(data, _options);
+                var httpContent = new StringContent(serialisedData, Encoding.UTF8, "application/json");
+
+                try
+                {
+                    var responseMessage = await client.PostAsync(url, httpContent, cancellationToken);
+                    responseMessage.EnsureSuccessStatusCode();
+
+                    var responseContent = await responseMessage.Content.ReadAsStringAsync(cancellationToken);
+                    var response = JsonSerializer.Deserialize<TResult>(responseContent, _options);
+
+                    return response;
+                }
+                catch (HttpRequestException hEx) when (hEx.StatusCode is System.Net.HttpStatusCode.BadRequest)
+                {
+                    _logger.LogError(hEx.Message, hEx);
+
+                    throw;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex.Message, ex);
+
+                    throw;
+                }
+            });
         }
 
         #endregion

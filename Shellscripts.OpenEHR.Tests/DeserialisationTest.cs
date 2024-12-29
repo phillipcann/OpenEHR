@@ -13,37 +13,27 @@
         public DeserialisationTests(ITestOutputHelper outputHelper, TestFixture testFixture) 
             : base(outputHelper, testFixture) { }
 
-        [Fact]
+        [Theory()]
         [Trait(name: "Category", value: "Unit Test")]
-        public async Task Can_DeserialiseVersionedEhrStatusResponse_Success()
+        [InlineData("Ehr/VersionedEhrStatusResponse.json", typeof(VersionedEhrStatus), "Uid.Value", "5f0841de-9409-4270-919f-6896cc7f4f5e")]
+        [InlineData("Ehr/GetEhrResponse.json", typeof(Ehr), "EhrId.Value", "eecf24e0-5ac9-4bfc-b958-475162940444")]
+        public async Task Can_Deserialise_SpecificResponse_ToSpecificType_Success(string assetFile, Type returnType, string fieldToCheck, object expectedValue)
         {
             // arrange
             var options = Services.GetRequiredService<JsonSerializerOptions>();
-            string assetFileContent = await LoadAssetAsync("Ehr/VersionedEhrStatusResponse.json");
+            string assetFileContent = await LoadAssetAsync(assetFile);
 
             // act
-            var dataObject = JsonSerializer.Deserialize<VersionedEhrStatus>(assetFileContent, options);
+            var dataObject = JsonSerializer.Deserialize(assetFileContent, returnType, options);
 
             // assert
+            var actualValue = dataObject.GetNestedPropertyValue(fieldToCheck);
+
             Assert.NotNull(dataObject);
+            Assert.NotNull(actualValue);
+            Assert.Equal(expectedValue, actualValue);
         }
 
-        [Fact]
-        [Trait(name: "Category", value: "Unit Test")]
-        public async Task Can_DeserialiseEhrResponse_Success()
-        {
-            // arrange
-            var options = Services.GetRequiredService<JsonSerializerOptions>();
-            string assetFileContent = await LoadAssetAsync("Ehr/GetEhrResponse.json");
-
-            // act
-            var dataObject = JsonSerializer.Deserialize<Ehr>(assetFileContent, options);
-
-
-            // assert
-            Assert.NotNull(dataObject);
-
-        }
 
         [Theory(DisplayName = "Deserialise Composition")]
         [Trait(name: "Category", value: "Unit Test")]

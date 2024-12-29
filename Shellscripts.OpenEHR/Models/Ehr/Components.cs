@@ -23,10 +23,10 @@
         public ObjectRef[] Contributions { get; set; }
 
         [JsonPropertyName("ehr_status")]
-        public ObjectRef EhrStatus { get; set; }
+        public EhrStatus EhrStatus { get; set; }
 
         [JsonPropertyName("ehr_access")]
-        public ObjectRef EhrAccess { get; set; }
+        public EhrAccess EhrAccess { get; set; }
 
         [JsonPropertyName("compositions")]
         public ObjectRef[] Compositions { get; set; }
@@ -41,10 +41,7 @@
         public ObjectRef[] Folders { get; set; }
     }
 
-    public class VersionedEhrAccess : VersionedObject
-    {
-
-    }
+    public class VersionedEhrAccess : VersionedObject { }
 
     /// <summary>
     /// EhrAccess
@@ -58,10 +55,7 @@
         public object Settings { get; set; }
     }
 
-    public class VersionedEhrStatus : VersionedObject
-    {
-
-    }
+    public class VersionedEhrStatus : VersionedObject { }
 
     public class EhrStatus : Locatable
     {

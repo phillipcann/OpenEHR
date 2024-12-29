@@ -59,5 +59,10 @@
 
             return await File.ReadAllTextAsync(fullPath, Encoding.UTF8);
         }
+
+        internal static async Task<bool> AreJsonStringsEqualAsync(string source, string target)
+        {
+            return await Task.Run(() => JsonEqualityComparer.AreJsonStringsEqual(source, target));
+        }
     }
 }
