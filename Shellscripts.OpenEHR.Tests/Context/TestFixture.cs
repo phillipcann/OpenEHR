@@ -8,18 +8,35 @@
     using Microsoft.Extensions.Hosting;    
     using Microsoft.Extensions.Hosting.Internal;
     using Microsoft.Extensions.Logging;
-    using Xunit;
-    
+    using Xunit;    
+    using Xunit.Abstractions;
 
     /// <summary>
     /// TestFixture sets up the Configuration and Service registration that's used in the main application
     /// </summary>
     public class TestFixture : IDisposable
     {
-        public IServiceProvider ServiceProvider { get; private set; }
-        public IConfiguration Configuration { get; private set; }
+        public IServiceProvider? ServiceProvider { get; private set; }
+        public IConfiguration? Configuration { get; private set; }
+        public ITestOutputHelper? OutputHelper { get; private set; }
 
-        public TestFixture()
+        public TestFixture() { }
+
+        public void SetOutputHelper(ITestOutputHelper helper)
+        {
+            OutputHelper = helper;
+            SetupDependencyResolution();
+        }
+
+        public void Dispose()
+        {
+            if (ServiceProvider is IDisposable disposableSp)
+            {
+                disposableSp.Dispose();
+            }
+        }
+
+        private void SetupDependencyResolution()
         {
             // Host
             var hostProperties = new Dictionary<object, object>();
@@ -29,22 +46,20 @@
             // Configuration
             var testConfigurationBuilder = new ConfigurationBuilder();
             ContainerConfiguration.ConfigureAppConfiguration(context, testConfigurationBuilder, args: Array.Empty<string>());
-            Configuration = testConfigurationBuilder.Build();            
+            Configuration = testConfigurationBuilder.Build();
 
             // Services
             var testServiceCollection = new ServiceCollection();
             testServiceCollection.AddSingleton(Configuration);
             ContainerConfiguration.ConfigureServices(context, testServiceCollection);
+
+            // Logging            
+            testServiceCollection.AddLogging((lb) => {
+                lb.ClearProviders();
+                lb.AddProvider(new TestOutputLoggerProvider(this.OutputHelper));
+            });
+
             ServiceProvider = testServiceCollection.BuildServiceProvider();
-        }
-
-
-        public void Dispose()
-        {
-            if (ServiceProvider is IDisposable disposableSp)
-            {
-                disposableSp.Dispose();
-            }
         }
     }
 

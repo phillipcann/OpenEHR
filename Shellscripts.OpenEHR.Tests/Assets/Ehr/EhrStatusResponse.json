@@ -1,17 +1,26 @@
 {
     "uid": {
         "_type": "OBJECT_VERSION_ID",
-        "value": "5f0841de-9409-4270-919f-6896cc7f4f5e::local.ehrbase.org::1"
+        "value": "c46f12bd-8d0f-49f6-ac36-4f9f4ef18c73::local.ehrbase.org::1"
     },
     "archetype_node_id": "openEHR-EHR-EHR_STATUS.generic.v1",
     "name": {
         "_type": "DV_TEXT",
-        "value": "EHR Status"
+        "value": "test"
     },
     "subject": {
-        "_type": "PARTY_SELF"
+        "_type": "PARTY_SELF",
+        "external_ref": {
+            "_type": "PARTY_REF",
+            "namespace": "MHH",
+            "type": "PERSON",
+            "id": {
+                "_type": "HIER_OBJECT_ID",
+                "value": "34503o4i0ek"
+            }
+        }
     },
-    "is_queryable": true,
+    "is_queryable": false,
     "is_modifiable": true,
     "_type": "EHR_STATUS"
 }

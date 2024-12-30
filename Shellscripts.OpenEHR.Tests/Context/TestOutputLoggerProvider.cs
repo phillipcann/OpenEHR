@@ -15,10 +15,7 @@
 
         public ILogger CreateLogger(string categoryName) => new TestOutputLogger(_testOutputHelper, categoryName);
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
+        public void Dispose() { }
 
         private class TestOutputLogger : ILogger
         {
@@ -39,13 +36,11 @@
             {
                 if (formatter != null)
                 {
-                    try
+                    var message = formatter(state, exception);
+                    _testOutputHelper.WriteLine($"[{logLevel}] {_categoryName}: {message}");
+                    if (exception != null)
                     {
-                        _testOutputHelper.WriteLine($"[{logLevel}] {_categoryName}: {formatter(state, exception)}");
-                    }
-                    catch (InvalidOperationException)
-                    {
-                        // Swallow exceptions that occur if the test output is no longer available.
+                        _testOutputHelper.WriteLine(exception.ToString());
                     }
                 }
             }

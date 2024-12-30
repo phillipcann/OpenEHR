@@ -8,10 +8,7 @@
 
     #region 3.2 - https://specifications.openehr.org/releases/RM/Release-1.1.0/common.html#_class_definitions
 
-    public class Pathable
-    {
-
-    }
+    public class Pathable { }
 
     public class Locatable : Pathable
     {
@@ -74,10 +71,7 @@
 
     }
 
-    public class FeederAuditDetails
-    {
-
-    }
+    public class FeederAuditDetails { }
 
     #endregion
 
@@ -90,10 +84,7 @@
         public PartyRef ExternalReference { get; set; }
     }
 
-    public class PartySelf : PartyProxy
-    {
-
-    }
+    public class PartySelf : PartyProxy { }
 
     public class PartyIdentified : PartyProxy
     {

@@ -77,12 +77,14 @@
             services.AddSingleton<DataValueConverter>();
             services.AddSingleton<DvDateTimeConverter>();
             services.AddSingleton<ObjectRefConverter>();
+            services.AddSingleton<ObjectIdConverter>();
             services.AddSingleton<PartyProxyConverter>();
             services.AddSingleton<ItemStructureConverter>();
             services.AddSingleton<ContentItemConverter>();
 
             services.AddSingleton<ItemArrayConverter>();
             services.AddSingleton<EventArrayConverter>();
+            services.AddSingleton<ContentItemArrayConverter>();
 
 
             services.AddSingleton(provider =>
@@ -99,12 +101,14 @@
                 options.Converters.Add(provider.GetRequiredService<DataValueConverter>());
                 options.Converters.Add(provider.GetRequiredService<DvDateTimeConverter>());
                 options.Converters.Add(provider.GetRequiredService<ObjectRefConverter>());
+                options.Converters.Add(provider.GetRequiredService<ObjectIdConverter>());
                 options.Converters.Add(provider.GetRequiredService<PartyProxyConverter>());
                 options.Converters.Add(provider.GetRequiredService<ItemStructureConverter>());                
                 options.Converters.Add(provider.GetRequiredService<ContentItemConverter>());
 
                 options.Converters.Add(provider.GetRequiredService<ItemArrayConverter>());
                 options.Converters.Add(provider.GetRequiredService<EventArrayConverter>());
+                options.Converters.Add(provider.GetRequiredService<ContentItemArrayConverter>());
 
                 return options;
             });

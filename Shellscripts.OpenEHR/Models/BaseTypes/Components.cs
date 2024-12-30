@@ -18,7 +18,7 @@
 
     public class InternetId : Uid { }
 
-    public abstract class ObjectId
+    public class ObjectId
     {
         [JsonPropertyName("value")]
         public string Value { get; set; }

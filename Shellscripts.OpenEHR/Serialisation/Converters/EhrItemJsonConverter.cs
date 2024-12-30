@@ -1,10 +1,8 @@
-﻿
-
-namespace Shellscripts.OpenEHR.Serialisation.Converters
+﻿namespace Shellscripts.OpenEHR.Serialisation.Converters
 {
-    using System;
-    using System.Collections;
+    using System;    
     using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
     using System.Text.Json;
     using System.Text.Json.Serialization;
     using Microsoft.Extensions.Logging;
@@ -27,6 +25,14 @@ namespace Shellscripts.OpenEHR.Serialisation.Converters
 
         public override T? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
+            Validate();
+
+            // To prevent infinite loops, remove "typeToConvert" converter from the options.
+            _logger.LogInformation($"Read() :: Removing JsonConverter for: T:{typeof(T).Name}. TypeToConvert: {typeToConvert.Name}. This: {this.GetType().Name}");
+
+            var optionsWithoutThis = new JsonSerializerOptions(options);
+            optionsWithoutThis.Converters.Remove(this);
+
             T returnValue = new();
 
             using (JsonDocument document = JsonDocument.ParseValue(ref reader))
@@ -40,17 +46,17 @@ namespace Shellscripts.OpenEHR.Serialisation.Converters
                     if (!TypeMap.TryGetValue(idType, out Type? targetType))
                     {
                         var unknownTypeMessage = $"Unknown _type: '{idType}'";
-                        _logger.LogWarning($"EhrItemJsonConvert :: Read :: {unknownTypeMessage}");
+                        _logger.LogWarning($"Read() :: {unknownTypeMessage}");
 
                         throw new JsonException(unknownTypeMessage);
                     }
 
-                    returnValue = (T)JsonSerializer.Deserialize(root.GetRawText(), targetType, options);
+                    returnValue = (T)JsonSerializer.Deserialize(root.GetRawText(), targetType, optionsWithoutThis);
                 }
                 else
                 {
                     var message = "Unable to ascertain root element type";
-                    _logger.LogWarning($"EhrItemJsonConvert :: Read :: {message}");
+                    _logger.LogWarning($"Read() :: {message}");
 
                     throw new JsonException(message);
                 }
@@ -61,8 +67,16 @@ namespace Shellscripts.OpenEHR.Serialisation.Converters
 
         public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
         {
+            Validate();
+
             // TODO : Create Implementation
             throw new NotImplementedException();
+        }
+
+        private void Validate()
+        {
+            if (TypeMap == null || !TypeMap.Any())
+                throw new InvalidOperationException("TypeMap MUST have an implementation");
         }
     }
 }

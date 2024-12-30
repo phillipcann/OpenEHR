@@ -4,8 +4,7 @@
     using System.Collections.Generic;
     using System.Text.Json;
     using System.Text.Json.Serialization;
-    using Microsoft.Extensions.Logging;
-    using Shellscripts.OpenEHR.Models.DataStructures;
+    using Microsoft.Extensions.Logging;    
 
     /// <summary>
     /// Abstract class to provide the capacity to automatically deserialise json array 
@@ -41,7 +40,7 @@
                         if (!TypeMap.TryGetValue(idType, out Type? targetType))
                         {
                             var unknownTypeMessage = $"Unknown _type: '{idType}'";
-                            _logger.LogWarning($"EhrItemJsonArrayConverter :: Read :: {unknownTypeMessage}");
+                            _logger.LogWarning($"Read() :: {unknownTypeMessage}");
 
                             throw new JsonException(unknownTypeMessage);
                         }
@@ -51,7 +50,7 @@
                     else
                     {
                         var message = "Unable to ascertain root element type";
-                        _logger.LogWarning($"EhrItemJsonArrayConverter :: Read :: {message}");
+                        _logger.LogWarning($"Read() :: {message}");
 
                         throw new JsonException(message);
                     }

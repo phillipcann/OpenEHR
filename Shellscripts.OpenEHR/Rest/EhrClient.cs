@@ -58,6 +58,12 @@
             return await GetAsync<Ehr>(url, cancellationToken);
         }
 
+        public async Task<Ehr?> GetEhrAsync(string subject_namespace, string subject_id, CancellationToken cancellationToken)
+        {
+            string url = $"/ehr?subject_id={subject_id}&subject_namespace={subject_namespace}";
+            return await GetAsync<Ehr>(url, cancellationToken);
+        }
+
         public async Task<VersionedEhrStatus?> GetVersionedEhrStatusAsync(string ehrId, CancellationToken cancellationToken)
         {
             string url = $"/ehr/{ehrId}/versioned_ehr_status";

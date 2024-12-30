@@ -10,16 +10,14 @@
     public abstract class BaseTest
     {
         private readonly TestFixture _fixture;
-
-        internal ITestOutputHelper OutputHelper { get; }
-
-        internal IConfiguration Configuration => _fixture.Configuration;
-        internal IServiceProvider Services => _fixture.ServiceProvider;
+        internal ITestOutputHelper? OutputHelper => _fixture.OutputHelper;
+        internal IConfiguration? Configuration => _fixture.Configuration;
+        internal IServiceProvider? Services => _fixture.ServiceProvider;
 
         public BaseTest(ITestOutputHelper outputHelper, TestFixture testFixture)
         {
-            this.OutputHelper = outputHelper;
-            this._fixture = testFixture;
+            _fixture = testFixture;
+            _fixture.SetOutputHelper(outputHelper);
         }
 
         internal static async Task<string> LoadAssetAsync(string assetFile)

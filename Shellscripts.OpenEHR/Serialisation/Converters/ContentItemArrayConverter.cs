@@ -5,13 +5,14 @@
     using Microsoft.Extensions.Logging;
     using Shellscripts.OpenEHR.Models.Ehr;
 
-    public class ContentItemConverter : EhrItemJsonConverter<ContentItem>
+    public class ContentItemArrayConverter : EhrItemJsonArrayConverter<ContentItem>
     {
-        public ContentItemConverter(ILogger<ContentItemConverter> logger) : base(logger) {  }
+        public ContentItemArrayConverter(ILogger<ContentItemArrayConverter> logger) 
+            : base(logger) { }
 
         public override IDictionary<string, Type> TypeMap => new Dictionary<string, Type>()
         {
-            { "CONTENT_ITEM", typeof(ContentItem) },            
+            { "CONTENT_ITEM", typeof(ContentItem) },
             { "SECTION", typeof(Section) },
             { "OBSERVATION", typeof(Observation) },
         };

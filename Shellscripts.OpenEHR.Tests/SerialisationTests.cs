@@ -2,11 +2,8 @@
 {
     using System.Text.Json;
     using Microsoft.Extensions.DependencyInjection;
-    using Shellscripts.OpenEHR.Extensions;
     using Shellscripts.OpenEHR.Models.BaseTypes;
     using Shellscripts.OpenEHR.Models.Ehr;
-    using Shellscripts.OpenEHR.Models.DataStructures;
-    using Shellscripts.OpenEHR.Models.CommonInformation;
     using Shellscripts.OpenEHR.Models.DataTypes;
     using Shellscripts.OpenEHR.Tests.Context;
     using Xunit;

@@ -73,10 +73,7 @@
 
     }
 
-    public class VersionedComposition : VersionedObject
-    {
-
-    }
+    public class VersionedComposition : VersionedObject { }
 
 
     #endregion
