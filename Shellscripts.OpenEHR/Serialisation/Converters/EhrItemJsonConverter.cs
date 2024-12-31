@@ -28,8 +28,6 @@
             Validate();
 
             // To prevent infinite loops, remove "typeToConvert" converter from the options.
-            _logger.LogInformation($"Read() :: Removing JsonConverter for: T:{typeof(T).Name}. TypeToConvert: {typeToConvert.Name}. This: {this.GetType().Name}");
-
             var optionsWithoutThis = new JsonSerializerOptions(options);
             optionsWithoutThis.Converters.Remove(this);
 

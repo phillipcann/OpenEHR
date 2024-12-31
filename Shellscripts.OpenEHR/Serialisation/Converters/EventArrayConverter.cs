@@ -5,7 +5,7 @@
     using Microsoft.Extensions.Logging;
     using Shellscripts.OpenEHR.Models.DataStructures;
 
-    public class EventArrayConverter : EhrItemJsonArrayConverter<Event>
+    public class EventArrayConverter : EhrItemJsonArrayConverter<Event<ItemStructure>>
     {
         public EventArrayConverter(ILogger<EventArrayConverter> logger) 
             : base(logger) { }

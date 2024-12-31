@@ -88,11 +88,12 @@
         public T Summary { get; set; }
 
         [JsonPropertyName("events")]
-        public Event[] Events { get; set; }
+        public Event<T>[] Events { get; set; }
 
     }
 
-    public class Event : Locatable
+    public class Event<T> : Locatable
+        where T : ItemStructure
     {
         [JsonPropertyName("time")]
         public DvDateTime Time { get; set; }
@@ -101,14 +102,7 @@
         public ItemStructure State { get; set; }
 
         [JsonPropertyName("data")]
-        public object Data { get; set; }
-    }
-
-    public class Event<T> : Event
-        where T : ItemStructure
-    {
-        [JsonPropertyName("data")]
-        public new T Data { get; set; }
+        public T Data { get; set; }
     }
 
     public class PointEvent<T> : Event<T>
