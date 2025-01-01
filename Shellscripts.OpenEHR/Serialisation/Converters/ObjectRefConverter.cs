@@ -4,6 +4,7 @@
     using Shellscripts.OpenEHR.Models.BaseTypes;
     using Microsoft.Extensions.Logging;
     using System.Collections.Generic;
+    using Shellscripts.OpenEHR.Serialisation.Converters.Base;
 
     public class ObjectRefConverter : EhrItemJsonConverter<ObjectRef>
     {

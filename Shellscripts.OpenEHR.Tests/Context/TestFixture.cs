@@ -10,7 +10,7 @@
     using Microsoft.Extensions.Logging;
     using Xunit;    
     using Xunit.Abstractions;
-
+    
     /// <summary>
     /// TestFixture sets up the Configuration and Service registration that's used in the main application
     /// </summary>
@@ -18,7 +18,7 @@
     {
         public IServiceProvider? ServiceProvider { get; private set; }
         public IConfiguration? Configuration { get; private set; }
-        public ITestOutputHelper? OutputHelper { get; private set; }
+        public ITestOutputHelper? OutputHelper { get; private set; }        
 
         public TestFixture() { }
 
@@ -50,12 +50,13 @@
 
             // Services
             var testServiceCollection = new ServiceCollection();
-            testServiceCollection.AddSingleton(Configuration);
+            testServiceCollection.AddSingleton(Configuration);            
             ContainerConfiguration.ConfigureServices(context, testServiceCollection);
 
             // Logging            
             testServiceCollection.AddLogging((lb) => {
                 lb.ClearProviders();
+                lb.AddDebug();
                 lb.AddProvider(new TestOutputLoggerProvider(this.OutputHelper));
             });
 

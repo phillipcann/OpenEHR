@@ -2,12 +2,17 @@
 {
     using System.Text.Json;
     using Microsoft.Extensions.DependencyInjection;
+
     using Shellscripts.OpenEHR.Models.BaseTypes;
+    using Shellscripts.OpenEHR.Models.CommonInformation;
     using Shellscripts.OpenEHR.Models.Ehr;
     using Shellscripts.OpenEHR.Models.DataTypes;
+    using Shellscripts.OpenEHR.Models.DataStructures;
     using Shellscripts.OpenEHR.Tests.Context;
+
     using Xunit;
     using Xunit.Abstractions;
+    
 
     public class SerialisationTests : BaseTest
     {
@@ -36,17 +41,147 @@
                 TimeCreated = new DvDateTime() { Value = "2024-08-30T21:45:33.389606Z" }
             };
 
-            string expected_json = await LoadAssetAsync($"Serialisation/Ehr.json");
-            var serialiserOptions = Services.GetRequiredService<JsonSerializerOptions>();
+            string expected_json = await LoadAssetAsync("Serialisation/Ehr.json");
+            var serialiserOptions = Services?.GetRequiredService<JsonSerializerOptions>();
 
             // act
             var actual_json = JsonSerializer.Serialize(mock_ehr, serialiserOptions);
 
             // assert
-            Assert.NotNull(actual_json);
-            Assert.NotEmpty(actual_json);
+            Assert.NotNull(actual_json);            
             Assert.True(await AreJsonStringsEqualAsync(actual_json, expected_json));
         }
 
+        [Fact]
+        [Trait(name: "Category", value: "Unit Test")]
+        public async Task Can_Serialise_Composition_WithObservation_Success()
+        {
+            // arrange
+            Composition mock_composition = new Composition()
+            {
+                Name = new DvText() { Value = "Blood Pressure Measurement" },
+                ArchetypeDetails = new Archetyped()
+                {
+                    ArchetypeId = new ArchetypeId() { Value = "openEHR-EHR-COMPOSITION.observation.v1" },
+                    TemplateId = new TemplateId() {  Value = "Blood Pressure Template" },
+                    RmVersion = "1.0.4"
+                },
+                Content = new ContentItem[]
+                {
+                    new Observation()
+                    {
+                        Name = new DvText() { Value = "Blood Pressure" },
+                        ArchetypeDetails = new Archetyped()
+                        {
+                            ArchetypeId = new ArchetypeId() { Value = "openEHR-EHR-OBSERVATION.blood_pressure.v1" },
+                            RmVersion = "1.0.4"
+                        },
+                        Data = new History<ItemStructure>
+                        {
+                            Name = new DvText() { Value = "Event Series" },
+                            ArchetypeNodeId = "at0001",
+                            Origin = new DvDateTime()
+                            {
+                                Value = "2024-01-01T10:00:00Z"
+                            },
+                            Events = [
+                                new PointEvent<ItemStructure>
+                                {
+                                    Name = new DvText() { Value = "Any Event" },
+                                    ArchetypeNodeId = "at0006",
+                                    Time = new DvDateTime() { Value = "2024-01-01T10:00:00Z" },
+                                    Data = new ItemTree()
+                                    {
+                                        Name = new DvText() { Value = "Blood Pressure Data" },
+                                        ArchetypeNodeId = "at0003",
+                                        Items = [
+                                            new Element()
+                                            {
+                                                Name = new DvText() { Value = "Systolic" },
+                                                ArchetypeNodeId = "at0004",
+                                                Value = new DvQuantity()
+                                                {
+                                                    Magnitude = 120,
+                                                    Units = "mmHg"
+                                                }
+                                            },
+                                            new Element()
+                                            {
+                                                Name = new DvText() { Value = "Diastolic" },
+                                                ArchetypeNodeId = "at0005",
+                                                Value = new DvQuantity()
+                                                {
+                                                    Magnitude = 80,
+                                                    Units = "mmHg"
+                                                }
+                                            },
+                                            new Element()
+                                            {
+                                                Name = new DvText() { Value = "Mean Arterial Pressure" },
+                                                ArchetypeNodeId = "at0057",
+                                                Value = new DvQuantity()
+                                                {
+                                                    Magnitude = 93.3,
+                                                    Units = "mmHg"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        Protocol = new ItemTree()
+                        {
+                            Name = new DvText() { Value = "Protocol" },
+                            ArchetypeNodeId = "at0011",
+                            Items = new Item[]
+                            {
+                                new Element()
+                                {
+                                    Name = new DvText() { Value = "Measurement Device"},
+                                    ArchetypeNodeId = "at0025",
+                                    Value = new DvText()
+                                    {
+                                        Value = "Automatic Sphygmomanometer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                Context = new EventContext() { 
+                    StartTime = new DvDateTime() { Value = "2024-01-01T10:00:00Z" },
+                    Setting = new DvCodedText()
+                    {
+                        Value = "General Practice",
+                        DefiningCode = new CodePhrase()
+                        {
+                            TerminologyId = new TerminologyId() {  Value = "openehr" },
+                            CodeString = "238"
+                        }
+                    }
+                },                
+                Language = new CodePhrase()
+                {
+                    TerminologyId = new TerminologyId() { Value = "ISO_639-1" },
+                    CodeString = "en"
+                },
+                Territory = new CodePhrase()
+                {
+                    TerminologyId = new TerminologyId() { Value = "ISO_3166-1" },
+                    CodeString = "US"
+                }
+            };
+
+            string expected_json = await LoadAssetAsync("Serialisation/CompositionWithObservation.json");
+            var serialiserOptions = Services?.GetRequiredService<JsonSerializerOptions>();
+
+            // act
+            var actual_json = JsonSerializer.Serialize(mock_composition, serialiserOptions);
+
+            // assert
+            Assert.NotNull(actual_json);
+            Assert.True(await AreJsonStringsEqualAsync(actual_json, expected_json));
+        }
     }
 }

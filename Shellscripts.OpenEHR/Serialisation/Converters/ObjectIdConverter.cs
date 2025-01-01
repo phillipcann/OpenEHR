@@ -2,7 +2,8 @@
 {
     using System.Text.Json;
     using Microsoft.Extensions.Logging;
-    using Shellscripts.OpenEHR.Models.BaseTypes;    
+    using Shellscripts.OpenEHR.Models.BaseTypes;
+    using Shellscripts.OpenEHR.Serialisation.Converters.Base;
 
     /// <summary>
     /// ObjectId is listed as an Abstract Class in the Reference Model however, we cannot create a 

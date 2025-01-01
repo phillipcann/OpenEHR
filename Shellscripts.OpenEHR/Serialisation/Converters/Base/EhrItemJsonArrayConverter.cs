@@ -1,10 +1,10 @@
-﻿namespace Shellscripts.OpenEHR.Serialisation.Converters
+﻿namespace Shellscripts.OpenEHR.Serialisation.Converters.Base
 {
     using System;
     using System.Collections.Generic;
     using System.Text.Json;
     using System.Text.Json.Serialization;
-    using Microsoft.Extensions.Logging;    
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Abstract class to provide the capacity to automatically deserialise json array 
@@ -15,6 +15,7 @@
         where T : class, new()
     {
         private readonly ILogger _logger;
+        internal ILogger Logger => _logger;
         public abstract IDictionary<string, Type> TypeMap { get; }
 
         public EhrItemJsonArrayConverter(ILogger logger)
@@ -24,6 +25,9 @@
 
         public override T[]? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
+            if (TypeMap == null || !TypeMap.Any())
+                throw new InvalidOperationException("TypeMap MUST have an implementation");
+
             IList<T> returnList = new List<T>();
 
             using (JsonDocument document = JsonDocument.ParseValue(ref reader))
@@ -62,8 +66,37 @@
 
         public override void Write(Utf8JsonWriter writer, T[] value, JsonSerializerOptions options)
         {
-            // TODO : Create Implementation
-            throw new NotImplementedException();
+            _logger.LogInformation($"Writing Json: Converter: {GetType().Name}. ValueType: {value.GetType().Name}");
+
+            if (TypeMap == null || !TypeMap.Any())
+                throw new InvalidOperationException("TypeMap MUST have an implementation");
+
+            //var optionsWithoutConvertor = new JsonSerializerOptions(options);
+            //optionsWithoutConvertor.Converters.Remove(this);
+
+
+            writer.WriteStartArray();
+            foreach (var item in value)
+            {
+                var itemType = item.GetType();
+                _logger.LogInformation($"\tWriting Json: ItemType: {itemType.Name}");
+
+                writer.WriteStartObject();
+
+                var json = JsonSerializer.Serialize(item, itemType, options);
+
+                using (var doc = JsonDocument.Parse(json))
+                {
+                    foreach (var prop in doc.RootElement.EnumerateObject())
+                    {
+                        prop.WriteTo(writer);
+                    }
+                }
+
+                writer.WriteEndObject();
+            }
+            writer.WriteEndArray();
+
         }
 
     }

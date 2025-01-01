@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Microsoft.Extensions.Logging;
     using Shellscripts.OpenEHR.Models.Ehr;
+    using Shellscripts.OpenEHR.Serialisation.Converters.Base;
 
     public class ContentItemArrayConverter : EhrItemJsonArrayConverter<ContentItem>
     {

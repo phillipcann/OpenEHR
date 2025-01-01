@@ -2,7 +2,7 @@
 {
     using System;
     using System.Text.Json;
-
+    using System.Text.Json.Serialization;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
@@ -91,11 +91,11 @@
             {
                 var options = new JsonSerializerOptions()
                 {
-                    DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,                    
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,                    
                     WriteIndented = true,
-
                     IgnoreReadOnlyFields = true,
-                    IgnoreReadOnlyProperties = true
+                    IgnoreReadOnlyProperties = true,
+                    PropertyNameCaseInsensitive = true                    
                 };
                 
                 options.Converters.Add(provider.GetRequiredService<DataValueConverter>());

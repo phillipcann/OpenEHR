@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using Microsoft.Extensions.Logging;
     using Shellscripts.OpenEHR.Models.CommonInformation;
-
+    using Shellscripts.OpenEHR.Serialisation.Converters.Base;
 
     public class PartyProxyConverter : EhrItemJsonConverter<PartyProxy>
     {

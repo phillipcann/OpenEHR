@@ -1,6 +1,6 @@
-﻿namespace Shellscripts.OpenEHR.Serialisation.Converters
+﻿namespace Shellscripts.OpenEHR.Serialisation.Converters.Base
 {
-    using System;    
+    using System;
     using System.Collections.Generic;
     using System.Runtime.CompilerServices;
     using System.Text.Json;
@@ -16,6 +16,7 @@
         where T : class, new()
     {
         private readonly ILogger _logger;
+        internal ILogger Logger => _logger;
         public abstract IDictionary<string, Type> TypeMap { get; }
 
         public EhrItemJsonConverter(ILogger logger)
@@ -25,7 +26,8 @@
 
         public override T? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            Validate();
+            if (TypeMap == null || !TypeMap.Any())
+                throw new InvalidOperationException("TypeMap MUST have an implementation");
 
             // To prevent infinite loops, remove "typeToConvert" converter from the options.
             var optionsWithoutThis = new JsonSerializerOptions(options);
@@ -65,16 +67,15 @@
 
         public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
         {
-            Validate();
-
-            // TODO : Create Implementation
-            throw new NotImplementedException();
-        }
-
-        private void Validate()
-        {
             if (TypeMap == null || !TypeMap.Any())
                 throw new InvalidOperationException("TypeMap MUST have an implementation");
+
+            //var optionsWithoutConvertor = new JsonSerializerOptions(options);
+            //optionsWithoutConvertor.Converters.Remove(this);
+
+            var contentType = value.GetType();
+            JsonSerializer.Serialize(writer, value, contentType, options);
+
         }
     }
 }

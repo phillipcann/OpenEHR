@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Microsoft.Extensions.Logging;
     using Shellscripts.OpenEHR.Models.DataStructures;
+    using Shellscripts.OpenEHR.Serialisation.Converters.Base;
 
     public class EventArrayConverter : EhrItemJsonArrayConverter<Event<ItemStructure>>
     {

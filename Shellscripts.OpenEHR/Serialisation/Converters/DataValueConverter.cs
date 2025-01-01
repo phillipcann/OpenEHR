@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Microsoft.Extensions.Logging;
     using Shellscripts.OpenEHR.Models.DataTypes;
+    using Shellscripts.OpenEHR.Serialisation.Converters.Base;
 
     public class DataValueConverter : EhrItemJsonConverter<DataValue>
     {
@@ -29,6 +30,6 @@
             { "DV_ORDINAL", typeof(DvOrdinal) },
             { "DV_COUNT", typeof(DvCount) },
             { "DV_PROPORTION", typeof(DvProportion) },
-        };
+        };        
     }    
 }
