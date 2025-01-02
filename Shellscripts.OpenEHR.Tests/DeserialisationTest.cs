@@ -72,7 +72,7 @@
 
 
         [Theory(DisplayName = "Deserialise VersionedComposition")]
-        [Trait(name: "Category", value: "Unit")]
+        [Trait(name: "TestCategory", value: "Unit")]
         [InlineData("95a1abd1-84c2-4a83-8723-e88c06e2fbb2", "OwnerId.Id.Value", "b8cee9a8-d84e-4ed7-b40d-8c48215840b2")]
 
         public async Task Can_DeserialiseVersionedCompositionResponse_Success(string assetFile, string fieldToCheck, string expectedValue)

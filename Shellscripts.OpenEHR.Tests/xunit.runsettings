@@ -17,31 +17,22 @@
 	<!-- Configurations for data collectors -->
 	<DataCollectionRunSettings>
 		<DataCollectors>
-			<DataCollector friendlyName="Code Coverage" uri="datacollector://Microsoft/CodeCoverage/1.0">
+			<DataCollector friendlyName="XPlat Code Coverage" uri="datacollector://Microsoft/CodeCoverage/1.0">
 				<Configuration>
 					<CodeCoverage>
-						<ModulePaths>
-							<!-- Include/exclude assemblies based on patterns -->
-							<Exclude>
-								<Assembly>
-									<!-- Exclude test assemblies from coverage -->
-									<Name>*Test*</Name>
-								</Assembly>
-							</Exclude>
-							<Include>
-								<Assembly>
-									<!-- Include all your main application assemblies -->
-									<Name>Shellscripts.OpenEHR*</Name>
-								</Assembly>
-							</Include>
-						</ModulePaths>
-						<UseVerifiableInstrumentation>True</UseVerifiableInstrumentation>
-						<AllowLowIntegrityProcesses>True</AllowLowIntegrityProcesses>
-						<CollectFromChildProcesses>True</CollectFromChildProcesses>
-						<CollectAspDotNet>False</CollectAspDotNet>
-						<EnableStaticNativeInstrumentation>True</EnableStaticNativeInstrumentation>
-						<EnableDynamicNativeInstrumentation>True</EnableDynamicNativeInstrumentation>
-						<EnableStaticNativeInstrumentationRestore>True</EnableStaticNativeInstrumentationRestore>
+						<!-- Include/exclude assemblies based on patterns -->
+						<Exclude>
+							<Assembly>
+								<!-- Exclude test assemblies from coverage -->
+								<Name>*Test*</Name>
+							</Assembly>
+						</Exclude>
+						<Include>
+							<Assembly>
+								<!-- Include all your main application assemblies -->
+								<Name>Shellscripts.OpenEHR*</Name>
+							</Assembly>
+						</Include>
 					</CodeCoverage>
 				</Configuration>
 			</DataCollector>
