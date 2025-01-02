@@ -22,7 +22,7 @@
 
 
         [Fact]
-        [Trait(name: "Category", value: "Unit Test")]
+        [Trait(name: "TestCategory", value: "Unit")]
         public async Task Can_Serialise_Ehr_Success()
         {
             // arrange
@@ -53,7 +53,7 @@
         }
 
         [Fact]
-        [Trait(name: "Category", value: "Unit Test")]
+        [Trait(name: "TestCategory", value: "Unit")]
         public async Task Can_Serialise_Composition_WithObservation_Success()
         {
             // arrange

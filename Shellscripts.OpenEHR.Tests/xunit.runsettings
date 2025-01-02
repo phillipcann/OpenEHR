@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- https://learn.microsoft.com/en-gb/visualstudio/test/configure-unit-tests-by-using-a-dot-runsettings-file?branch=release-16.4&view=vs-2019#example-runsettings-file -->
+<RunSettings>
+	<!-- Configurations that affect the Test Framework -->
+	<RunConfiguration>
+		<!-- Path relative to directory that contains .runsettings file-->
+		<ResultsDirectory>.\TestResults</ResultsDirectory>
+
+		<!-- TestCaseFilter expression. Uncomment below to exclude Integration tests automatically in Test Runs. Requires Rebuild -->
+		<!--<TestCaseFilter>(TestCategory != Integration)</TestCaseFilter>-->
+
+		<!-- true or false -->
+		<!-- Value that specifies the exit code when no tests are discovered -->
+		<TreatNoTestsAsError>true</TreatNoTestsAsError>
+	</RunConfiguration>
+
+	<!-- Configurations for data collectors -->
+	<DataCollectionRunSettings>
+		<DataCollectors>
+			<DataCollector friendlyName="Code Coverage" uri="datacollector://Microsoft/CodeCoverage/1.0">
+				<Configuration>
+					<CodeCoverage>
+						<ModulePaths>
+							<!-- Include/exclude assemblies based on patterns -->
+							<Exclude>
+								<Assembly>
+									<!-- Exclude test assemblies from coverage -->
+									<Name>*Test*</Name>
+								</Assembly>
+							</Exclude>
+							<Include>
+								<Assembly>
+									<!-- Include all your main application assemblies -->
+									<Name>Shellscripts.OpenEHR*</Name>
+								</Assembly>
+							</Include>
+						</ModulePaths>
+						<UseVerifiableInstrumentation>True</UseVerifiableInstrumentation>
+						<AllowLowIntegrityProcesses>True</AllowLowIntegrityProcesses>
+						<CollectFromChildProcesses>True</CollectFromChildProcesses>
+						<CollectAspDotNet>False</CollectAspDotNet>
+						<EnableStaticNativeInstrumentation>True</EnableStaticNativeInstrumentation>
+						<EnableDynamicNativeInstrumentation>True</EnableDynamicNativeInstrumentation>
+						<EnableStaticNativeInstrumentationRestore>True</EnableStaticNativeInstrumentationRestore>
+					</CodeCoverage>
+				</Configuration>
+			</DataCollector>
+		</DataCollectors>
+	</DataCollectionRunSettings>
+	
+	<!-- Configuration for loggers -->
+	<LoggerRunSettings>
+		<Loggers>
+			<Logger friendlyName="console" enabled="True">
+				<Configuration>
+					<Verbosity>quiet</Verbosity>
+				</Configuration>
+			</Logger>
+			<Logger friendlyName="trx" enabled="True">
+				<Configuration>
+					<LogFileName>Shellscripts.OpenEHR.trx</LogFileName>
+				</Configuration>
+			</Logger>
+			<Logger friendlyName="html" enabled="True">
+				<Configuration>
+					<LogFileName>Shellscripts.OpenEHR.html</LogFileName>
+				</Configuration>
+			</Logger>
+			<Logger friendlyName="blame" enabled="True" />
+		</Loggers>
+	</LoggerRunSettings>
+
+	<!-- Adapter Specific sections -->
+	<!-- XUnit adapter https://xunit.net/docs/runsettings -->
+	<xUnit>
+		<DiagnosticMessages>true</DiagnosticMessages>
+		<FailSkips>false</FailSkips>
+	</xUnit>
+</RunSettings>

@@ -14,7 +14,7 @@
 
         //[Fact]
         [Theory]
-        [Trait(name: "Category", value: "Unit Test")]
+        [Trait(name: "TestCategory", value: "Unit")]
         [InlineData("6fa3ad70-9594-4a61-bf1b-4d114e723478::Local::001", "6fa3ad70-9594-4a61-bf1b-4d114e723478")]
         [InlineData("6fa3ad70-9594-4a61-bf1b-4d114e723478::Local", "6fa3ad70-9594-4a61-bf1b-4d114e723478")]
         [InlineData("6fa3ad70-9594-4a61-bf1b-4d114e723478", "6fa3ad70-9594-4a61-bf1b-4d114e723478")]
@@ -36,8 +36,8 @@
             Assert.Equal(expectedValue, uid.Value);
         }
 
-        [Theory]
-        [Trait(name: "Category", value: "Unit Test")]
+        [Theory]        
+        [Trait(name: "TestCategory", value: "Unit")]
         [InlineData("6fa3ad70-9594-4a61-bf1b-4d114e723478::Local::001", "Local::001")]
         [InlineData("6fa3ad70-9594-4a61-bf1b-4d114e723478::Local", "Local")]
         [InlineData("6fa3ad70-9594-4a61-bf1b-4d114e723478", "")]

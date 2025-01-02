@@ -9,10 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shellscripts.OpenEHR.TestCo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5D4D0D99-A33C-4FE3-98F8-7D2551AD2EB1}"
 	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shellscripts.OpenEHR.Tests", "Shellscripts.OpenEHR.Tests\Shellscripts.OpenEHR.Tests.csproj", "{39E2F14E-DABD-4559-808F-43411B4BD07E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shellscripts.OpenEHR.Tests", "Shellscripts.OpenEHR.Tests\Shellscripts.OpenEHR.Tests.csproj", "{39E2F14E-DABD-4559-808F-43411B4BD07E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

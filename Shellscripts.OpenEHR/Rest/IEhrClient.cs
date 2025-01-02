@@ -15,7 +15,7 @@ namespace Shellscripts.OpenEHR.Rest
 
 
         Task<TResult?> GetAsync<TResult>(string url, CancellationToken cancellationToken);
-        Task<TResult?> PostAsync<TModelObject, TResult>(string url, TModelObject data, CancellationToken cancellationToken);
+        Task<string?> PostAsync<TModelObject>(string url, TModelObject data, CancellationToken cancellationToken);
 
     }
 }

@@ -13,7 +13,7 @@
             : base(outputHelper, testFixture) { }
 
         [Theory(DisplayName = "Deserialise Ehr Responses")]
-        [Trait(name: "Category", value: "Unit Test")]
+        [Trait(name: "TestCategory", value: "Unit")]
         [InlineData("Ehr/VersionedEhrStatusResponse.json", typeof(VersionedEhrStatus), "Uid.Value", "5f0841de-9409-4270-919f-6896cc7f4f5e")]
         [InlineData("Ehr/GetEhrResponse.json", typeof(Ehr), "EhrId.Value", "eecf24e0-5ac9-4bfc-b958-475162940444")]
         [InlineData("Ehr/EhrStatusResponse.json", typeof(EhrStatus), "Uid.Value", "c46f12bd-8d0f-49f6-ac36-4f9f4ef18c73::local.ehrbase.org::1")]
@@ -36,7 +36,7 @@
 
 
         [Theory(DisplayName = "Deserialise Composition")]
-        [Trait(name: "Category", value: "Unit Test")]
+        [Trait(name: "TestCategory", value: "Unit")]
         [InlineData("1beeaf0a-fbc6-4cef-b1bc-eba1a435fb8e", "Name.Value", "Minimal Pharmacogenetics diagnostic report")]
         [InlineData("27df7fcc-0797-42a0-9ad1-ff7428fac33b", "ArchetypeDetails.ArchetypeId.Value", "openEHR-EHR-COMPOSITION.report.v1")]
         [InlineData("35b5f439-32d9-49ac-aa93-383b7a7cfc6c", "Language.TerminologyId.Value", "ISO_639-1")]
@@ -72,7 +72,7 @@
 
 
         [Theory(DisplayName = "Deserialise VersionedComposition")]
-        [Trait(name: "Category", value: "Unit Test")]
+        [Trait(name: "Category", value: "Unit")]
         [InlineData("95a1abd1-84c2-4a83-8723-e88c06e2fbb2", "OwnerId.Id.Value", "b8cee9a8-d84e-4ed7-b40d-8c48215840b2")]
 
         public async Task Can_DeserialiseVersionedCompositionResponse_Success(string assetFile, string fieldToCheck, string expectedValue)

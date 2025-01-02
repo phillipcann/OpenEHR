@@ -14,7 +14,7 @@
 
 
         [Fact]
-        [Trait(name: "Category", value: "Unit Test")]
+        [Trait(name: "TestCategory", value: "Unit")]
         public async Task Can_DeserialiseTemplateListResponse_Success()
         {
             // arrange / act / assert
@@ -33,7 +33,7 @@
         }
 
         [Fact]
-        [Trait(name: "Category", value: "Unit Test")]
+        [Trait(name: "TestCategory", value: "Unit")]
         public async Task Can_DeserialiseTemplateResponse_Success()
         {
             // arrange / act / assert

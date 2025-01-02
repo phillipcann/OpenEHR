@@ -1,5 +1,19 @@
 # Shellscripts.OpenEHR
 
+## Contents
+<!--TOC-->
+  - [Description](#description)
+  - [Implementation](#implementation)
+    - [Reference Model](#reference-model)
+    - [Configuration](#configuration)
+    - [Library](#library)
+  - [Testing](#testing)
+  - [Appendix](#appendix)
+    - [Examples](#examples)
+      - [01 - Load some records from the Open EHR Sandbox](#01-load-some-records-from-the-open-ehr-sandbox)
+  - [License](#license)
+<!--/TOC-->
+
 ## Description
 
 The `Shellscripts.OpenEHR` library has been constructed to assist with the integration to Open EHR servers from within C# code. There was found to be a gap in the tooling available for integration using the C# language where there was a need to use Complex Mapping from MVC or Web API View Models. Making it a slow process to adopt in the first instance.
@@ -9,6 +23,7 @@ The library hopes to address the problems of
 - Being able to map application Models to strongly typed Reference Model items for easy Serialisation to Json and persistance to an Open EHR Server
 
 ## Implementation
+[<sup><sub>Home</sub></sup>](#contents)
 ### Reference Model 
 The solution contains all of the classes from the following Open EHR Reference Models as Objects that can be Serialised and Deserialised to and from.
 
@@ -20,7 +35,31 @@ The solution contains all of the classes from the following Open EHR Reference M
 | [Data Types](https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_data_types_information_model)| 
 | [EHR Information Model](https://specifications.openehr.org/releases/RM/latest/ehr.html#_ehr_information_model)| 
 
+### Configuration
+[<sup><sub>Home</sub></sup>](#contents)
+
+In the `appsettings.Development.json` file, the following configuration is in place at the moment.
+
+```json
+    {
+        "HttpClients": {
+            "EhrClient": {
+                // "Login": "https://sandkiste.ehrbase.org/",
+
+                "BaseUrl": "https://walrus-app-73l8x.ondigitalocean.app",
+                "SystemUri": "/ehrbase-ehrbase/ehrbase/rest/openehr/v1", // append to BaseUrl
+
+                "Timeout": 120,
+                "ReturnType": "representation", // minimal, representation
+                "AcceptType": "application/json" // application/json, application/xml, text/plain, application/openehr.wt+json
+            }
+        }
+    }
+```
+
 ### Library
+[<sup><sub>Home</sub></sup>](#contents)
+
 The solution has been constructed using the .NET 8 framework and makes use of the `Microsoft.Extensions` packages for Dependency Resolution and Inversion of Control.
 
 A setup class has been constructed which will load application configuration files, setup logging and register application dependencies.
@@ -38,10 +77,14 @@ A setup class has been constructed which will load application configuration fil
     { ... }
 ```
 
-### Testing
+## Testing
+[<sup><sub>Home</sub></sup>](#contents)
+
 There is a number of unit tests (Xunit) in the project in the `Shellscripts.OpenEHR.Tests` project. There is also a Console application `Shellscripts.OpenEHR.TestConsole` which is setup as the default startup project.
 
 In the Unit Tests project, the TestFixture makes use of the Configuration mentioned above to ensure the same dependencies used by the library are available for testing within the Unit Test project
+
+See also [Testing Readme](./Shellscripts.OpenEHR.Tests/README.md)
 
 ```C#
     /// <summary>
@@ -74,29 +117,12 @@ In the Unit Tests project, the TestFixture makes use of the Configuration mentio
     }
 ```
 
-### Configuration
+## Appendix
+[<sup><sub>Home</sub></sup>](#contents)
 
-In the `appsettings.Development.json` file, the following configuration is in place at the moment.
+### Examples
 
-```json
-    {
-        "HttpClients": {
-            "EhrClient": {
-                // "Login": "https://sandkiste.ehrbase.org/",
-
-                "BaseUrl": "https://walrus-app-73l8x.ondigitalocean.app",
-                "SystemUri": "/ehrbase-ehrbase/ehrbase/rest/openehr/v1", // append to BaseUrl
-
-                "Timeout": 120,
-                "ReturnType": "representation", // minimal, representation
-                "AcceptType": "application/json" // application/json, application/xml, text/plain, application/openehr.wt+json
-            }
-        }
-    }
-```
-
-## Examples
-### 01 - Load some records from the Open EHR Sandbox
+#### 01 - Load some records from the Open EHR Sandbox
 
 ```C#
     private static async Task LoadDataFromEHRSandboxExample(IHost host)
@@ -117,3 +143,8 @@ In the `appsettings.Development.json` file, the following configuration is in pl
         Composition composition_object_2 = await client.GetCompositionAsync(ehrId, compositionUid, cancellationToken);
     }
 ```
+
+## License
+[<sup><sub>Home</sub></sup>](#contents)
+
+This Library is released under the [MIT License](LICENSE)

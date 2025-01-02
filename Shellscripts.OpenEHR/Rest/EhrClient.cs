@@ -89,6 +89,13 @@
 
         #region Public Methods
 
+        /// <summary>
+        /// Retrieve a resource
+        /// </summary>
+        /// <typeparam name="TResult">The type of reference model item we are retrieving that we wish to deserialise the result as</typeparam>
+        /// <param name="url"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public async Task<TResult?> GetAsync<TResult>(string url, CancellationToken cancellationToken)
         {
             return await ExecuteAsync(async (client, cancellationToken) =>
@@ -118,11 +125,21 @@
             }, cancellationToken);
         }
 
-        public async Task<TResult?> PostAsync<TModelObject, TResult>(string url, TModelObject data, CancellationToken cancellationToken)
+
+
+        public async Task<string?> PostAsync<TModelObject>(string url, TModelObject data, CancellationToken cancellationToken)
         {
+            if (data == null)
+            {
+                var nullDataErrorMessage = $"{nameof(data)} cannot be null";
+                
+                _logger.LogError(nullDataErrorMessage);
+                throw new NullReferenceException(nullDataErrorMessage);
+            }
+
             return await ExecuteAsync(async (client, cancellationToken) =>
             {
-                var serialisedData = JsonSerializer.Serialize(data, _options);
+                var serialisedData = JsonSerializer.Serialize(data, data.GetType(), _options);
                 var httpContent = new StringContent(serialisedData, Encoding.UTF8, "application/json");
 
                 try
@@ -131,26 +148,35 @@
                     responseMessage.EnsureSuccessStatusCode();
 
                     var responseContent = await responseMessage.Content.ReadAsStringAsync(cancellationToken);
-                    var response = JsonSerializer.Deserialize<TResult>(responseContent, _options);
+                    var responseHeaders = responseMessage.Headers;
+                    
+                    if (responseHeaders.TryGetValues("eTag", out var eTags))
+                    {
+                        return string.Join(',', eTags);
+                    }
+                    else if (!string.IsNullOrWhiteSpace(responseContent))
+                    {
+                        return responseContent;
+                    }
 
-                    return response;
+                    //var response = JsonSerializer.Deserialize(responseContent, _options);
+                    
+
+                    return string.Empty;
                 }
                 catch (HttpRequestException hEx) when (hEx.StatusCode is System.Net.HttpStatusCode.BadRequest)
                 {
                     _logger.LogError(hEx.Message, hEx);
-
                     throw;
                 }
                 catch (Exception ex)
                 {
                     _logger.LogError(ex.Message, ex);
-
                     throw;
                 }
             });
         }
 
         #endregion
-
     }
 }
