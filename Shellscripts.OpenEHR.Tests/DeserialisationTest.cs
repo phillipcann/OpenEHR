@@ -3,6 +3,7 @@
     using System.Text.Json;
     using Microsoft.Extensions.DependencyInjection;
     using Shellscripts.OpenEHR.Models.Ehr;
+    using Shellscripts.OpenEHR.Models.PlatformServiceModel;
     using Shellscripts.OpenEHR.Tests.Context;
     using Xunit;
     using Xunit.Abstractions;
@@ -17,6 +18,7 @@
         [InlineData("Ehr/VersionedEhrStatusResponse.json", typeof(VersionedEhrStatus), "Uid.Value", "5f0841de-9409-4270-919f-6896cc7f4f5e")]
         [InlineData("Ehr/GetEhrResponse.json", typeof(Ehr), "EhrId.Value", "eecf24e0-5ac9-4bfc-b958-475162940444")]
         [InlineData("Ehr/EhrStatusResponse.json", typeof(EhrStatus), "Uid.Value", "c46f12bd-8d0f-49f6-ac36-4f9f4ef18c73::local.ehrbase.org::1")]
+        [InlineData("Query/Aql/GetAllEhrIdsResponse.json", typeof(ResultSet), "Query", "SELECT e/ehr_id/value FROM EHR e")]
         public async Task Can_Deserialise_SpecificResponse_ToSpecificType_Success(string assetFile, Type returnType, string fieldToCheck, object expectedValue)
         {
             // arrange

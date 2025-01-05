@@ -3,6 +3,7 @@
     using System.Text;
     using System.Text.Json;
     using Microsoft.Extensions.Logging;
+    using Shellscripts.OpenEHR.Extensions;
     using Shellscripts.OpenEHR.Models.Ehr;
 
     public class EhrClient : IEhrClient
@@ -50,7 +51,136 @@
             }
         }
 
-        #region Candidates for moving to a Repository class
+        /// <summary>
+        /// Retrieve a resource
+        /// </summary>
+        /// <typeparam name="TResult">The type of reference model item we are retrieving that we wish to deserialise the result as</typeparam>
+        /// <param name="url"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task<TResult?> GetAsync<TResult>(string url, CancellationToken cancellationToken)
+        {
+            return await ExecuteAsync(async (client, cancellationToken) =>
+            {
+                try
+                {
+                    var responseMessage = await client.GetAsync(url, cancellationToken);
+
+                    responseMessage.EnsureSuccessStatusCode();
+
+                    var stringContent = await responseMessage.Content.ReadAsStringAsync(cancellationToken);
+
+                    if (typeof(TResult) == typeof(String))
+                    {
+                        return (TResult)Convert.ChangeType(stringContent, typeof(TResult));
+                    }
+
+                    return JsonSerializer.Deserialize<TResult>(stringContent, _options);
+                }
+                catch (HttpRequestException hEx) when (hEx.StatusCode is System.Net.HttpStatusCode.BadRequest)
+                {
+                    _logger.LogError(hEx.Message, hEx);
+
+                    return default;
+                }
+                catch (JsonException jEx)
+                {
+                    _logger.LogError(jEx.Message, jEx);
+                    throw;
+                }
+
+            }, cancellationToken);
+        }
+
+        /// <summary>
+        /// Post a string to the target Ehr Server
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="NullReferenceException"></exception>
+        public async Task<string?> PostAsync(string url, string data, CancellationToken cancellationToken)
+        {
+            if (data == null)
+            {
+                var nullDataErrorMessage = $"{nameof(data)} cannot be null";
+
+                _logger.LogError(nullDataErrorMessage);
+                throw new NullReferenceException(nullDataErrorMessage);
+            }
+
+            return await ExecuteAsync(async (client, cancellationToken) =>
+            {
+                try
+                {
+                    var httpContent = new StringContent(data, Encoding.UTF8, "application/json");
+
+                    var responseMessage = await client.PostAsync(url, httpContent, cancellationToken);
+                    responseMessage.EnsureSuccessStatusCode();
+
+                    var responseContent = await responseMessage.Content.ReadAsStringAsync(cancellationToken);
+                    var responseHeaders = responseMessage.Headers;
+
+                    if (responseHeaders.TryGetValues("eTag", out var eTags))
+                    {
+                        return string.Join(',', eTags);
+                    }
+                    else if (!string.IsNullOrWhiteSpace(responseContent))
+                    {
+                        return responseContent;
+                    }
+
+                    // TODO : Implement the return object / data
+
+                    //var response = JsonSerializer.Deserialize(responseContent, _options);
+                    return string.Empty;
+                }
+                catch (HttpRequestException hEx) when (hEx.StatusCode is System.Net.HttpStatusCode.BadRequest)
+                {
+                    _logger.LogError(hEx.Message, hEx);
+                    throw;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex.Message, ex);
+                    throw;
+                }
+
+            });
+        }
+
+        /// <summary>
+        /// Post a strongly typed Ehr Reference Model item as Post Data to the target Ehr Server
+        /// </summary>
+        /// <typeparam name="TModelObject"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="NullReferenceException"></exception>
+        public async Task<string?> PostAsync<TModelObject>(string url, TModelObject data, CancellationToken cancellationToken)
+        {
+            if (data == null)
+            {
+                var nullDataErrorMessage = $"{nameof(data)} cannot be null";
+
+                _logger.LogError(nullDataErrorMessage);
+                throw new NullReferenceException(nullDataErrorMessage);
+            }
+
+            return await ExecuteAsync(async (client, cancellationToken) =>
+            {
+                var serialisedData = data.IsAnonymousType()
+                    ? JsonSerializer.Serialize(data, data.GetType())
+                    : JsonSerializer.Serialize(data, data.GetType(), _options);
+
+                return await PostAsync(url, serialisedData, cancellationToken);
+            });
+        }
+
+
+        #region IEhrServiceModel Implementation - Candidates for shifting to a Repository Type of class?
 
         public async Task<Ehr?> GetEhrAsync(string ehrId, CancellationToken cancellationToken)
         {
@@ -87,96 +217,5 @@
 
         #endregion
 
-        #region Public Methods
-
-        /// <summary>
-        /// Retrieve a resource
-        /// </summary>
-        /// <typeparam name="TResult">The type of reference model item we are retrieving that we wish to deserialise the result as</typeparam>
-        /// <param name="url"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public async Task<TResult?> GetAsync<TResult>(string url, CancellationToken cancellationToken)
-        {
-            return await ExecuteAsync(async (client, cancellationToken) =>
-            {
-                try
-                {
-                    var responseMessage = await client.GetAsync(url, cancellationToken);
-
-                    responseMessage.EnsureSuccessStatusCode();
-
-                    var stringContent = await responseMessage.Content.ReadAsStringAsync(cancellationToken);
-
-                    return JsonSerializer.Deserialize<TResult>(stringContent, _options);
-                }
-                catch (HttpRequestException hEx) when (hEx.StatusCode is System.Net.HttpStatusCode.BadRequest)
-                {
-                    _logger.LogError(hEx.Message, hEx);
-
-                    return default;
-                }
-                catch (JsonException jEx)
-                {
-                    _logger.LogError(jEx.Message, jEx);
-                    throw;
-                }
-
-            }, cancellationToken);
-        }
-
-
-
-        public async Task<string?> PostAsync<TModelObject>(string url, TModelObject data, CancellationToken cancellationToken)
-        {
-            if (data == null)
-            {
-                var nullDataErrorMessage = $"{nameof(data)} cannot be null";
-                
-                _logger.LogError(nullDataErrorMessage);
-                throw new NullReferenceException(nullDataErrorMessage);
-            }
-
-            return await ExecuteAsync(async (client, cancellationToken) =>
-            {
-                var serialisedData = JsonSerializer.Serialize(data, data.GetType(), _options);
-                var httpContent = new StringContent(serialisedData, Encoding.UTF8, "application/json");
-
-                try
-                {
-                    var responseMessage = await client.PostAsync(url, httpContent, cancellationToken);
-                    responseMessage.EnsureSuccessStatusCode();
-
-                    var responseContent = await responseMessage.Content.ReadAsStringAsync(cancellationToken);
-                    var responseHeaders = responseMessage.Headers;
-                    
-                    if (responseHeaders.TryGetValues("eTag", out var eTags))
-                    {
-                        return string.Join(',', eTags);
-                    }
-                    else if (!string.IsNullOrWhiteSpace(responseContent))
-                    {
-                        return responseContent;
-                    }
-
-                    //var response = JsonSerializer.Deserialize(responseContent, _options);
-                    
-
-                    return string.Empty;
-                }
-                catch (HttpRequestException hEx) when (hEx.StatusCode is System.Net.HttpStatusCode.BadRequest)
-                {
-                    _logger.LogError(hEx.Message, hEx);
-                    throw;
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex.Message, ex);
-                    throw;
-                }
-            });
-        }
-
-        #endregion
     }
 }

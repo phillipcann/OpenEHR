@@ -151,7 +151,6 @@
     #endregion
 
 
-
     #region 8.3 - https://specifications.openehr.org/releases/RM/latest/ehr.html#_class_descriptions_5
 
     public class Entry : ContentItem

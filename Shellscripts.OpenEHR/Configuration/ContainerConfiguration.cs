@@ -86,6 +86,8 @@
             services.AddSingleton<EventArrayConverter>();
             services.AddSingleton<ContentItemArrayConverter>();
 
+            services.AddSingleton<ResultSetRowConverter>();
+
 
             services.AddSingleton(provider =>
             {
@@ -109,6 +111,8 @@
                 options.Converters.Add(provider.GetRequiredService<ItemArrayConverter>());
                 options.Converters.Add(provider.GetRequiredService<EventArrayConverter>());
                 options.Converters.Add(provider.GetRequiredService<ContentItemArrayConverter>());
+
+                options.Converters.Add(provider.GetRequiredService<ResultSetRowConverter>());
 
                 return options;
             });
