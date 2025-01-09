@@ -7,7 +7,7 @@
 		<ResultsDirectory>.\TestResults</ResultsDirectory>
 
 		<!-- TestCaseFilter expression. Uncomment below to exclude Integration tests automatically in Test Runs. Requires Rebuild -->
-		<!--<TestCaseFilter>(TestCategory != Integration)</TestCaseFilter>-->
+		<TestCaseFilter>(TestCategory != Integration)</TestCaseFilter>
 
 		<!-- true or false -->
 		<!-- Value that specifies the exit code when no tests are discovered -->

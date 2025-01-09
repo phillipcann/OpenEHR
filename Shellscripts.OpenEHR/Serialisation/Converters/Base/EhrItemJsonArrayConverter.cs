@@ -71,10 +71,6 @@
             if (TypeMap == null || !TypeMap.Any())
                 throw new InvalidOperationException("TypeMap MUST have an implementation");
 
-            //var optionsWithoutConvertor = new JsonSerializerOptions(options);
-            //optionsWithoutConvertor.Converters.Remove(this);
-
-
             writer.WriteStartArray();
             foreach (var item in value)
             {

@@ -1,0 +1,90 @@
+[
+    {
+        "name": {
+            "value": "01-name"
+        },
+        "archetype_node_id": "01-archetype-node-id",
+        "uid": {
+            "value": "01-uid"
+        },
+        "links": [
+            {
+                "meaning": {
+                    "value": "01-link-meaning "
+                },
+                "type": {
+                    "value": "01-link-type"
+                },
+                "target": {
+                    "value": "ds://01-link-target"
+                }
+            }
+        ],
+        "archetype_details": {
+            "archetype_id": {
+                "value": "01-archetype-id"
+            }
+        }
+    },
+    {
+        "items": [],
+        "name": {
+            "value": "02-name"
+        },
+        "archetype_node_id": "02-archetype-node-id",
+        "uid": {
+            "value": "02-uid"
+        },
+        "links": [
+            {
+                "meaning": {
+                    "value": "02-link-meaning "
+                },
+                "type": {
+                    "value": "02-link-type"
+                },
+                "target": {
+                    "value": "ds://02-link-target"
+                }
+            }
+        ],
+        "archetype_details": {
+            "archetype_id": {
+                "value": "02-archetype-id"
+            }
+        }
+    },
+    {
+        "subject": {
+            "external_ref": {
+                "namespace": "03-subject-extref",
+                "type": "03-subject-type"
+            }
+        },
+        "name": {
+            "value": "03-name"
+        },
+        "archetype_node_id": "03-archetype-node-id",
+        "uid": {
+            "value": "03-uid"
+        },
+        "links": [
+            {
+                "meaning": {
+                    "value": "03-link-meaning "
+                },
+                "type": {
+                    "value": "03-link-type"
+                },
+                "target": {
+                    "value": "ds://03-link-target"
+                }
+            }
+        ],
+        "archetype_details": {
+            "archetype_id": {
+                "value": "03-archetype-id"
+            }
+        }
+    }
+]

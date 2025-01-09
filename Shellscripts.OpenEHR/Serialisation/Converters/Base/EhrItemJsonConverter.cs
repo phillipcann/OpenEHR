@@ -70,12 +70,11 @@
             if (TypeMap == null || !TypeMap.Any())
                 throw new InvalidOperationException("TypeMap MUST have an implementation");
 
-            //var optionsWithoutConvertor = new JsonSerializerOptions(options);
-            //optionsWithoutConvertor.Converters.Remove(this);
+            var optionsWithoutConvertor = new JsonSerializerOptions(options);
+            optionsWithoutConvertor.Converters.Remove(this);
 
             var contentType = value.GetType();
-            JsonSerializer.Serialize(writer, value, contentType, options);
-
+            JsonSerializer.Serialize(writer, value, contentType, optionsWithoutConvertor);
         }
     }
 }

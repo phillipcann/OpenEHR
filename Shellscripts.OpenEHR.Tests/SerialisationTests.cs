@@ -12,7 +12,7 @@
 
     using Xunit;
     using Xunit.Abstractions;
-    
+
 
     public class SerialisationTests : BaseTest
     {
@@ -45,10 +45,10 @@
             var serialiserOptions = Services?.GetRequiredService<JsonSerializerOptions>();
 
             // act
-            var actual_json = JsonSerializer.Serialize(mock_ehr, serialiserOptions);
+            var actual_json = await Task.Run(() => JsonSerializer.Serialize(mock_ehr, serialiserOptions));
 
             // assert
-            Assert.NotNull(actual_json);            
+            Assert.NotNull(actual_json);
             Assert.True(await AreJsonStringsEqualAsync(actual_json, expected_json));
         }
 
@@ -63,7 +63,7 @@
                 ArchetypeDetails = new Archetyped()
                 {
                     ArchetypeId = new ArchetypeId() { Value = "openEHR-EHR-COMPOSITION.observation.v1" },
-                    TemplateId = new TemplateId() {  Value = "Blood Pressure Template" },
+                    TemplateId = new TemplateId() { Value = "Blood Pressure Template" },
                     RmVersion = "1.0.4"
                 },
                 Content = new ContentItem[]
@@ -149,18 +149,18 @@
                         }
                     }
                 },
-                Context = new EventContext() { 
+                Context = new EventContext() {
                     StartTime = new DvDateTime() { Value = "2024-01-01T10:00:00Z" },
                     Setting = new DvCodedText()
                     {
                         Value = "General Practice",
                         DefiningCode = new CodePhrase()
                         {
-                            TerminologyId = new TerminologyId() {  Value = "openehr" },
+                            TerminologyId = new TerminologyId() { Value = "openehr" },
                             CodeString = "238"
                         }
                     }
-                },                
+                },
                 Language = new CodePhrase()
                 {
                     TerminologyId = new TerminologyId() { Value = "ISO_639-1" },
@@ -177,7 +177,78 @@
             var serialiserOptions = Services?.GetRequiredService<JsonSerializerOptions>();
 
             // act
-            var actual_json = JsonSerializer.Serialize(mock_composition, serialiserOptions);
+            var actual_json = await Task.Run(() => JsonSerializer.Serialize(mock_composition, serialiserOptions));
+
+            // assert
+            Assert.NotNull(actual_json);
+            Assert.True(await AreJsonStringsEqualAsync(actual_json, expected_json));
+        }
+
+
+        [Fact]
+        [Trait(name: "TestCategory", value: "Unit")]
+        public async Task Can_Serialise_ContentItemArray_Success()
+        {
+            await Task.Run(() => { });
+
+            // arrange
+            string expected_json = await LoadAssetAsync("Serialisation/ContentItemArrayWithThreeDifferentParts.json");
+            var serialiserOptions = Services?.GetRequiredService<JsonSerializerOptions>();
+
+            var mock_contentItemArray = new List<ContentItem>
+            {
+                new ContentItem()
+                {
+                    ArchetypeDetails = new Archetyped() { ArchetypeId = new ArchetypeId() { Value = "01-archetype-id" } },
+                    ArchetypeNodeId = "01-archetype-node-id",
+                    Name = new DvText() { Value = "01-name" },
+                    Uid = new UidBasedId() { Value = "01-uid" },
+                    Links = new Link[]
+                    {
+                        new Link() { 
+                            Meaning = new DvText() { Value = "01-link-meaning "}, 
+                            Target = new DvEhrUri() { Value = "ds://01-link-target"},
+                            Type = new DvText() { Value = "01-link-type"}
+                        }
+                    }
+                },
+                new Section()
+                {
+                    ArchetypeDetails = new Archetyped() { ArchetypeId = new ArchetypeId() { Value = "02-archetype-id" } },
+                    ArchetypeNodeId = "02-archetype-node-id",
+                    Name = new DvText() { Value = "02-name" },
+                    Uid = new UidBasedId() { Value = "02-uid" },
+                    Items = new ContentItem[] { },
+                    Links = new Link[]
+                    {
+                        new Link() {
+                            Meaning = new DvText() { Value = "02-link-meaning "},
+                            Target = new DvEhrUri() { Value = "ds://02-link-target"},
+                            Type = new DvText() { Value = "02-link-type"}
+                        }
+                    }
+
+                },
+                new Observation()
+                {
+                    ArchetypeDetails = new Archetyped() { ArchetypeId = new ArchetypeId() { Value = "03-archetype-id" } },
+                    ArchetypeNodeId = "03-archetype-node-id",
+                    Name = new DvText() { Value = "03-name" },
+                    Uid = new UidBasedId() { Value = "03-uid" },
+                    Subject = new PartyProxy() { ExternalReference = new PartyRef() { Namespace = "03-subject-extref", Type = "03-subject-type"}},
+                    Links = new Link[]
+                    {
+                        new Link() {
+                            Meaning = new DvText() { Value = "03-link-meaning "},
+                            Target = new DvEhrUri() { Value = "ds://03-link-target"},
+                            Type = new DvText() { Value = "03-link-type"}
+                        }
+                    }
+                }
+            }.ToArray();
+
+            // act
+            var actual_json = await Task.Run(() => JsonSerializer.Serialize(mock_contentItemArray, serialiserOptions));
 
             // assert
             Assert.NotNull(actual_json);
