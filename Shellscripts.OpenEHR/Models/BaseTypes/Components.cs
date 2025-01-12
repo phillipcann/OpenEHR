@@ -21,7 +21,7 @@
     public class ObjectId
     {
         [JsonPropertyName("value")]
-        public string Value { get; set; }
+        public string? Value { get; set; }
     }
 
     public class UidBasedId : ObjectId { }
@@ -33,7 +33,7 @@
     public class VersionTreeId
     {
         [JsonPropertyName("value")]
-        public string Value { get; set; }
+        public string? Value { get; set; }
     }
 
     public class ArchetypeId : ObjectId { }
@@ -52,19 +52,19 @@
     public class GenericId : ObjectId
     {
         [JsonPropertyName("scheme")]
-        public string Scheme { get; set; }
+        public string? Scheme { get; set; }
     }
 
     public class ObjectRef
     {
         [JsonPropertyName("namespace")]
-        public string Namespace { get; set; }
+        public string? Namespace { get; set; }
 
         [JsonPropertyName("type")]        
-        public string Type { get; set; }
+        public string? Type { get; set; }
 
         [JsonPropertyName("id")]
-        public ObjectId Id { get; set; }
+        public ObjectId? Id { get; set; }
     }
 
     public class PartyRef : ObjectRef
@@ -73,10 +73,10 @@
     public class LocatableRef : ObjectRef
     {
         [JsonPropertyName("path")]
-        public string Path { get; set; }
+        public string? Path { get; set; }
 
         [JsonPropertyName("id")]
-        public UidBasedId Id { get; set; }
+        public UidBasedId? Id { get; set; }
     }
 
 

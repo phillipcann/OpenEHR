@@ -8,7 +8,7 @@
 
     #region 3.1 - https://specifications.openehr.org/releases/RM/Release-1.1.0/data_structures.html#_class_descriptions
 
-    public class DataStructure : Locatable { }
+    public abstract class DataStructure : Locatable { }
 
     #endregion
 

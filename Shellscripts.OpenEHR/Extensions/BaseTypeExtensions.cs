@@ -1,10 +1,10 @@
 ﻿namespace Shellscripts.OpenEHR.Extensions
-{
+{    
     using Models.BaseTypes;
 
     public static class BaseTypeExtensions
     {
-        #region 5.4.6 - UID_BASED_ID Class
+        #region 5.4.6 - Uid Base Id Class (https://specifications.openehr.org/releases/BASE/latest/base_types.html#_uid_based_id_class)
 
         /// <summary>
         /// The identifier of the conceptual namespace in which the object exists, within the identification scheme. Returns the part to the left of the first '::' separator, if any, or else the whole string.
@@ -63,5 +63,25 @@
 
         #endregion
 
+        #region 5.4.8 - Object Version Id Class (https://specifications.openehr.org/releases/BASE/latest/base_types.html#_object_version_id_class)
+
+        public static Uid ObjectId(this ObjectVersionId objectVersionId) => throw new NotImplementedException();
+
+        public static Uid CreatingSystemId(this ObjectVersionId objectVersionId) => throw new NotImplementedException();
+
+        public static VersionTreeId VersionTreeId(this ObjectVersionId objectVersionId) => throw new NotImplementedException();
+
+        public static Boolean IsBranch(this ObjectVersionId objectVersionId) => throw new NotImplementedException();
+
+        #endregion
+
+        #region 5.4.9 - Version Tree Id Class (https://specifications.openehr.org/releases/BASE/latest/base_types.html#_version_tree_id_class)
+
+        public static string TrunkVersion(this VersionTreeId versionTreeId) => throw new NotImplementedException();
+        public static Boolean IsBranch(this VersionTreeId versionTreeId) => throw new NotImplementedException();
+        public static string BranchNumber(this VersionTreeId versionTreeId) => throw new NotImplementedException();
+        public static string BranchVersion(this VersionTreeId versionTreeId) => throw new NotImplementedException();
+
+        #endregion
     }
 }

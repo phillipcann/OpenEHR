@@ -8,9 +8,9 @@
 
     #region 3.2 - https://specifications.openehr.org/releases/RM/Release-1.1.0/common.html#_class_definitions
 
-    public class Pathable { }
+    public abstract class Pathable { }
 
-    public class Locatable : Pathable
+    public abstract class Locatable : Pathable
     {
         [JsonPropertyName("name")]
         public DvText Name { get; set; }
