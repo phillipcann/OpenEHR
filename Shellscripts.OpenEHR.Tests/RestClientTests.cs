@@ -126,6 +126,24 @@
             Assert.Contains(expectedExceptionMessage, exception.Message);
         }
 
+        [Fact]
+        [Trait(name: "TestCategory", value: "Integration")]
+        public async Task Test_PostAsync_QueryAql_Success()
+        {
+            // TODO : This test will only succeed if the sandbox has results to return so it's not an ideal test.
+
+            // arrange
+            var client = Services?.GetRequiredService<IEhrClient>();
+            var token = CancellationToken.None;
+            var request_body = new { q = "SELECT c FROM COMPOSITION c WHERE c/archetype_details/archetype_id/value='openEHR-EHR-COMPOSITION.report-result.v1' LIMIT 2" };
+
+            // act
+            var query_response = await client.PostQueryAqlAsync<Composition>(request_body, token);
+
+            // assert
+            Assert.NotNull(query_response);
+            Assert.True(query_response.Count() > 0);
+        }
         
     }
 

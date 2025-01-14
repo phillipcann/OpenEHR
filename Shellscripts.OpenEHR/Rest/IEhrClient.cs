@@ -19,5 +19,6 @@ namespace Shellscripts.OpenEHR.Rest
         Task<VersionedEhrStatus?> GetVersionedEhrStatusAsync(string ehrId, CancellationToken cancellationToken);
         Task<Composition?> GetCompositionAsync(string ehrId, string compositionId, CancellationToken cancellationToken);
         Task<VersionedComposition?> GetVersionedCompositionAsync(string ehrId, string compositionId, CancellationToken cancellationToken);
+        Task<IEnumerable<TR>> PostQueryAqlAsync<TR>(object body, CancellationToken cancellationToken);
     }
 }

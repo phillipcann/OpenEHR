@@ -5,6 +5,7 @@
     using Microsoft.Extensions.Logging;
     using Shellscripts.OpenEHR.Extensions;
     using Shellscripts.OpenEHR.Models.Ehr;
+    using Shellscripts.OpenEHR.Models.PlatformServiceModel;
 
     public class EhrClient : IEhrClient
     {
@@ -210,6 +211,40 @@
         {
             string url = $"/ehr/{ehrId}/versioned_composition/{compositionId}";
             return await GetAsync<VersionedComposition>(url, cancellationToken);
+        }
+
+        /// <summary>
+        /// This method will work if what you are selecting is a direct representation of the model you wish to deserialise the response as.
+        /// </summary>
+        /// <typeparam name="TR"></typeparam>
+        /// <param name="body"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<TR>> PostQueryAqlAsync<TR>(object body, CancellationToken cancellationToken)
+        {
+            string url = $"/query/aql";
+            var response = new List<TR>();
+
+            var query_result = await PostAsync(url, body, cancellationToken);
+
+            if (query_result is null)
+                return response;
+
+            var serialised_result = JsonSerializer.Deserialize<ResultSet>(query_result, _options);
+
+            if (serialised_result != null && serialised_result.Rows.Length != 0)
+            {
+                var row_values = serialised_result
+                    .Rows
+                    .SelectMany(r => r.Values)
+                    .Where(r => r is not null)
+                    .Select(o => JsonSerializer.Deserialize<TR>(o.ToString() ?? string.Empty, _options))
+                    ;
+
+                return row_values;
+            }
+
+            return response;
         }
 
         #endregion
