@@ -6,6 +6,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Shellscripts.OpenEHR.Models.Ehr;
     using Shellscripts.OpenEHR.Models.PlatformServiceModel;
+    using Shellscripts.OpenEHR.Repositories;
     using Shellscripts.OpenEHR.Rest;
     using Shellscripts.OpenEHR.Tests.Context;
     using Xunit;
@@ -133,18 +134,72 @@
             // TODO : This test will only succeed if the sandbox has results to return so it's not an ideal test.
 
             // arrange
+            int expectedCount = 5;
             var client = Services?.GetRequiredService<IEhrClient>();
             var token = CancellationToken.None;
-            var request_body = new { q = "SELECT c FROM COMPOSITION c WHERE c/archetype_details/archetype_id/value='openEHR-EHR-COMPOSITION.report-result.v1' LIMIT 2" };
+            var request_query = $"SELECT c FROM COMPOSITION c WHERE c/archetype_details/archetype_id/value='openEHR-EHR-COMPOSITION.report-result.v1' LIMIT {expectedCount}";
 
             // act
-            var query_response = await client.PostQueryAqlAsync<Composition>(request_body, token);
+            IEnumerable<Composition> query_response = await client.QueryAsync<Composition>(request_query, token);
+            query_response = query_response.ToList();
 
             // assert
             Assert.NotNull(query_response);
             Assert.True(query_response.Count() > 0);
+            Assert.Equal(expectedCount, query_response.Count());
         }
-        
+
+
+        [Fact]
+        [Trait(name: "TestCategory", value: "Integration")]        
+        public async Task Test_EhrRepository_GetSingle_ByEhrId_Success()
+        {
+            // arrange
+            var repo = Services?.GetRequiredService<IRepository<Ehr>>();
+            var token = CancellationToken.None;
+            var expectedEhrId = "cbea67de-f825-4539-a16c-d230a88f3cec";
+            var @params = new Dictionary<string, string>
+            {
+                { "ehr_id", expectedEhrId }
+            };
+
+            // act
+            Assert.NotNull(repo);
+            var ehrRecord = await repo.GetSingleAsync(@params, token);
+
+            // assert
+            Assert.NotNull(ehrRecord);
+            Assert.Equal(expectedEhrId, ehrRecord.EhrId.Value);
+        }
+
+        [Fact]
+        [Trait(name: "TestCategory", value: "Integration")]
+        public async Task Test_EhrRepository_GetSingle_BySubjectIdNamespace_Success()
+        {
+            // TODO : If there are multiple Ehr Records with the same SubjectId and Namespace
+            //      : this will be a problem because the Ehr Api will return the first record 
+            //      : as a success response without failing.... not sure how to get around
+            //      : that.
+
+            // arrange
+            var repo = Services?.GetRequiredService<IRepository<Ehr>>();
+            var expectedEhrId = "ed4d2fa6-9319-4b66-8254-869f956aa46a";
+            var token = CancellationToken.None;
+            var @params = new Dictionary<string, string>
+            {
+                { "subject_id", "1345667" },
+                { "subject_namespace", "MHH" }
+            };
+
+            // act
+            Assert.NotNull(repo);
+            var ehrRecord = await repo.GetSingleAsync(@params, token);
+
+            // assert
+            Assert.NotNull(ehrRecord);
+            Assert.Equal(expectedEhrId, ehrRecord.EhrId.Value);
+        }
+
     }
 
 

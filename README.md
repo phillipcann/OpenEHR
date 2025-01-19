@@ -15,8 +15,9 @@
 <!--/TOC-->
 
 ## Description
+[<sup><sub>Home</sub></sup>](#contents)
 
-The `Shellscripts.OpenEHR` library has been constructed to assist with the integration to Open EHR servers from within C# code. There was found to be a gap in the tooling available for integration using the C# language where there was a need to use Complex Mapping from MVC or Web API View Models. Making it a slow process to adopt in the first instance.
+The `Shellscripts.OpenEHR` library has been constructed to assist with the integration to Open EHR servers from within C# code. When I first started working with OpenEHR, I was not able to find much in the way of integration using the C# language where there was a need to use Complex Mapping from MVC or Web API View Models. Integration had to be done with JSON / Javascript and it was a bit of an arduous process to load content from OpenEHR and map to and from View Models. 
 
 The library hopes to address the problems of 
 - Being able to load Json from an Open EHR server into strongly typed objects for mapping to application Models
@@ -25,15 +26,18 @@ The library hopes to address the problems of
 ## Implementation
 [<sup><sub>Home</sub></sup>](#contents)
 ### Reference Model 
-The solution contains all of the classes from the following Open EHR Reference Models as Objects that can be Serialised and Deserialised to and from.
+The solution contains most of the classes from the following Open EHR Reference Models as Objects that can be Serialised and Deserialised to and from. With more iterations of the solution, more classes get implemented as I find classes I've missed out or had not implemented so as to get a working solution checked in and passing tests.
+
 
 | Reference Model Item |
 | -- | 
 | [Base Types](https://specifications.openehr.org/releases/BASE/latest/base_types.html#_base_types) |
 | [Common Information Model](https://specifications.openehr.org/releases/RM/Release-1.1.0/common.html#_common_information_model) | 
-| [Data Structures](https://specifications.openehr.org/releases/RM/Release-1.1.0/data_structures.html#_data_structures_information_model)| 
-| [Data Types](https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_data_types_information_model)| 
-| [EHR Information Model](https://specifications.openehr.org/releases/RM/latest/ehr.html#_ehr_information_model)| 
+| [Data Structures](https://specifications.openehr.org/releases/RM/Release-1.1.0/data_structures.html#_data_structures_information_model) | 
+| [Data Types](https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_data_types_information_model) | 
+| [EHR Information Model](https://specifications.openehr.org/releases/RM/latest/ehr.html#_ehr_information_model) | 
+| [Foundation Types](https://specifications.openehr.org/releases/BASE/development/foundation_types.html) |
+| [Platform Service Model](https://specifications.openehr.org/releases/SM/latest/openehr_platform.html) |
 
 ### Configuration
 [<sup><sub>Home</sub></sup>](#contents)
@@ -77,6 +81,9 @@ A setup class has been constructed which will load application configuration fil
     { ... }
 ```
 
+The built in configuration methods will register the Client, Handler, Repositories and Serialisers that all used together can pull data from an Open EHR server and map the Json results to strongly typed objects. The custom serialiser classes will allow for turning those strongly typed objects back into the appropriate format Json to submit to the Open EHR server for persistenting.
+
+
 ## Testing
 [<sup><sub>Home</sub></sup>](#contents)
 
@@ -105,11 +112,20 @@ See also [Testing Readme](./Shellscripts.OpenEHR.Tests/README.md)
             // Configuration
             var testConfigurationBuilder = new ConfigurationBuilder();
             ContainerConfiguration.ConfigureAppConfiguration(context, testConfigurationBuilder, args: Array.Empty<string>());
-            Configuration = testConfigurationBuilder.Build();            
+            Configuration = testConfigurationBuilder.Build();
 
             // Services
             var testServiceCollection = new ServiceCollection();
+            testServiceCollection.AddSingleton(Configuration);            
             ContainerConfiguration.ConfigureServices(context, testServiceCollection);
+
+            // Logging            
+            testServiceCollection.AddLogging((lb) => {
+                lb.ClearProviders();
+                lb.AddDebug();
+                lb.AddProvider(new TestOutputLoggerProvider(this.OutputHelper));
+            });
+
             ServiceProvider = testServiceCollection.BuildServiceProvider();
         }
 
@@ -127,20 +143,22 @@ See also [Testing Readme](./Shellscripts.OpenEHR.Tests/README.md)
 ```C#
     private static async Task LoadDataFromEHRSandboxExample(IHost host)
     {
-        // Get the Client Factory
-        var client = host.Services.GetRequiredService<IEhrClient>();
-        var options = host.Services.GetRequiredService<JsonSerializerOptions>();
-        var cancellationToken = CancellationToken.None;
+        // Get the Repositories to load the data
+        var ehrRepo = host.Services.GetRequiredService<IRepository<Ehr>>();
+        var compRepo = host.Services.GetRequiredService<IRepository<Composition>>();
+        var token = CancellationToken.None;
 
         var ehrId = "eecf24e0-5ac9-4bfc-b958-475162940444";
-        var compositionUid = "cdc46572-9074-451e-aeee-843ae2e44ecd::local.ehrbase.org::1";
-        var compositionId = "cdc46572-9074-451e-aeee-843ae2e44ecd";
+        var comp1Id = "cdc46572-9074-451e-aeee-843ae2e44ecd";
+        var comp2Id = "cdc46572-9074-451e-aeee-843ae2e44ecd::local.ehrbase.org::1";
 
-        Ehr ehr = await client.GetEhrAsync(ehrId, cancellationToken);
+        var ehrParams = new Dictionary<string, string>{ {"ehrId", ehrId } };
+        var comp1Params = new Dictionary<string, string> { { "ehrId", ehrId }, { "compositionId", comp1Id } };
+        var comp2Params = new Dictionary<string, string> { { "ehrId", ehrId }, { "compositionId", comp2Id } };
 
-        Composition composition_object_1 = await client.GetCompositionAsync(ehrId, compositionId, cancellationToken);
-
-        Composition composition_object_2 = await client.GetCompositionAsync(ehrId, compositionUid, cancellationToken);
+        var ehr = await ehrRepo.GetSingleAsync(ehrParams, token);
+        var composition_object_1 = await compRepo.GetSingleAsync(comp1Params, token);
+        var composition_object_2 = await compRepo.GetSingleAsync(comp2Params, token);
     }
 ```
 

@@ -180,55 +180,14 @@
             });
         }
 
-
-        #region IEhrServiceModel Implementation - Candidates for shifting to a Repository Type of class?
-
-        public async Task<Ehr?> GetEhrAsync(string ehrId, CancellationToken cancellationToken)
-        {
-            string url = $"/ehr/{ehrId}";
-            return await GetAsync<Ehr>(url, cancellationToken);
-        }
-
-        public async Task<Ehr?> GetEhrAsync(string subject_namespace, string subject_id, CancellationToken cancellationToken)
-        {
-            string url = $"/ehr?subject_id={subject_id}&subject_namespace={subject_namespace}";
-            return await GetAsync<Ehr>(url, cancellationToken);
-        }
-
-        public async Task<VersionedEhrStatus?> GetVersionedEhrStatusAsync(string ehrId, CancellationToken cancellationToken)
-        {
-            string url = $"/ehr/{ehrId}/versioned_ehr_status";
-            return await GetAsync<VersionedEhrStatus>(url, cancellationToken);
-        }
-
-        public async Task<Composition?> GetCompositionAsync(string ehrId, string compositionId, CancellationToken cancellationToken)
-        {
-            string url = $"/ehr/{ehrId}/composition/{compositionId}";
-            return await GetAsync<Composition>(url, cancellationToken);
-        }
-
-        public async Task<VersionedComposition?> GetVersionedCompositionAsync(string ehrId, string compositionId, CancellationToken cancellationToken)
-        {
-            string url = $"/ehr/{ehrId}/versioned_composition/{compositionId}";
-            return await GetAsync<VersionedComposition>(url, cancellationToken);
-        }
-
-        /// <summary>
-        /// This method will work if what you are selecting is a direct representation of the model you wish to deserialise the response as.
-        /// </summary>
-        /// <typeparam name="TR"></typeparam>
-        /// <param name="body"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public async Task<IEnumerable<TR>> PostQueryAqlAsync<TR>(object body, CancellationToken cancellationToken)
+        public async Task<IEnumerable<TR>> QueryAsync<TR>(string query, CancellationToken cancellationToken)
         {
             string url = $"/query/aql";
-            var response = new List<TR>();
 
-            var query_result = await PostAsync(url, body, cancellationToken);
-
+            var query_result = await PostAsync(url, new { q = query }, cancellationToken);
+            
             if (query_result is null)
-                return response;
+                return [];
 
             var serialised_result = JsonSerializer.Deserialize<ResultSet>(query_result, _options);
 
@@ -243,14 +202,15 @@
 
                 return row_values;
             }
+            else
+            {
+                // Couldn't serialise the ResultSet ?
+                return [];
+            }
 
-            return response;
+            
         }
 
         #endregion
-
-
-        #endregion
-
     }
 }

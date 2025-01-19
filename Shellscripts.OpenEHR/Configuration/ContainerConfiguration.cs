@@ -6,8 +6,9 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using Microsoft.Extensions.Logging;    
-
+    using Microsoft.Extensions.Logging;
+    using Shellscripts.OpenEHR.Models.Ehr;
+    using Shellscripts.OpenEHR.Repositories;
     using Shellscripts.OpenEHR.Rest;
     using Shellscripts.OpenEHR.Serialisation.Converters;
 
@@ -53,6 +54,11 @@
         {
             // Transients
             services.AddTransient<EhrClientUrlHandler>();
+            services.AddTransient<IRepository<Ehr>, EhrRepository>();
+            services.AddTransient<IRepository<VersionedEhrStatus>, VersionedEhrStatusRepository>();
+            services.AddTransient<IRepository<Composition>, CompositionRepository>();
+            services.AddTransient<IRepository<VersionedComposition>, VersionedCompositionRepository>();
+
 
             // HttpClient
             services.AddHttpClient<IEhrClient, EhrClient>((services, client) =>
@@ -70,8 +76,6 @@
                 client.Timeout = TimeSpan.FromSeconds(timeout);
                 client.BaseAddress = new Uri(baseUrl);
             }).AddHttpMessageHandler<EhrClientUrlHandler>();
-
-            
             
             // JsonConverters
             services.AddSingleton<DataValueConverter>();

@@ -9,6 +9,7 @@
 
     using Shellscripts.OpenEHR.Configuration;
     using Shellscripts.OpenEHR.Models.Ehr;
+    using Shellscripts.OpenEHR.Repositories;
     using Shellscripts.OpenEHR.Rest;
     
 
@@ -83,20 +84,24 @@
 
         private static async Task LoadDataFromEHRSandboxExample(IHost host)
         {
-            // Get the Client Factory
-            var client = host.Services.GetRequiredService<IEhrClient>();
-            var options = host.Services.GetRequiredService<JsonSerializerOptions>();
-            var cancellationToken = CancellationToken.None;
+            // Get the Repositories to load the data
+            var ehrRepo = host.Services.GetRequiredService<IRepository<Ehr>>();
+            var compRepo = host.Services.GetRequiredService<IRepository<Composition>>();
+            var token = CancellationToken.None;
 
             var ehrId = "eecf24e0-5ac9-4bfc-b958-475162940444";
-            var compositionUid = "cdc46572-9074-451e-aeee-843ae2e44ecd::local.ehrbase.org::1";
-            var compositionId = "cdc46572-9074-451e-aeee-843ae2e44ecd";
+            var comp1Id = "cdc46572-9074-451e-aeee-843ae2e44ecd";
+            var comp2Id = "cdc46572-9074-451e-aeee-843ae2e44ecd::local.ehrbase.org::1";
 
-            Ehr ehr = await client.GetEhrAsync(ehrId, cancellationToken);
+            var ehrParams = new Dictionary<string, string>{ {"ehrId", ehrId } };
+            var comp1Params = new Dictionary<string, string> { { "ehrId", ehrId }, { "compositionId", comp1Id } };
+            var comp2Params = new Dictionary<string, string> { { "ehrId", ehrId }, { "compositionId", comp2Id } };
 
-            Composition composition_object_1 = await client.GetCompositionAsync(ehrId, compositionId, cancellationToken);
+            var ehr = await ehrRepo.GetSingleAsync(ehrParams, token);
+            var composition_object_1 = await compRepo.GetSingleAsync(comp1Params, token);
+            var composition_object_2 = await compRepo.GetSingleAsync(comp2Params, token);
 
-            Composition composition_object_2 = await client.GetCompositionAsync(ehrId, compositionUid, cancellationToken);
+            ;
         }
 
         #endregion
