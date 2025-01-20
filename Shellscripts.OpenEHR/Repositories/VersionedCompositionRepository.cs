@@ -1,6 +1,7 @@
 ﻿namespace Shellscripts.OpenEHR.Repositories
 {
     using System.Collections.Generic;
+    using System.Text.Json;
     using System.Threading.Tasks;
     using Shellscripts.OpenEHR.Models.Ehr;
     using Shellscripts.OpenEHR.Rest;
@@ -9,8 +10,8 @@
             : BaseRepository<VersionedComposition>
     {
 
-        public VersionedCompositionRepository(IEhrClient client)
-            : base(client) { }
+        public VersionedCompositionRepository(IEhrClient client, JsonSerializerOptions options)
+            : base(client, options) { }
 
         public override async Task<VersionedComposition?> GetSingleAsync(IDictionary<string, string> @params, CancellationToken? token)
         {

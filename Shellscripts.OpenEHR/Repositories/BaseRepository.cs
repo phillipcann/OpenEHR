@@ -2,16 +2,19 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Text.Json;
     using System.Threading.Tasks;
     using Shellscripts.OpenEHR.Rest;
 
     public abstract class BaseRepository<T> : IRepository<T>
     {
         internal readonly IEhrClient Client;
+        internal readonly JsonSerializerOptions SerialiserOptions;
 
-        internal BaseRepository(IEhrClient client)
+        internal BaseRepository(IEhrClient client, JsonSerializerOptions serialiserOptions)
         {
             Client = client;
+            SerialiserOptions = serialiserOptions;
         }
 
         #region IRepository Implementation
@@ -28,13 +31,7 @@
             throw new NotImplementedException();
         }
 
-        public virtual async Task<string> UpdateAsync(T data, CancellationToken? token)
-        {
-            await Task.Run(() => { });
-            throw new NotImplementedException();
-        }
-
-        public virtual async Task<string> CreateAsync(T data, CancellationToken? token)
+        public virtual async Task<string?> UpsertAsync(T data, CancellationToken? token)
         {
             await Task.Run(() => { });
             throw new NotImplementedException();

@@ -37,7 +37,7 @@
         /// <param name="action"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>        
-        public async Task<TResult> ExecuteAsync<TResult>(Func<HttpClient, CancellationToken, Task<TResult>> action, CancellationToken cancellationToken = default)
+        public async Task<TResult> ExecuteAsync<TResult>(Func<HttpClient, CancellationToken?, Task<TResult>> action, CancellationToken? cancellationToken = default)
         {
             try
             {
@@ -59,17 +59,17 @@
         /// <param name="url"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<TResult?> GetAsync<TResult>(string url, CancellationToken cancellationToken)
+        public async Task<TResult?> GetAsync<TResult>(string url, CancellationToken? cancellationToken)
         {
             return await ExecuteAsync(async (client, cancellationToken) =>
             {
                 try
                 {
-                    var responseMessage = await client.GetAsync(url, cancellationToken);
+                    var responseMessage = await client.GetAsync(url, cancellationToken ?? CancellationToken.None);
 
                     responseMessage.EnsureSuccessStatusCode();
 
-                    var stringContent = await responseMessage.Content.ReadAsStringAsync(cancellationToken);
+                    var stringContent = await responseMessage.Content.ReadAsStringAsync(cancellationToken ?? CancellationToken.None);
 
                     if (typeof(TResult) == typeof(String))
                     {
@@ -81,7 +81,11 @@
                 catch (HttpRequestException hEx) when (hEx.StatusCode is System.Net.HttpStatusCode.BadRequest)
                 {
                     _logger.LogError(hEx.Message, hEx);
-
+                    return default;
+                }
+                catch (HttpRequestException hEx) when (hEx.StatusCode is System.Net.HttpStatusCode.NotFound)
+                {
+                    _logger.LogWarning(hEx.Message, hEx);
                     return default;
                 }
                 catch (JsonException jEx)
@@ -101,7 +105,7 @@
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="NullReferenceException"></exception>
-        public async Task<string?> PostAsync(string url, string data, CancellationToken cancellationToken)
+        public async Task<string?> PostAsync(string url, string data, CancellationToken? cancellationToken)
         {
             if (data == null)
             {
@@ -117,10 +121,10 @@
                 {
                     var httpContent = new StringContent(data, Encoding.UTF8, "application/json");
 
-                    var responseMessage = await client.PostAsync(url, httpContent, cancellationToken);
+                    var responseMessage = await client.PostAsync(url, httpContent, cancellationToken ?? CancellationToken.None);
                     responseMessage.EnsureSuccessStatusCode();
 
-                    var responseContent = await responseMessage.Content.ReadAsStringAsync(cancellationToken);
+                    var responseContent = await responseMessage.Content.ReadAsStringAsync(cancellationToken ?? CancellationToken.None);
                     var responseHeaders = responseMessage.Headers;
 
                     if (responseHeaders.TryGetValues("eTag", out var eTags))
@@ -147,7 +151,6 @@
                     _logger.LogError(ex.Message, ex);
                     throw;
                 }
-
             });
         }
 
@@ -160,7 +163,7 @@
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="NullReferenceException"></exception>
-        public async Task<string?> PostAsync<TModelObject>(string url, TModelObject data, CancellationToken cancellationToken)
+        public async Task<string?> PostAsync<TModelObject>(string url, TModelObject data, CancellationToken? cancellationToken)
         {
             if (data == null)
             {
@@ -180,7 +183,84 @@
             });
         }
 
-        public async Task<IEnumerable<TR>> QueryAsync<TR>(string query, CancellationToken cancellationToken)
+        public async Task<string?> PutAsync<TModelObject>(string url, TModelObject data, CancellationToken? cancellationToken)
+        {
+            if (data == null)
+            {
+                var nullDataErrorMessage = $"{nameof(data)} cannot be null";
+
+                _logger.LogError(nullDataErrorMessage);
+                throw new NullReferenceException(nullDataErrorMessage);
+            }
+
+            return await ExecuteAsync(async (client, cancellationToken) =>
+            {
+                var serialisedData = data.IsAnonymousType()
+                    ? JsonSerializer.Serialize(data, data.GetType())
+                    : JsonSerializer.Serialize(data, data.GetType(), _options);
+
+                return await PutAsync(url, serialisedData, cancellationToken);
+            });
+        }
+
+        /// <summary>
+        /// Put a string to the target Ehr Server
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="NullReferenceException"></exception>
+        public async Task<string?> PutAsync(string url, string data, CancellationToken? cancellationToken)
+        {
+            if (data == null)
+            {
+                var nullDataErrorMessage = $"{nameof(data)} cannot be null";
+
+                _logger.LogError(nullDataErrorMessage);
+                throw new NullReferenceException(nullDataErrorMessage);
+            }
+
+            return await ExecuteAsync(async (client, cancellationToken) =>
+            {
+                try
+                {
+                    var httpContent = new StringContent(data, Encoding.UTF8, "application/json");
+
+                    var responseMessage = await client.PutAsync(url, httpContent, cancellationToken ?? CancellationToken.None);
+                    responseMessage.EnsureSuccessStatusCode();
+
+                    var responseContent = await responseMessage.Content.ReadAsStringAsync(cancellationToken ?? CancellationToken.None);
+                    var responseHeaders = responseMessage.Headers;
+
+                    if (responseHeaders.TryGetValues("eTag", out var eTags))
+                    {
+                        return string.Join(',', eTags);
+                    }
+                    else if (!string.IsNullOrWhiteSpace(responseContent))
+                    {
+                        return responseContent;
+                    }
+
+                    // TODO : Implement the return object / data
+
+                    //var response = JsonSerializer.Deserialize(responseContent, _options);
+                    return string.Empty;
+                }
+                catch (HttpRequestException hEx) when (hEx.StatusCode is System.Net.HttpStatusCode.BadRequest)
+                {
+                    _logger.LogError(hEx.Message, hEx);
+                    throw;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex.Message, ex);
+                    throw;
+                }
+            });
+        }
+
+        public async Task<IEnumerable<TR>> QueryAsync<TR>(string query, CancellationToken? cancellationToken)
         {
             string url = $"/query/aql";
 
