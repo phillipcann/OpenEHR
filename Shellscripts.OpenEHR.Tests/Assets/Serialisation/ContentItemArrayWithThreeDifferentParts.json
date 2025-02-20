@@ -1,88 +1,111 @@
 [
     {
+        "_type": "ENTRY",
         "name": {
+            "_type": "DV_TEXT",
             "value": "01-name"
         },
         "archetype_node_id": "01-archetype-node-id",
         "uid": {
+            "_type": "UID_BASED_ID",
             "value": "01-uid"
         },
         "links": [
             {
                 "meaning": {
+                    "_type": "DV_TEXT",
                     "value": "01-link-meaning "
                 },
                 "type": {
+                    "_type": "DV_TEXT",
                     "value": "01-link-type"
                 },
                 "target": {
+                    "_type": "DV_EHR_URI",
                     "value": "ds://01-link-target"
                 }
             }
         ],
         "archetype_details": {
             "archetype_id": {
+                "_type": "ARCHETYPE_ID",
                 "value": "01-archetype-id"
             }
         }
     },
     {
+        "_type": "SECTION",
         "items": [],
         "name": {
+            "_type": "DV_TEXT",
             "value": "02-name"
         },
         "archetype_node_id": "02-archetype-node-id",
         "uid": {
+            "_type": "UID_BASED_ID",
             "value": "02-uid"
         },
         "links": [
             {
                 "meaning": {
+                    "_type": "DV_TEXT",
                     "value": "02-link-meaning "
                 },
                 "type": {
+                    "_type": "DV_TEXT",
                     "value": "02-link-type"
                 },
                 "target": {
+                    "_type": "DV_EHR_URI",
                     "value": "ds://02-link-target"
                 }
             }
         ],
         "archetype_details": {
             "archetype_id": {
+                "_type": "ARCHETYPE_ID",
                 "value": "02-archetype-id"
             }
         }
     },
     {
+        "_type": "OBSERVATION",
         "subject": {
+            "_type": "PARTY_SELF",
             "external_ref": {
+                "_type": "PARTY_REF",
                 "namespace": "03-subject-extref",
                 "type": "03-subject-type"
             }
         },
         "name": {
+            "_type": "DV_TEXT",
             "value": "03-name"
         },
         "archetype_node_id": "03-archetype-node-id",
         "uid": {
+            "_type": "UID_BASED_ID",
             "value": "03-uid"
         },
         "links": [
             {
                 "meaning": {
+                    "_type": "DV_TEXT",
                     "value": "03-link-meaning "
                 },
                 "type": {
+                    "_type": "DV_TEXT",
                     "value": "03-link-type"
                 },
                 "target": {
+                    "_type": "DV_EHR_URI",
                     "value": "ds://03-link-target"
                 }
             }
         ],
         "archetype_details": {
             "archetype_id": {
+                "_type": "ARCHETYPE_ID",
                 "value": "03-archetype-id"
             }
         }

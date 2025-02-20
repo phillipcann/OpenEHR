@@ -1,5 +1,7 @@
 ﻿namespace Shellscripts.OpenEHR.Tests
 {
+    using System.Text;
+    using System.Text.Json;
     using Shellscripts.OpenEHR.Extensions;
     using Shellscripts.OpenEHR.Models.BaseTypes;
     using Shellscripts.OpenEHR.Tests.Context;
@@ -58,6 +60,5 @@
             OutputHelper.WriteLine($"IdValue\t: {idValue}\nExpected Value\t: {expectedValue}\nActual Value\t: {ext}");
             Assert.Equal(expectedValue, ext);
         }
-
     }
 }

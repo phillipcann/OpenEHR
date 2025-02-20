@@ -4,17 +4,25 @@
 
     using System;
     using System.Text.Json.Serialization;
+    using Shellscripts.OpenEHR.Attribution;
     using Shellscripts.OpenEHR.Models.BaseTypes;
+    using Shellscripts.OpenEHR.Models.FoundationTypes;
 
     #region 4.2 - https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_class_descriptions
 
-    public class DataValue { }
+    // TODO : This should be an abstract type
 
+    [TypeMap("DATA_VALUE")]
+    public abstract class DataValue { }
+
+    [TypeMap("DV_BOOLEAN")]
     public class DvBoolean : DataValue
     {
         [JsonPropertyName("value")]
         public bool? Value { get; set; }
     }
+
+    [TypeMap("DV_STATE")]
     public class DvState : DataValue
     {
         [JsonPropertyName("value")]
@@ -23,6 +31,8 @@
         [JsonPropertyName("is_terminal")]
         public bool? IsTerminal { get; set; }
     }
+
+    [TypeMap("DV_IDENTIFIER")]
     public class DvIdentifier : DataValue
     {
         [JsonPropertyName("issuer")]
@@ -43,6 +53,7 @@
 
     #region 5.2 - https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_class_descriptions_2
 
+    [TypeMap("DV_TEXT")]
     public class DvText : DataValue
     {
         [JsonPropertyName("value")]
@@ -65,6 +76,7 @@
 
     }
 
+    [TypeMap("TERM_MAPPING")]
     public class TermMapping
     {
         [JsonPropertyName("match")]
@@ -77,6 +89,7 @@
         public CodePhrase? Target { get; set; }
     }
 
+    [TypeMap("CODE_PHRASE")]
     public class CodePhrase
     {
         [JsonPropertyName("terminology_id")]
@@ -89,12 +102,14 @@
         public string? PreferredTerm { get; set; }
     }
 
+    [TypeMap("DV_CODED_TEXT")]
     public class DvCodedText : DvText
     {
         [JsonPropertyName("defining_code")]
         public CodePhrase? DefiningCode { get; set; }
     }
 
+    [TypeMap("DV_PARAGRAPH")]
     public class DvParagraph : DataValue
     {
         [JsonPropertyName("items")]
@@ -106,7 +121,9 @@
 
     #region 6.2 - https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_class_descriptions_3
 
-    public class DvOrdered : DataValue
+    // TODO : This is an abstract class
+    [TypeMap("DV_ORDERED")]
+    public abstract class DvOrdered : DataValue
     {
         [JsonPropertyName("normal_status")]
         public CodePhrase? NormalStatus { get; set; }
@@ -118,12 +135,15 @@
         public ReferenceRange[]? OtherReferenceRanges { get; set; }
     }
 
+    [TypeMap("DV_INTERVAL")]
     public class DvInterval : DataValue { }
 
+    // TODO : We need to check this will serialise / deserialise
     public class DvInterval<T> : DvInterval
         where T : DvOrdered
     { }
 
+    [TypeMap("REFERENCE_RANGE")]
     public class ReferenceRange
     {
         [JsonPropertyName("meaning")]
@@ -133,10 +153,12 @@
         public DvInterval? Range { get; set; }
     }
 
+    // TODO : We need to check this will serialise / deserialise    
     public class ReferenceRange<T> : ReferenceRange
         where T : DvOrdered
     { }
 
+    [TypeMap("DV_ORDINAL")]
     public class DvOrdinal : DvOrdered
     {
         [JsonPropertyName("symbol")]
@@ -146,6 +168,7 @@
         public int? Value { get; set; }
     }
 
+    [TypeMap("DV_SCALE")]
     public class DvScale : DvOrdered
     {
         [JsonPropertyName("symbol")]
@@ -155,7 +178,9 @@
         public double? Value { get; set; }
     }
 
-    public class DvQuantified : DvOrdered
+    // TODO : This class should be abstract
+    [TypeMap("DV_QUANTIFIED")]
+    public abstract class DvQuantified : DvOrdered
     {
         [JsonPropertyName("magnitude_status")]
         public string? MagnitudeStatus { get; set; }
@@ -164,7 +189,9 @@
         public object? Accuracy { get; set; }
     }
 
-    public class DvAmount : DvQuantified
+    // TODO : THis class should be abstract
+    [TypeMap("DV_AMOUNT")]
+    public abstract class DvAmount : DvQuantified
     {
         [JsonPropertyName("accuracy_is_percent")]
         public bool? AccuracyIsPercent { get; set; }
@@ -173,6 +200,7 @@
         public double? Accuracy { get; set; }
     }
 
+    [TypeMap("DV_QUANTITY")]
     public class DvQuantity : DvAmount
     {
         [JsonPropertyName("magnitude")]
@@ -198,6 +226,7 @@
 
     }
 
+    [TypeMap("DV_COUNT")]
     public class DvCount : DvAmount
     {
         [JsonPropertyName("magnitude")]
@@ -210,6 +239,7 @@
         public ReferenceRange<DvCount>[]? OtherReferenceRanges { get; set; }
     }
 
+    [TypeMap("DV_PROPORTION")]
     public class DvProportion : DvAmount
     {
         [JsonPropertyName("numerator")]
@@ -232,8 +262,10 @@
 
     }
 
+    [TypeMap("PROPORTION_KIND")]
     public class ProportionKind { }
 
+    [TypeMap("DV_ABSOLUTE_QUANTITY")]
     public class DvAbsoluteQuantity : DvQuantified
     {
         [JsonPropertyName("accuracy")]
@@ -245,24 +277,29 @@
 
     #region 7.2 - https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_class_descriptions_4
 
-    public class DvTemporal : DvAbsoluteQuantity
+    // TODO : This is an abstract class
+    [TypeMap("DV_TEMPORAL")]
+    public abstract class DvTemporal : DvAbsoluteQuantity
     {
         [JsonPropertyName("accuracy")]
         public new DvDuration? Accuracy { get; set; }
     }
 
+    [TypeMap("DV_DATE")]
     public class DvDate : DvTemporal
     {
         [JsonPropertyName("value")]
         public string? Value { get; set; }
     }
 
+    [TypeMap("DV_TIME")]
     public class DvTime : DvTemporal
     {
         [JsonPropertyName("value")]
         public string? Value { get; set; }
     }
 
+    [TypeMap("DV_DATE_TIME")]
     public class DvDateTime : DvTemporal
     {
         [JsonPropertyName("value")]
@@ -270,6 +307,7 @@
 
     }
 
+    [TypeMap("DV_DURATION")]
     public class DvDuration : DvAmount
     {
         [JsonPropertyName("value")]
@@ -281,6 +319,8 @@
 
     #region 8.2 - https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_class_descriptions_5
 
+    // TODO : This is an abstract class
+    [TypeMap("DV_TIME_SPECIFICATION")]
     public class DvTimeSpecification : DataValue
     {
         [JsonPropertyName("value")]
@@ -288,11 +328,13 @@
 
     }
 
+    [TypeMap("DV_PERIODIC_TIME_SPECIFICATION")]
     public class DvPeriodicTimeSpecification : DvTimeSpecification
     {
 
     }
 
+    [TypeMap("DV_GENERAL_TIME_SPECIFICATION")]
     public class DvGeneralTimeSpecification : DvTimeSpecification
     {
 
@@ -303,6 +345,8 @@
 
     #region 9.2 - https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_class_descriptions_6
 
+    // TODO : This is an abstract class
+    [TypeMap("DV_ENCAPSULATED")]
     public class DvEncapsulated : DataValue
     {
         [JsonPropertyName("charset")]
@@ -313,6 +357,7 @@
 
     }
 
+    [TypeMap("DV_MULTIMEDIA")]
     public class DvMultiMedia : DvEncapsulated
     {
         [JsonPropertyName("alternate_text")]
@@ -343,6 +388,7 @@
         public int? Size { get; set; }
     }
 
+    [TypeMap("DV_PARSABLE")]
     public class DvParsable : DvEncapsulated
     {
         [JsonPropertyName("value")]
@@ -357,12 +403,14 @@
 
     #region 10.3 - https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_class_descriptions_7
 
+    [TypeMap("DV_URI")]
     public class DvUri : DataValue
     {
         [JsonPropertyName("value")]
         public string? Value { get; set; }
     }
 
+    [TypeMap("DV_EHR_URI")]
     public class DvEhrUri : DvUri { }
 
     #endregion

@@ -1,6 +1,7 @@
 ﻿namespace Shellscripts.OpenEHR.Tests
 {
     using System;
+    using System.Diagnostics;
     using System.Reflection;
 
     public static class HelperExtensions
@@ -42,7 +43,7 @@
                     PropertyInfo? propertyInfo = currentType.GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
 
                     if (propertyInfo == null)
-                        throw new ArgumentException($"Property '{propertyName}' not found on type '{currentType.FullName}'.");
+                        throw new ArgumentException($"Property '{propertyPath}' not found on type '{currentType.FullName}'. Failed at '{propertyName}'");
 
                     object? propertyValue = propertyInfo.GetValue(currentObject);
 

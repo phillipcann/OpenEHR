@@ -14,6 +14,12 @@
         internal IConfiguration? Configuration => _fixture.Configuration;
         internal IServiceProvider? Services => _fixture.ServiceProvider;
 
+        // AsssertJsonValueEquality(string actual_json, string json_path, object? expected_value)
+        //internal readonly Action<string, string, object?> AssertJsonValueEquality = HelperMethods.AsssertJsonValueEquality;        
+
+        internal void AssertJsonValueEquality(string actual_json, string json_path, object? expected_value) 
+            => HelperMethods.AsssertJsonValueEquality(actual_json, json_path, expected_value);
+
         public BaseTest(ITestOutputHelper outputHelper, TestFixture testFixture)
         {
             _fixture = testFixture;

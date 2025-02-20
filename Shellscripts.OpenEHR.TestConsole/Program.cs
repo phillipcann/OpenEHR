@@ -124,7 +124,7 @@
                             ExternalReference = new Models.BaseTypes.PartyRef()
                             {
                                 Namespace = ehr_params["subject_namespace"],
-                                Id = new Models.BaseTypes.ObjectId()
+                                Id = new Models.BaseTypes.HierObjectId()
                                 {
                                     Value = ehr_params["subject_id"]
                                 }

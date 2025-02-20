@@ -1,12 +1,7 @@
 ﻿namespace Shellscripts.OpenEHR.Models.FoundationTypes
 {
-
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Text.Json.Serialization;
-    using System.Threading.Tasks;
+
 
     #region Foundation Types - https://specifications.openehr.org/releases/BASE/latest/foundation_types.html
 
@@ -15,7 +10,7 @@
 
     #region 3.3.2 - Ordered Class
 
-    public class Ordered
+    public abstract class Ordered
     {
 
     }

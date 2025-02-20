@@ -36,7 +36,6 @@
 
   <ItemGroup>
     <Folder Include="Assets\Query\Aql\" />
-    <Folder Include="Assets\Serialisation\" />
   </ItemGroup>
 
 	<ItemGroup>

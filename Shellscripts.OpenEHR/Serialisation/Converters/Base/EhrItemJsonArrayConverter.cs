@@ -2,9 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
     using System.Text.Json;
     using System.Text.Json.Serialization;
+    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using Shellscripts.OpenEHR.Attribution;
 
     /// <summary>
     /// Abstract class to provide the capacity to automatically deserialise json array 
@@ -12,22 +15,22 @@
     /// </summary>
     /// <typeparam name="T">Will be used in the JsonConverter as an Enumerable of type T</typeparam>
     public abstract class EhrItemJsonArrayConverter<T> : JsonConverter<T[]>
-        where T : class, new()
+        where T : class
     {
+        private readonly ITypeMapLookup _typeMapLookup;
         private readonly ILogger _logger;
         internal ILogger Logger => _logger;
-        public abstract IDictionary<string, Type> TypeMap { get; }
 
-        public EhrItemJsonArrayConverter(ILogger logger)
+        public EhrItemJsonArrayConverter(ILogger logger, IServiceProvider serviceProvider)
         {
             _logger = logger;
+            _typeMapLookup = serviceProvider.GetRequiredService<ITypeMapLookup>();
         }
+
+        public override bool CanConvert(Type typeToConvert) => Type.IsAssignableFrom(typeToConvert);
 
         public override T[]? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            if (TypeMap == null || !TypeMap.Any())
-                throw new InvalidOperationException("TypeMap MUST have an implementation");
-
             IList<T> returnList = new List<T>();
 
             using (JsonDocument document = JsonDocument.ParseValue(ref reader))
@@ -39,9 +42,13 @@
                 {
                     if (_item.TryGetProperty("_type", out JsonElement typeElement))
                     {
-                        string idType = typeElement.GetString() ?? string.Empty;
+                        string idType = typeElement.ValueKind != JsonValueKind.Undefined
+                            ? typeElement.GetString() ?? string.Empty
+                            : typeToConvert.GetCustomAttribute<TypeMapAttribute>()?.Name ?? string.Empty;
 
-                        if (!TypeMap.TryGetValue(idType, out Type? targetType))
+                        Type? targetType = _typeMapLookup.GetTypeByName(idType);
+
+                        if (targetType is null)
                         {
                             var unknownTypeMessage = $"Unknown _type: '{idType}'";
                             _logger.LogWarning($"Read() :: {unknownTypeMessage}");
@@ -66,18 +73,18 @@
 
         public override void Write(Utf8JsonWriter writer, T[] value, JsonSerializerOptions options)
         {
-            _logger.LogInformation($"Writing Json: Converter: {GetType().Name}. ValueType: {value.GetType().Name}");
-
-            if (TypeMap == null || !TypeMap.Any())
-                throw new InvalidOperationException("TypeMap MUST have an implementation");
+            //_logger.LogInformation($"Writing JsonArray: Converter: {GetType().Name}. ValueType: {value.GetType().Name}");
 
             writer.WriteStartArray();
             foreach (var item in value)
             {
-                var itemType = item.GetType();
-                _logger.LogInformation($"\tWriting Json: ItemType: {itemType.Name}");
+                var itemType = value.GetType();
+                var typeMap = value.GetType().GetCustomAttribute<TypeMapAttribute>();
+
+                //_logger.LogInformation($"\tWriting Json: ItemType: {itemType.Name}. OpenEhrType: {openEhrType}. GenericArgs: {genericArgs}");
 
                 writer.WriteStartObject();
+                writer.WriteString("_type", typeMap?.Name ?? "_UNKNOWN");
 
                 var json = JsonSerializer.Serialize(item, itemType, options);
 
