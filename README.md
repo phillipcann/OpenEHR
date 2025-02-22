@@ -23,6 +23,11 @@ The library hopes to address the problems of
 - Being able to load Json from an Open EHR server into strongly typed objects for mapping to application Models
 - Being able to map application Models to strongly typed Reference Model items for easy Serialisation to Json and persistance to an Open EHR Server
 
+
+<p style="background-color: #FF7777; color: #000000;">
+This library is very much in the experimental stages. The serialisation / deserialisation routines are being actively worked on but are quite involved and taking some quite time to piece together. Part of the reason I suspect there didn't seem to be anything around that already does this. There are plenty of unit tests in the solution to start testing the different use cases.
+</p>
+
 ## Implementation
 [<sup><sub>Home</sub></sup>](#contents)
 ### Reference Model 
