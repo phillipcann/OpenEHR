@@ -1,6 +1,16 @@
 [
     {
-        "_type": "ENTRY",
+        "_type": "ADMIN_ENTRY",
+        "data": {
+            "_type": "ITEM_SINGLE",
+            "item": {
+                "_type": "ELEMENT",
+                "name": {
+                    "_type": "DV_TEXT",
+                    "value": "Element"
+                }
+            }
+        },
         "name": {
             "_type": "DV_TEXT",
             "value": "01-name"
@@ -35,7 +45,22 @@
     },
     {
         "_type": "SECTION",
-        "items": [],
+        "items": [
+            {
+                "_type": "EVALUATION"
+            },
+            {
+                "_type": "INSTRUCTION",
+                "narrative": {
+                    "_type": "DV_TEXT",
+                    "value": "Narrative"
+                },
+                "expiry_time": {
+                    "_type": "DV_DATE_TIME",
+                    "value": "2025-01-01T00:00:00.000Z"
+                }
+            }
+        ],
         "name": {
             "_type": "DV_TEXT",
             "value": "02-name"

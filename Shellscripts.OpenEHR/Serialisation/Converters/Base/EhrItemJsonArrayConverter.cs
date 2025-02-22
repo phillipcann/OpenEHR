@@ -73,19 +73,18 @@
 
         public override void Write(Utf8JsonWriter writer, T[] value, JsonSerializerOptions options)
         {
-            //_logger.LogInformation($"Writing JsonArray: Converter: {GetType().Name}. ValueType: {value.GetType().Name}");
-
             writer.WriteStartArray();
+
             foreach (var item in value)
             {
-                var itemType = value.GetType();
-                var typeMap = value.GetType().GetCustomAttribute<TypeMapAttribute>();
+                var itemType = item.GetType();
+                var typeMap = item.GetType().GetCustomAttribute<TypeMapAttribute>();
 
-                //_logger.LogInformation($"\tWriting Json: ItemType: {itemType.Name}. OpenEhrType: {openEhrType}. GenericArgs: {genericArgs}");
+                //_logger.LogInformation($"\tWriting Json: ItemType: {itemType.Name}. TypeMap: {typeMap?.Name}");
 
-                writer.WriteStartObject();
-                writer.WriteString("_type", typeMap?.Name ?? "_UNKNOWN");
+                writer.WriteStartObject();                
 
+                // This serialize method "should" give us the _type parameter for the single item we are serialising...
                 var json = JsonSerializer.Serialize(item, itemType, options);
 
                 using (var doc = JsonDocument.Parse(json))
@@ -98,10 +97,8 @@
 
                 writer.WriteEndObject();
             }
+            
             writer.WriteEndArray();
-
         }
-
     }
-
 }

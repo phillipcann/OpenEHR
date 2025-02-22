@@ -125,10 +125,7 @@
 
     [TypeMap("POINT_EVENT")]
     public class PointEvent<T> : Event<T>
-        where T : ItemStructure
-    {
-
-    }
+        where T : ItemStructure { }
 
     [TypeMap("INTERVAL_EVENT")]
     public class IntervalEvent<T> : Event<T>
@@ -143,9 +140,6 @@
         [JsonPropertyName("math_function")]
         public DvCodedText MathFunction { get; set; }
     }
-
-
-
 
     #endregion
 
