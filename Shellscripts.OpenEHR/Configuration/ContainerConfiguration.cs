@@ -90,7 +90,6 @@
             services.AddSingleton<DataValueConverter>();
             services.AddSingleton<EhrConverter>();
             services.AddSingleton<EventConverter<ItemStructure>>();
-            services.AddSingleton<ItemConverter>();
             services.AddSingleton<ItemStructureConverter>();            
             services.AddSingleton<ObjectIdConverter>(); 
             services.AddSingleton<ObjectRefConverter>();            
@@ -101,6 +100,7 @@
 
             // Enumerable
             services.AddSingleton<ContentItemArrayConverter>();
+            services.AddSingleton<ItemArrayConverter>();
 
             // Non-Standard
             services.AddSingleton<ResultSetRowConverter>();
@@ -119,8 +119,7 @@
                 // JsonConverters                
                 options.Converters.Add(provider.GetRequiredService<DataValueConverter>());
                 options.Converters.Add(provider.GetRequiredService<EhrConverter>());
-                options.Converters.Add(provider.GetRequiredService<EventConverter<ItemStructure>>());
-                options.Converters.Add(provider.GetRequiredService<ItemConverter>());
+                options.Converters.Add(provider.GetRequiredService<EventConverter<ItemStructure>>());                
                 options.Converters.Add(provider.GetRequiredService<ItemStructureConverter>());
                 options.Converters.Add(provider.GetRequiredService<ObjectIdConverter>());
                 options.Converters.Add(provider.GetRequiredService<ObjectRefConverter>());
@@ -131,6 +130,7 @@
 
                 // Enumerable
                 options.Converters.Add(provider.GetRequiredService<ContentItemArrayConverter>());
+                options.Converters.Add(provider.GetRequiredService<ItemArrayConverter>());
 
                 // Non Standard
                 options.Converters.Add(provider.GetRequiredService<ResultSetRowConverter>());

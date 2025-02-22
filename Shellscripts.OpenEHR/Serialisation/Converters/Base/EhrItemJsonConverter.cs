@@ -51,6 +51,8 @@
 
                 if (root.ValueKind == JsonValueKind.Object)
                 {
+                    var rawText = root.GetRawText();
+
                     root.TryGetProperty("_type", out JsonElement typeElement);
                     string idType = typeElement.ValueKind != JsonValueKind.Undefined
                         ? typeElement.GetString() ?? string.Empty
@@ -58,28 +60,21 @@
 
                     Type? targetType = TypeMapLookup.GetTypeByName(idType);
 
-                    //targetType ??= typeMapAttr?.DefaultIfAbstract;
-                    string logMessage = $"TypeToConvert: '{typeToConvert.Name}'. IsAbstract: {typeToConvert.IsAbstract}. IsGeneric: {typeToConvert.IsGenericTypeDefinition}. " +
-                        $"TargetType: '{targetType?.Name}'. IsAbstract: {targetType?.IsAbstract}. IsGeneric: {targetType?.IsGenericTypeDefinition}";
-                    _logger.LogInformation(logMessage);
-
-
                     if (targetType is null)
                     {
-                        var unknownTypeMessage = $"Unknown _type: '{idType}'";
-                        _logger.LogWarning($"Read() :: {unknownTypeMessage}");
-
+                        var unknownTypeMessage = $"Unknown _type: '{idType}'. TypeToConvert: '{typeToConvert.Name}'";
+                        _logger.LogError($"JsonSerialiser.Deserialise :: {unknownTypeMessage}");
+                        
                         throw new JsonException(unknownTypeMessage);
                     }
 
                     try
-                    {
-                        var rawText = root.GetRawText();
+                    {                        
                         returnValue = (T?)JsonSerializer.Deserialize(rawText, targetType, optionsWithoutThis);
                     }
                     catch (Exception ex)
                     {
-                        Logger.LogError(ex, ex.Message);
+                        _logger.LogError(ex, $"IdType: {idType}. TargetType: {targetType.Name}. ValueType: {typeToConvert.Name}\n{ex.Message}");                        
                         throw;
                     }
                 }
