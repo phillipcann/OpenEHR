@@ -96,7 +96,54 @@
         {
             // arrange
             var serialiserOptions = Services?.GetRequiredService<JsonSerializerOptions>();
-            var data = new DvText() { Value = "Some Text Value" };
+            var data = new DvText() { 
+                Value = "Some Text Value",
+                Hyperlink = new DvUri() {  Value = "https://about:blank" },
+                Formatting = "Formatting",
+                Mappings = [new TermMapping() 
+                { 
+                    Match = 'A',
+                    Purpose = new DvCodedText()
+                    {
+                        DefiningCode = new CodePhrase() { CodeString = "CS1"},
+                        Encoding = new CodePhrase() { PreferredTerm = "PT2"},
+                        Formatting = "Formatting",
+                        Hyperlink = new DvUri() { Value = "https://about:blank"},
+                        Language = new CodePhrase() { CodeString = "CS2" },
+                        Mappings = [new TermMapping() { Match = 'N' }],
+                        Value = "Value"
+                    },
+                    Target = new CodePhrase()
+                    {
+                        CodeString = "CS1",
+                        PreferredTerm = "PT1",
+                        TerminologyId = new TerminologyId() {
+                            Name = "",
+                            Value = "",
+                            VersionId = "1.0.1"
+                        }
+                    }
+                }] ,
+                Language = new CodePhrase() { 
+                    CodeString = "CS1", 
+                    PreferredTerm = "PT1", 
+                    TerminologyId = new TerminologyId() {
+                        Name = "T_Name1",
+                        Value = "T_Value1",
+                        VersionId = "1.0.1"
+                    } 
+                },
+                Encoding = new CodePhrase() { 
+                    CodeString = "CS2", 
+                    PreferredTerm = "PT2",
+                    TerminologyId = new TerminologyId()
+                    {
+                        Name = "T_Name2",
+                        VersionId = "T_Value2",
+                        Value = "2.0.1"
+                    }
+                }
+            };
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
@@ -105,6 +152,10 @@
             Assert.NotNull(actual_json);
             AssertJsonValueEquality(actual_json, "$._type", "DV_TEXT");
             AssertJsonValueEquality(actual_json, "$.value", "Some Text Value");
+            AssertJsonValueEquality(actual_json, "$.hyperlink.value", "https://about:blank");
+            AssertJsonValueEquality(actual_json, "$.formatting", "Formatting");
+
+            // TODO : more paths
 
             OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }

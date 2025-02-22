@@ -20,14 +20,14 @@
     {
         private readonly HashSet<object> _processing = new HashSet<object>(ReferenceEqualityComparer.Instance);
 
-        private readonly ITypeMapLookup _typeMapLookup;
+        internal readonly ITypeMapLookup TypeMapLookup;
         private readonly ILogger _logger;
         internal ILogger Logger => _logger;
 
         public EhrItemJsonConverter(ILogger logger, IServiceProvider serviceProvider)
         {
             _logger = logger;
-            _typeMapLookup = serviceProvider.GetRequiredService<ITypeMapLookup>();
+            TypeMapLookup = serviceProvider.GetRequiredService<ITypeMapLookup>();
         }
 
         public override bool CanConvert(Type typeToConvert) => Type.IsAssignableFrom(typeToConvert);
@@ -35,8 +35,9 @@
         public override T? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             var isAbstract = typeToConvert.IsAbstract;
-            var typeMapAttr = typeToConvert.GetCustomAttribute<TypeMapAttribute>();
+            var isGenericType = typeToConvert.IsGenericTypeDefinition;
 
+            var typeMapAttr = typeToConvert.GetCustomAttribute<TypeMapAttribute>();
 
             // To prevent infinite loops, remove "typeToConvert" converter from the options.
             var optionsWithoutThis = new JsonSerializerOptions(options);
@@ -55,13 +56,13 @@
                         ? typeElement.GetString() ?? string.Empty
                         : typeMapAttr?.Name ?? string.Empty;
 
-                    Type? targetType = _typeMapLookup.GetTypeByName(idType);
+                    Type? targetType = TypeMapLookup.GetTypeByName(idType);
 
-                    if (isAbstract)
-                    {
-                        targetType ??= typeMapAttr?.DefaultIfAbstract;
-                        _logger.LogWarning($"Attempting to Deserialise an Abstract Type: '{typeToConvert.Name}'. Using Default Type: '{targetType?.Name}'");
-                    }
+                    //targetType ??= typeMapAttr?.DefaultIfAbstract;
+                    string logMessage = $"TypeToConvert: '{typeToConvert.Name}'. IsAbstract: {typeToConvert.IsAbstract}. IsGeneric: {typeToConvert.IsGenericTypeDefinition}. " +
+                        $"TargetType: '{targetType?.Name}'. IsAbstract: {targetType?.IsAbstract}. IsGeneric: {targetType?.IsGenericTypeDefinition}";
+                    _logger.LogInformation(logMessage);
+
 
                     if (targetType is null)
                     {

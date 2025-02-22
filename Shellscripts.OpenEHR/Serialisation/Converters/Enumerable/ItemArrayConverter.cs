@@ -1,7 +1,6 @@
 ﻿namespace Shellscripts.OpenEHR.Serialisation.Converters.Enumerable
 {
-    using System;
-    using System.Collections.Generic;
+    using System;    
     using Microsoft.Extensions.Logging;
     using Shellscripts.OpenEHR.Models.DataStructures;
     using Shellscripts.OpenEHR.Serialisation.Converters.Base;

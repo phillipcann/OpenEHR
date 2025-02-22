@@ -86,16 +86,21 @@
                 client.BaseAddress = new Uri(baseUrl);
             }).AddHttpMessageHandler<EhrClientUrlHandler>();
 
-            // JsonConverters
-            services.AddSingleton<UidConverter>();
-            services.AddSingleton<ObjectIdConverter>(); 
-            services.AddSingleton<ObjectRefConverter>();
+            // JsonConverters            
             services.AddSingleton<DataValueConverter>();
+            services.AddSingleton<EhrConverter>();
+            services.AddSingleton<EventConverter<ItemStructure>>();
+            services.AddSingleton<ItemConverter>();
+            services.AddSingleton<ItemStructureConverter>();            
+            services.AddSingleton<ObjectIdConverter>(); 
+            services.AddSingleton<ObjectRefConverter>();            
             services.AddSingleton<PartyProxyConverter>();
             services.AddSingleton<PathableConverter>();
-
-            services.AddSingleton<EhrConverter>();
+            services.AddSingleton<UidConverter>();
             services.AddSingleton<VersionedObjectConverter>();
+
+            // Enumerable
+            services.AddSingleton<ContentItemArrayConverter>();
 
             // Non-Standard
             services.AddSingleton<ResultSetRowConverter>();
@@ -111,16 +116,21 @@
                     PropertyNameCaseInsensitive = true                    
                 };
 
-                // JsonConverters
-                options.Converters.Add(provider.GetRequiredService<UidConverter>());
+                // JsonConverters                
+                options.Converters.Add(provider.GetRequiredService<DataValueConverter>());
+                options.Converters.Add(provider.GetRequiredService<EhrConverter>());
+                options.Converters.Add(provider.GetRequiredService<EventConverter<ItemStructure>>());
+                options.Converters.Add(provider.GetRequiredService<ItemConverter>());
+                options.Converters.Add(provider.GetRequiredService<ItemStructureConverter>());
                 options.Converters.Add(provider.GetRequiredService<ObjectIdConverter>());
                 options.Converters.Add(provider.GetRequiredService<ObjectRefConverter>());
-                options.Converters.Add(provider.GetRequiredService<DataValueConverter>());
                 options.Converters.Add(provider.GetRequiredService<PartyProxyConverter>());
                 options.Converters.Add(provider.GetRequiredService<PathableConverter>());
-
-                options.Converters.Add(provider.GetRequiredService<EhrConverter>());
+                options.Converters.Add(provider.GetRequiredService<UidConverter>());
                 options.Converters.Add(provider.GetRequiredService<VersionedObjectConverter>());
+
+                // Enumerable
+                options.Converters.Add(provider.GetRequiredService<ContentItemArrayConverter>());
 
                 // Non Standard
                 options.Converters.Add(provider.GetRequiredService<ResultSetRowConverter>());
