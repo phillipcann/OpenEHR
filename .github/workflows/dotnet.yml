@@ -22,22 +22,25 @@ jobs:
       with:
         dotnet-version: 8.0.x
 
-    - name: Restore dependencies
+    - name: Restore Dependencies
       run: dotnet restore
 
-    - name: Build
+    - name: Build Solution
       run: dotnet build --no-restore --configuration Release
     
     - name: Test and Code Coverage
       run: dotnet test --no-build --configuration Release --verbosity normal --filter "TestCategory!=Integration" --collect:"XPlat Code Coverage"
 
-    - name: Convert coverage to Cobertura format
-      run: |
-        mkdir -p TestResults
-        reportgenerator -reports:**/coverage.cobertura.xml -targetdir:TestResults -reporttypes:Cobertura
+    - name: Install ReportGenerator
+      run: dotnet tool install -g dotnet-reportgenerator-globaltool
 
-    - name: Upload coverage report artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: code-coverage-report
-        path: TestResults/
+    # - name: Convert coverage to Cobertura format
+    #   run: |
+    #     mkdir -p TestResults
+    #     reportgenerator -reports:**/coverage.cobertura.xml -targetdir:TestResults -reporttypes:Cobertura
+
+    # - name: Upload coverage report artifact
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: code-coverage-report
+    #     path: TestResults/
