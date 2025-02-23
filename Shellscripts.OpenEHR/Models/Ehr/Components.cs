@@ -92,22 +92,22 @@
     public class Composition : Locatable
     {
         [JsonPropertyName("language")]
-        public CodePhrase Language { get; set; }
+        public CodePhrase? Language { get; set; }
 
         [JsonPropertyName("territory")]
-        public CodePhrase Territory { get; set; }
+        public CodePhrase? Territory { get; set; }
 
         [JsonPropertyName("category")]
-        public DvCodedText Category { get; set; }
+        public DvCodedText? Category { get; set; }
 
         [JsonPropertyName("context")]
-        public EventContext Context { get; set; }
+        public EventContext? Context { get; set; }
 
         [JsonPropertyName("composer")]
-        public PartyProxy Composer { get; set; }
+        public PartyProxy? Composer { get; set; }
 
         [JsonPropertyName("content")]
-        public ContentItem[] Content { get; set; }
+        public ContentItem[]? Content { get; set; }
 
     }
 
@@ -115,25 +115,25 @@
     public class EventContext : Pathable
     {
         [JsonPropertyName("start_time")]
-        public DvDateTime StartTime { get; set; }
+        public DvDateTime? StartTime { get; set; }
 
         [JsonPropertyName("end_time")]
-        public DvDateTime EndTime { get; set; }
+        public DvDateTime? EndTime { get; set; }
 
         [JsonPropertyName("location")]
-        public string Location { get; set; }
+        public string? Location { get; set; }
 
         [JsonPropertyName("setting")]
-        public DvCodedText Setting { get; set; }
+        public DvCodedText? Setting { get; set; }
 
         [JsonPropertyName("other_context")]
-        public ItemStructure OtherContext { get; set; }
+        public ItemStructure? OtherContext { get; set; }
 
         [JsonPropertyName("health_care_facility")]
-        public PartyIdentified HealthCareFacility { get; set; }
+        public PartyIdentified? HealthCareFacility { get; set; }
 
         [JsonPropertyName("participations")]
-        public Participation[] Participations { get; set; }
+        public Participation[]? Participations { get; set; }
 
     }
 

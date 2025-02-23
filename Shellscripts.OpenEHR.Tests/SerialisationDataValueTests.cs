@@ -14,6 +14,7 @@
         public SerialisationDataValueTests(ITestOutputHelper outputHelper, TestFixture testFixture)
             : base(outputHelper, testFixture) { }
 
+        #region 4.2
 
         [Fact]
         [Trait(name: "TestCategory", value: "Unit")]
@@ -90,6 +91,10 @@
             OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
+        #endregion
+
+        #region 5.2
+
         [Fact]
         [Trait(name: "TestCategory", value: "Unit")]
         public async Task Can_DeserialiseDvText_Success()
@@ -118,8 +123,8 @@
                         CodeString = "CS1",
                         PreferredTerm = "PT1",
                         TerminologyId = new TerminologyId() {
-                            Name = "",
-                            Value = "",
+                            Name = "NameString",
+                            Value = "ValueString",
                             VersionId = "1.0.1"
                         }
                     }
@@ -154,6 +159,21 @@
             AssertJsonValueEquality(actual_json, "$.value", "Some Text Value");
             AssertJsonValueEquality(actual_json, "$.hyperlink.value", "https://about:blank");
             AssertJsonValueEquality(actual_json, "$.formatting", "Formatting");
+            AssertJsonValueEquality(actual_json, "$.mappings[0].match", "A");
+            AssertJsonValueEquality(actual_json, "$.mappings[0].purpose.defining_code.code_string", "CS1");
+            AssertJsonValueEquality(actual_json, "$.mappings[0].purpose.encoding.preferred_term", "PT2");
+            AssertJsonValueEquality(actual_json, "$.mappings[0].purpose.formatting", "Formatting");
+            AssertJsonValueEquality(actual_json, "$.mappings[0].purpose.hyperlink._type", "DV_URI");
+            AssertJsonValueEquality(actual_json, "$.mappings[0].purpose.hyperlink.value", "https://about:blank");
+            AssertJsonValueEquality(actual_json, "$.mappings[0].purpose.language.code_string", "CS2");
+            AssertJsonValueEquality(actual_json, "$.mappings[0].purpose.mappings[0].match", "N");
+            AssertJsonValueEquality(actual_json, "$.mappings[0].purpose.value", "Value");
+            AssertJsonValueEquality(actual_json, "$.mappings[0].target.code_string", "CS1");
+            AssertJsonValueEquality(actual_json, "$.mappings[0].target.preferred_term", "PT1");
+            AssertJsonValueEquality(actual_json, "$.mappings[0].target.terminology_id.name", "NameString");
+            AssertJsonValueEquality(actual_json, "$.mappings[0].target.terminology_id.value", "ValueString");
+            AssertJsonValueEquality(actual_json, "$.mappings[0].target.terminology_id.version_id", "1.0.1");
+
 
             // TODO : more paths
 
@@ -211,20 +231,37 @@
             OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
+        [Fact]
+        [Trait(name: "TestCategory", value: "Unit")]
+        public async Task Can_DeserialiseCodePhrase_Success()
+        {
+            // arrange
+            var serialiserOptions = Services?.GetRequiredService<JsonSerializerOptions>();
+            var data = new CodePhrase() { 
+                TerminologyId = new TerminologyId()
+                {
+                    Name = "NameString",
+                    Value = "ValueString",
+                    VersionId = "VersionString"
+                },
+                CodeString = "CodeString",
+                PreferredTerm = "PreferredTermString"
+            };
 
+            // act
+            var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
 
+            // assert
+            Assert.NotNull(actual_json);
+            //AssertJsonValueEquality(actual_json, "$._type", "CODE_PHRASE");
+            AssertJsonValueEquality(actual_json, "$.terminology_id.name", "NameString");
+            AssertJsonValueEquality(actual_json, "$.terminology_id.value", "ValueString");
+            AssertJsonValueEquality(actual_json, "$.terminology_id.version_id", "VersionString");
+            AssertJsonValueEquality(actual_json, "$.code_string", "CodeString");
+            AssertJsonValueEquality(actual_json, "$.preferred_term", "PreferredTermString");
 
-
-
-
-
-
-
-
-
-
-
-
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
+        }
 
         [Fact]
         [Trait(name: "TestCategory", value: "Unit")]
@@ -287,8 +324,44 @@
             OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
+        [Fact]
+        [Trait(name: "TestCategory", value: "Unit")]
+        public async Task Can_DeserialiseDvParagraph_Success()
+        {
+            // arrange
+            var serialiserOptions = Services?.GetRequiredService<JsonSerializerOptions>();
+            var data = new DvParagraph()
+            {
+                Items = [
+                    new DvText() { Value = "DV1Value" },
+                    new DvText() { Value = "DV2Value" },
+                    new DvText() { Value = "DV3Value" },
+                ]
+            };
+
+            // act
+            var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+
+            // assert
+            Assert.NotNull(actual_json);
+            AssertJsonValueEquality(actual_json, "$._type", "DV_PARAGRAPH");
+            AssertJsonValueEquality(actual_json, "$.items[0]._type", "DV_TEXT");
+            AssertJsonValueEquality(actual_json, "$.items[0].value", "DV1Value");
+            AssertJsonValueEquality(actual_json, "$.items[1]._type", "DV_TEXT");
+            AssertJsonValueEquality(actual_json, "$.items[1].value", "DV2Value");
+            AssertJsonValueEquality(actual_json, "$.items[2]._type", "DV_TEXT");
+            AssertJsonValueEquality(actual_json, "$.items[2].value", "DV3Value");
+
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
+        }
+
+        #endregion
+
+        #region 6.2
 
 
+
+        #endregion
 
 
     }

@@ -28,5 +28,5 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     
-    - name: Test
-      run: dotnet test --no-build --verbosity normal --filter "TestCategory!=Integration"
+    - name: Test and Code Coverage
+      run: dotnet test --no-build --verbosity normal --filter "TestCategory!=Integration" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=TestResults/coverage.xml

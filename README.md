@@ -1,5 +1,7 @@
 # Shellscripts.OpenEHR
 
+[![.NET](https://github.com/phillipcann/OpenEHR/actions/workflows/dotnet.yml/badge.svg)](https://github.com/phillipcann/OpenEHR/actions/workflows/dotnet.yml)
+
 ## Contents
 <!--TOC-->
   - [Description](#description)

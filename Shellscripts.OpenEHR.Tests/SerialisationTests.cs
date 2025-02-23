@@ -164,7 +164,9 @@
                 ],
                 Context = new EventContext()
                 {
-                    StartTime = new DvDateTime() { Value = "2024-01-01T10:00:00Z" },
+                    StartTime = new DvDateTime() { Value = "2024-01-01T10:00:00.000Z" },
+                    EndTime = new DvDateTime() { Value = "2024-01-01T12:00:00.000Z" },
+                    Location = "Location",
                     Setting = new DvCodedText()
                     {
                         Value = "General Practice",
@@ -196,29 +198,6 @@
             
             Assert.NotNull(actual_json);
 
-            // Content..... this is large but NEEDS accurate checking
-
-            //AssertJsonValueEquality(actual_json, "$.content[0]._type", "OBSERVATION");
-            AssertJsonValueEquality(actual_json, "$.content[0].name._type", "DV_TEXT");
-            AssertJsonValueEquality(actual_json, "$.content[0].name.value", "Blood Pressure");
-            AssertJsonValueEquality(actual_json, "$.content[0].archetype_details.archetype_id._type", "ARCHETYPE_ID");
-            AssertJsonValueEquality(actual_json, "$.content[0].archetype_details.archetype_id.value", "openEHR-EHR-OBSERVATION.blood_pressure.v1");
-            AssertJsonValueEquality(actual_json, "$.content[0].archetype_details.rm_version", "1.0.4");
-            
-            AssertJsonValueEquality(actual_json, "$.content[0].protocol.name._type", "DV_TEXT");
-            AssertJsonValueEquality(actual_json, "$.content[0].protocol.name.value", "Protocol");
-            AssertJsonValueEquality(actual_json, "$.content[0].protocol.archetype_node_id", "at0011");
-            AssertJsonValueEquality(actual_json, "$.content[0].protocol.items[0].name._type", "DV_TEXT");
-            AssertJsonValueEquality(actual_json, "$.content[0].protocol.items[0].name.value", "Measurement Device");
-            //AssertJsonValueEquality(actual_json, "$.content[0].", "");
-            //AssertJsonValueEquality(actual_json, "$.content[0].", "");
-            //AssertJsonValueEquality(actual_json, "$.content[0].", "");
-
-
-            // EO Content
-
-
-
             AssertJsonValueEquality(actual_json, "$._type", "COMPOSITION");
             AssertJsonValueEquality(actual_json, "$.language.code_string", "en");
             AssertJsonValueEquality(actual_json, "$.language.terminology_id._type", "TERMINOLOGY_ID");
@@ -227,16 +206,34 @@
             AssertJsonValueEquality(actual_json, "$.territory.terminology_id._type", "TERMINOLOGY_ID");
             AssertJsonValueEquality(actual_json, "$.territory.terminology_id.value", "ISO_3166-1");
             AssertJsonValueEquality(actual_json, "$.context.start_time._type", "DV_DATE_TIME");
-            AssertJsonValueEquality(actual_json, "$.context.start_time.value", "2024-01-01T10:00:00Z");
+            AssertJsonValueEquality(actual_json, "$.context.start_time.value", "2024-01-01T10:00:00.000Z");
+            AssertJsonValueEquality(actual_json, "$.context.end_time.value", "2024-01-01T12:00:00.000Z");
+            AssertJsonValueEquality(actual_json, "$.context.location", "Location");
             AssertJsonValueEquality(actual_json, "$.context.setting.value", "General Practice");
             AssertJsonValueEquality(actual_json, "$.context.setting.defining_code.code_string", "238");
             AssertJsonValueEquality(actual_json, "$.context.setting.defining_code.terminology_id._type", "TERMINOLOGY_ID");
             AssertJsonValueEquality(actual_json, "$.context.setting.defining_code.terminology_id.value", "openehr");
+            AssertJsonValueEquality(actual_json, "$.content[0].name._type", "DV_TEXT");
+            AssertJsonValueEquality(actual_json, "$.content[0].name.value", "Blood Pressure");
+            AssertJsonValueEquality(actual_json, "$.content[0].archetype_details.archetype_id._type", "ARCHETYPE_ID");
+            AssertJsonValueEquality(actual_json, "$.content[0].archetype_details.archetype_id.value", "openEHR-EHR-OBSERVATION.blood_pressure.v1");
+            AssertJsonValueEquality(actual_json, "$.content[0].archetype_details.rm_version", "1.0.4");
+            AssertJsonValueEquality(actual_json, "$.content[0].data.name.value", "Event Series");
+            AssertJsonValueEquality(actual_json, "$.content[0].data.archetype_node_id", "at0001");
+            AssertJsonValueEquality(actual_json, "$.content[0].data.origin.value", "2024-01-01T10:00:00Z");
+            AssertJsonValueEquality(actual_json, "$.content[0].data.events[0].name.value", "Any Event");
+            AssertJsonValueEquality(actual_json, "$.content[0].data.events[0].archetype_node_id", "at0006");
+            AssertJsonValueEquality(actual_json, "$.content[0].data.events[0].time.value", "2024-01-01T10:00:00Z");
+            AssertJsonValueEquality(actual_json, "$.content[0].data.events[0].data._type", "ITEM_TREE");
 
-            // Content
 
-            // EO Content
-
+            AssertJsonValueEquality(actual_json, "$.content[0].protocol.name._type", "DV_TEXT");
+            AssertJsonValueEquality(actual_json, "$.content[0].protocol.name.value", "Protocol");
+            AssertJsonValueEquality(actual_json, "$.content[0].protocol.archetype_node_id", "at0011");
+            AssertJsonValueEquality(actual_json, "$.content[0].protocol.items[0].name._type", "DV_TEXT");
+            AssertJsonValueEquality(actual_json, "$.content[0].protocol.items[0].name.value", "Measurement Device");
+            AssertJsonValueEquality(actual_json, "$.content[0].protocol.items[0].archetype_node_id", "at0025");
+            AssertJsonValueEquality(actual_json, "$.content[0].protocol.items[0].value.value", "Automatic Sphygmomanometer");
             AssertJsonValueEquality(actual_json, "$.name._type", "DV_TEXT");
             AssertJsonValueEquality(actual_json, "$.name.value", "Blood Pressure Measurement");
             AssertJsonValueEquality(actual_json, "$.archetype_details.rm_version", "1.0.4");

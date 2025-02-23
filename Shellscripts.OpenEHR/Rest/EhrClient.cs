@@ -81,12 +81,12 @@
                 catch (HttpRequestException hEx) when (hEx.StatusCode is System.Net.HttpStatusCode.BadRequest)
                 {
                     _logger.LogError(hEx.Message, hEx);
-                    return default;
+                    throw;
                 }
                 catch (HttpRequestException hEx) when (hEx.StatusCode is System.Net.HttpStatusCode.NotFound)
                 {
                     _logger.LogWarning(hEx.Message, hEx);
-                    return default;
+                    throw;
                 }
                 catch (JsonException jEx)
                 {

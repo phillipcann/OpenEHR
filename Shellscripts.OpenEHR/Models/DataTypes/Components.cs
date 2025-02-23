@@ -10,8 +10,6 @@
 
     #region 4.2 - https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_class_descriptions
 
-    // TODO : This should be an abstract type
-
     [TypeMap("DATA_VALUE")]
     public abstract class DataValue { }
 
@@ -120,8 +118,7 @@
 
 
     #region 6.2 - https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_class_descriptions_3
-
-    // TODO : This is an abstract class
+    
     [TypeMap("DV_ORDERED")]
     public abstract class DvOrdered : DataValue
     {
@@ -178,7 +175,6 @@
         public double? Value { get; set; }
     }
 
-    // TODO : This class should be abstract
     [TypeMap("DV_QUANTIFIED")]
     public abstract class DvQuantified : DvOrdered
     {
@@ -189,7 +185,6 @@
         public object? Accuracy { get; set; }
     }
 
-    // TODO : THis class should be abstract
     [TypeMap("DV_AMOUNT")]
     public abstract class DvAmount : DvQuantified
     {
@@ -277,7 +272,6 @@
 
     #region 7.2 - https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_class_descriptions_4
 
-    // TODO : This is an abstract class
     [TypeMap("DV_TEMPORAL")]
     public abstract class DvTemporal : DvAbsoluteQuantity
     {
@@ -319,7 +313,7 @@
 
     #region 8.2 - https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_class_descriptions_5
 
-    // TODO : This is an abstract class
+    // TODO : This should be an abstract class
     [TypeMap("DV_TIME_SPECIFICATION")]
     public class DvTimeSpecification : DataValue
     {
@@ -345,7 +339,7 @@
 
     #region 9.2 - https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_class_descriptions_6
 
-    // TODO : This is an abstract class
+    // TODO : This should be an abstract class
     [TypeMap("DV_ENCAPSULATED")]
     public class DvEncapsulated : DataValue
     {

@@ -109,8 +109,7 @@
     #endregion
 
     #region 4.3 - https://specifications.openehr.org/releases/RM/Release-1.1.0/common.html#_class_descriptions
-
-    // TODO : This "should" be an abstract class. Problems with Deserialising.
+    
     [TypeMap("PARTY_PROXY")]
     public abstract class PartyProxy
     {
@@ -233,8 +232,8 @@
     
     public class VersionedObject<T> : VersionedObject where T : class { }
 
-
-    // TODO : This is an abstract model of one Version within a Version Container. 
+    // TODO : Nothing currently implements Version. We need to check if there are use cases where we need to deserialise to a Version object
+    //      : because without a class we can instantiate, this will fail
     [TypeMap("VERSION")]
     public abstract class Version
     {

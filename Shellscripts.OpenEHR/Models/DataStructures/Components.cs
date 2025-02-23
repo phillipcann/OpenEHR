@@ -16,8 +16,7 @@
 
 
     #region 4.3 - https://specifications.openehr.org/releases/RM/Release-1.1.0/data_structures.html#_class_descriptions_2
-
-    // TODO : This "should" be an abstract class. It causes problems with Deserialisation though
+    
     [TypeMap("ITEM_STRUCTURE")]
     public abstract class ItemStructure : DataStructure { }
 
@@ -53,8 +52,7 @@
 
 
     #region 5.2 - https://specifications.openehr.org/releases/RM/Release-1.1.0/data_structures.html#_class_descriptions_3
-
-    // TODO : This class should be abstract. Causes problems with Deserialisation though.
+    
     [TypeMap("ITEM")]
     public abstract class Item : Locatable { }
 
@@ -62,20 +60,20 @@
     public class Cluster : Item
     {
         [JsonPropertyName("items")]
-        public Item[] Items { get; set; }
+        public Item[]? Items { get; set; }
     }
 
     [TypeMap("ELEMENT")]
     public class Element : Item
     {
         [JsonPropertyName("null_flavour")]
-        public DvCodedText NullFlavour { get; set; }
+        public DvCodedText? NullFlavour { get; set; }
 
         [JsonPropertyName("value")]
-        public DataValue Value { get; set; }
+        public DataValue? Value { get; set; }
 
         [JsonPropertyName("null_reason")]
-        public DvText NullReason { get; set; }
+        public DvText? NullReason { get; set; }
 
     }
 
@@ -104,8 +102,7 @@
         public Event<T>[]? Events { get; set; }
 
     }
-
-    // TODO : This class "should" be abstract but it causes problems with the deserialisation
+    
     [TypeMap("EVENT")]
     public abstract class Event<T> : Locatable
         where T : ItemStructure
@@ -117,7 +114,7 @@
         public ItemStructure? State { get; set; }
 
         [JsonPropertyName("data")]
-        public T Data { get; set; }
+        public T? Data { get; set; }
 
         [JsonPropertyName("offset")]
         public DvDuration? Offset { get; set; }
@@ -132,13 +129,13 @@
         where T : ItemStructure
     {
         [JsonPropertyName("width")]
-        public DvDuration Width { get; set; }
+        public DvDuration? Width { get; set; }
 
         [JsonPropertyName("sample_count")]
-        public int SampleCount { get; set; }
+        public int? SampleCount { get; set; }
 
         [JsonPropertyName("math_function")]
-        public DvCodedText MathFunction { get; set; }
+        public DvCodedText? MathFunction { get; set; }
     }
 
     #endregion
