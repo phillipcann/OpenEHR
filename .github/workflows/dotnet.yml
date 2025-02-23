@@ -46,7 +46,7 @@ jobs:
         path: TestResults/
 
     - name: Pack Nuget Package
-      run: dotnet pack --configuration Release --output Nupkgs
+      run: dotnet pack ./Shellscripts.OpenEHR/Shellscripts.OpenEHR.csproj --configuration Release --output Nupkgs /p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg
 
     - name: Upload Shellscripts OpenEHR Package Artifact
       uses: actions/upload-artifact@v4

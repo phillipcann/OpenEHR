@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Description>This package contains a collection of the Reference Model classes as c# objects along with a client that allows the retrieval, updation and creation of resources from strongly typed objects.</Description>
     <PackageProjectUrl>https://github.com/phillipcann/OpenEHR</PackageProjectUrl>
     <PackageIcon>openehr.jpg</PackageIcon>
