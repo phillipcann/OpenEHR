@@ -133,9 +133,28 @@
     }
 
     [TypeMap("DV_INTERVAL")]
-    public class DvInterval : DataValue { }
+    public class DvInterval : DataValue, IInterval<DvOrdered>
+    {
+        [JsonPropertyName("lower")]
+        public DvOrdered? Lower { get; set; }
 
-    // TODO : We need to check this will serialise / deserialise
+        [JsonPropertyName("upper")]
+        public DvOrdered? Upper { get; set; }
+
+        [JsonPropertyName("lower_unbounded")]
+        public bool? LowerUnbounded { get; set; }
+
+        [JsonPropertyName("upper_unbounded")]
+        public bool? UpperUnbounded { get; set; }
+
+        [JsonPropertyName("lower_included")]
+        public bool? LowerIncluded { get; set; }
+
+        [JsonPropertyName("upper_included")]
+        public bool? UpperIncluded { get; set; }
+
+    }
+
     public class DvInterval<T> : DvInterval
         where T : DvOrdered
     { }

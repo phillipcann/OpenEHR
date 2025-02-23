@@ -144,8 +144,8 @@
                     TerminologyId = new TerminologyId()
                     {
                         Name = "T_Name2",
-                        VersionId = "T_Value2",
-                        Value = "2.0.1"
+                        Value = "T_Value2",
+                        VersionId = "2.0.1"
                     }
                 }
             };
@@ -160,6 +160,7 @@
             AssertJsonValueEquality(actual_json, "$.hyperlink.value", "https://about:blank");
             AssertJsonValueEquality(actual_json, "$.formatting", "Formatting");
             AssertJsonValueEquality(actual_json, "$.mappings[0].match", "A");
+            AssertJsonValueEquality(actual_json, "$.mappings[0].purpose._type", "DV_CODED_TEXT");
             AssertJsonValueEquality(actual_json, "$.mappings[0].purpose.defining_code.code_string", "CS1");
             AssertJsonValueEquality(actual_json, "$.mappings[0].purpose.encoding.preferred_term", "PT2");
             AssertJsonValueEquality(actual_json, "$.mappings[0].purpose.formatting", "Formatting");
@@ -173,9 +174,18 @@
             AssertJsonValueEquality(actual_json, "$.mappings[0].target.terminology_id.name", "NameString");
             AssertJsonValueEquality(actual_json, "$.mappings[0].target.terminology_id.value", "ValueString");
             AssertJsonValueEquality(actual_json, "$.mappings[0].target.terminology_id.version_id", "1.0.1");
-
-
-            // TODO : more paths
+            AssertJsonValueEquality(actual_json, "$.language.code_string", "CS1");
+            AssertJsonValueEquality(actual_json, "$.language.preferred_term", "PT1");
+            AssertJsonValueEquality(actual_json, "$.language.terminology_id._type", "TERMINOLOGY_ID");
+            AssertJsonValueEquality(actual_json, "$.language.terminology_id.name", "T_Name1");
+            AssertJsonValueEquality(actual_json, "$.language.terminology_id.value", "T_Value1");
+            AssertJsonValueEquality(actual_json, "$.language.terminology_id.version_id", "1.0.1");
+            AssertJsonValueEquality(actual_json, "$.encoding.code_string", "CS2");
+            AssertJsonValueEquality(actual_json, "$.encoding.preferred_term", "PT2");
+            AssertJsonValueEquality(actual_json, "$.encoding.terminology_id._type", "TERMINOLOGY_ID");
+            AssertJsonValueEquality(actual_json, "$.encoding.terminology_id.name", "T_Name2");
+            AssertJsonValueEquality(actual_json, "$.encoding.terminology_id.value", "T_Value2");
+            AssertJsonValueEquality(actual_json, "$.encoding.terminology_id.version_id", "2.0.1");
 
             OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
@@ -358,6 +368,95 @@
         #endregion
 
         #region 6.2
+
+        // TODO : DvInterval has a strange definition as it required multiple inheritence. I've tried to resolve this with an Interface
+        // TODO : ReferenceRange has a strange definition.
+
+
+        [Fact]
+        [Trait(name: "TestCategory", value: "Unit")]
+        public async Task Can_DeserialiseDvOrdinal_Success()
+        {
+            // arrange
+            var serialiserOptions = Services?.GetRequiredService<JsonSerializerOptions>();
+            var data = new DvOrdinal()
+            {
+                NormalRange = new DvInterval()
+                {
+                    Lower = new DvOrdinal() {  Value = 1, Symbol = new DvCodedText() {  Value = "C"} },
+                    Upper = new DvOrdinal() {  Value = 100, Symbol = new DvCodedText() {  Value = "C" } }
+                },
+                NormalStatus = new CodePhrase()
+                {
+                    CodeString = "CodeString",
+                    PreferredTerm = "PreferredTerm",
+                    TerminologyId = new TerminologyId()
+                    {
+                        Name = "TermName",
+                        Value = "TermValue",
+                        VersionId = "1.0.1"
+                    }
+                },
+                OtherReferenceRanges = [
+                    new ReferenceRange() {
+                        Meaning = new DvText() { Value = "TextValue"},
+                        Range = new DvInterval() {
+                            Lower = new DvOrdinal() {  Value = 1, Symbol = new DvCodedText() {  Value = "C"} },
+                            Upper = new DvOrdinal() {  Value = 100, Symbol = new DvCodedText() {  Value = "C" } }
+                        }
+                    }
+                ],
+                Symbol = new DvCodedText() 
+                { 
+                    DefiningCode = null,
+                    Encoding = null,
+                    Formatting = "Formatting",
+                    Hyperlink = new DvUri() { Value = "https://about:blank" },
+                    Language = null,
+                    Mappings = null,
+                    Value = "ValueString"
+                },
+                Value = 10
+            };
+
+            // act
+            var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+
+            // assert
+            Assert.NotNull(actual_json);
+            AssertJsonValueEquality(actual_json, "$._type", "DV_ORDINAL");
+            AssertJsonValueEquality(actual_json, "$.normal_range._type", "DV_INTERVAL");
+            AssertJsonValueEquality(actual_json, "$.normal_range.lower._type", "DV_ORDINAL");
+            AssertJsonValueEquality(actual_json, "$.normal_range.lower.value", 1);
+            AssertJsonValueEquality(actual_json, "$.normal_range.lower.symbol.value", "C");
+            AssertJsonValueEquality(actual_json, "$.normal_range.upper._type", "DV_ORDINAL");
+            AssertJsonValueEquality(actual_json, "$.normal_range.upper.value", 100);
+            AssertJsonValueEquality(actual_json, "$.normal_range.upper.symbol.value", "C");
+            AssertJsonValueEquality(actual_json, "$.normal_status.code_string", "CodeString");
+            AssertJsonValueEquality(actual_json, "$.normal_status.preferred_term", "PreferredTerm");
+            AssertJsonValueEquality(actual_json, "$.normal_status.terminology_id._type", "TERMINOLOGY_ID");
+            AssertJsonValueEquality(actual_json, "$.normal_status.terminology_id.name", "TermName");
+            AssertJsonValueEquality(actual_json, "$.normal_status.terminology_id.value", "TermValue");
+            AssertJsonValueEquality(actual_json, "$.normal_status.terminology_id.version_id", "1.0.1");
+            AssertJsonValueEquality(actual_json, "$.other_reference_ranges[0].meaning._type", "DV_TEXT");
+            AssertJsonValueEquality(actual_json, "$.other_reference_ranges[0].meaning.value", "TextValue");
+            AssertJsonValueEquality(actual_json, "$.other_reference_ranges[0].range._type", "DV_INTERVAL");
+            AssertJsonValueEquality(actual_json, "$.other_reference_ranges[0].range.lower._type", "DV_ORDINAL");
+            AssertJsonValueEquality(actual_json, "$.other_reference_ranges[0].range.lower.value", 1);
+            AssertJsonValueEquality(actual_json, "$.other_reference_ranges[0].range.lower.symbol._type", "DV_CODED_TEXT");
+            AssertJsonValueEquality(actual_json, "$.other_reference_ranges[0].range.lower.symbol.value", "C");
+            AssertJsonValueEquality(actual_json, "$.symbol._type", "DV_CODED_TEXT");
+            AssertJsonValueEquality(actual_json, "$.symbol.formatting", "Formatting");
+            AssertJsonValueEquality(actual_json, "$.symbol.hyperlink._type", "DV_URI");
+            AssertJsonValueEquality(actual_json, "$.symbol.hyperlink.value", "https://about:blank");
+            AssertJsonValueEquality(actual_json, "$.symbol.value", "ValueString");
+
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
+        }
+
+
+        // DvScale : DvOrdered
+
 
 
 
