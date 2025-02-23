@@ -37,7 +37,10 @@ jobs:
     - name: Convert coverage to Cobertura format
       run: |
         mkdir -p TestResults
-        reportgenerator -reports:**/coverage.cobertura.xml -targetdir:TestResults -reporttypes:Cobertura
+        reportgenerator -reports:**/coverage.cobertura.xml -targetdir:TestResults -reporttypes:html
+
+    - name: Pack Nuget Package
+      run: dotnet pack ./Shellscripts.OpenEHR/Shellscripts.OpenEHR.csproj --configuration Release --output Nupkgs /p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg
 
     - name: Upload Code Coverage Report Artifact
       uses: actions/upload-artifact@v4
@@ -45,11 +48,8 @@ jobs:
         name: code-coverage-report
         path: TestResults/
 
-    - name: Pack Nuget Package
-      run: dotnet pack ./Shellscripts.OpenEHR/Shellscripts.OpenEHR.csproj --configuration Release --output Nupkgs /p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg
-
-    - name: Upload Shellscripts OpenEHR Package Artifact
+    - name: Upload Shellscripts.OpenEHR Nuget Package Artifact
       uses: actions/upload-artifact@v4
       with:
         name: shellscripts-openehr-package
-        path: ./Nupkgs/*.*
+        path: Nupkgs/*.*
