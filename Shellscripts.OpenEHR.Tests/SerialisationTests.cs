@@ -44,6 +44,7 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(mock_ehr, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
@@ -193,9 +194,10 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(mock_composition, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
-            
+
             Assert.NotNull(actual_json);
 
             AssertJsonValueEquality(actual_json, "$._type", "COMPOSITION");
@@ -225,8 +227,6 @@
             AssertJsonValueEquality(actual_json, "$.content[0].data.events[0].archetype_node_id", "at0006");
             AssertJsonValueEquality(actual_json, "$.content[0].data.events[0].time.value", "2024-01-01T10:00:00Z");
             AssertJsonValueEquality(actual_json, "$.content[0].data.events[0].data._type", "ITEM_TREE");
-
-
             AssertJsonValueEquality(actual_json, "$.content[0].protocol.name._type", "DV_TEXT");
             AssertJsonValueEquality(actual_json, "$.content[0].protocol.name.value", "Protocol");
             AssertJsonValueEquality(actual_json, "$.content[0].protocol.archetype_node_id", "at0011");
@@ -317,6 +317,7 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(mock_contentItemArray, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
@@ -352,6 +353,7 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(mock_ehr_status, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
@@ -409,6 +411,7 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(mock_data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
@@ -419,16 +422,13 @@
             AssertJsonValueEquality(actual_json, "$.events[0].data.items[0].value.magnitude", 120);
             AssertJsonValueEquality(actual_json, "$.events[0].data.items[0].value.units", "mmHg");
             AssertJsonValueEquality(actual_json, "$.events[0].data.items[1].name.value", "Distolic");
+            AssertJsonValueEquality(actual_json, "$.events[0].data.items[1].items[0]._type", "ELEMENT");
             AssertJsonValueEquality(actual_json, "$.events[0].data.items[1].items[0].name._type", "DV_TEXT");
             AssertJsonValueEquality(actual_json, "$.events[0].data.items[1].items[0].name.value", "SomeElement");
+            AssertJsonValueEquality(actual_json, "$.events[0].data.items[1].items[1]._type", "CLUSTER");
             AssertJsonValueEquality(actual_json, "$.events[0].data.items[1].items[1].name._type", "DV_TEXT");
             AssertJsonValueEquality(actual_json, "$.events[0].data.items[1].items[1].name.value", "SomeCluster");
         }
-
-
-
-
-
 
     }
 }

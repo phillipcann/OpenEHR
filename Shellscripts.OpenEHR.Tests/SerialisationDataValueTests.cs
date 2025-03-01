@@ -26,13 +26,12 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
             AssertJsonValueEquality(actual_json, "$._type", "DV_BOOLEAN");
             AssertJsonValueEquality(actual_json, "$.value", true);
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
         [Fact]
@@ -53,6 +52,7 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
@@ -60,8 +60,6 @@
             AssertJsonValueEquality(actual_json, "$.value._type", "DV_CODED_TEXT");
             AssertJsonValueEquality(actual_json, "$.value.value", "TextField");
             AssertJsonValueEquality(actual_json, "$.value.formatting", "FormattingText");
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
         [Fact]
@@ -79,6 +77,7 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
@@ -86,9 +85,7 @@
             AssertJsonValueEquality(actual_json, "$.assigner", "Assigner");
             AssertJsonValueEquality(actual_json, "$.id", "Id");
             AssertJsonValueEquality(actual_json, "$.issuer", "Issuer");
-            AssertJsonValueEquality(actual_json, "$.type", "Type");
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
+            AssertJsonValueEquality(actual_json, "$.type", "Type");            
         }
 
         #endregion
@@ -152,6 +149,7 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
@@ -186,8 +184,6 @@
             AssertJsonValueEquality(actual_json, "$.encoding.terminology_id.name", "T_Name2");
             AssertJsonValueEquality(actual_json, "$.encoding.terminology_id.value", "T_Value2");
             AssertJsonValueEquality(actual_json, "$.encoding.terminology_id.version_id", "2.0.1");
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
         [Fact]
@@ -224,6 +220,7 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
@@ -237,8 +234,6 @@
             AssertJsonValueEquality(actual_json, "$.purpose.language.code_string", "CS2");
             AssertJsonValueEquality(actual_json, "$.purpose.mappings[0].match", "N");
             AssertJsonValueEquality(actual_json, "$.purpose.value", "Value");
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
         [Fact]
@@ -260,6 +255,7 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
@@ -268,9 +264,7 @@
             AssertJsonValueEquality(actual_json, "$.terminology_id.value", "ValueString");
             AssertJsonValueEquality(actual_json, "$.terminology_id.version_id", "VersionString");
             AssertJsonValueEquality(actual_json, "$.code_string", "CodeString");
-            AssertJsonValueEquality(actual_json, "$.preferred_term", "PreferredTermString");
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
+            AssertJsonValueEquality(actual_json, "$.preferred_term", "PreferredTermString");            
         }
 
         [Fact]
@@ -311,6 +305,7 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
@@ -330,8 +325,6 @@
             AssertJsonValueEquality(actual_json, "$.formatting", "Formatting");
             AssertJsonValueEquality(actual_json, "$.hyperlink._type", "DV_URI");
             AssertJsonValueEquality(actual_json, "$.hyperlink.value", "https://about:blank");
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
         [Fact]
@@ -351,6 +344,7 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
@@ -361,8 +355,6 @@
             AssertJsonValueEquality(actual_json, "$.items[1].value", "DV2Value");
             AssertJsonValueEquality(actual_json, "$.items[2]._type", "DV_TEXT");
             AssertJsonValueEquality(actual_json, "$.items[2].value", "DV3Value");
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
         #endregion
@@ -421,6 +413,7 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
@@ -450,15 +443,79 @@
             AssertJsonValueEquality(actual_json, "$.symbol.hyperlink._type", "DV_URI");
             AssertJsonValueEquality(actual_json, "$.symbol.hyperlink.value", "https://about:blank");
             AssertJsonValueEquality(actual_json, "$.symbol.value", "ValueString");
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
 
         // DvScale : DvOrdered
+        [Fact]
+        [Trait(name: "TestCategory", value: "Unit")]
+        public async Task Can_DeserialiseDvScale_Success()
+        {
+            // arrange
+            var serialiserOptions = Services?.GetRequiredService<JsonSerializerOptions>();
+            var data = new DvScale() {
+                NormalRange = new DvInterval()
+                {
+                    Lower = new DvOrdinal() {  Value = 10, Symbol = new DvCodedText() {  Value = "SymbolText"} },
+                    Upper = new DvOrdinal() { Value = 20, Symbol = new DvCodedText() { Value = "SymbolText" } }
+                },
+                NormalStatus = new CodePhrase() { CodeString = "CodeString", PreferredTerm = "PreferredTerm", TerminologyId = new TerminologyId() {  VersionId = "1.0.1"} },
+                OtherReferenceRanges = [
+                    new ReferenceRange() { Meaning = new DvText() { Value = "RefRange1"}, Range = new DvInterval() { Lower = new DvOrdinal() { Value = 50 }, Upper = new DvOrdinal() { Value = 150 }}},
+                    new ReferenceRange() { Meaning = new DvText() { Value = "RefRange2"}, Range = new DvInterval() { Lower = new DvOrdinal() { Value = 250 }, Upper = new DvOrdinal() { Value = 350 }}}
+                    ],
+                Symbol = new DvCodedText()
+                {
+                    Value = "SymbolText"
+                },
+                Value = 20.22
+            };
 
+            // act
+            var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
+            // assert
+            Assert.NotNull(actual_json);
+            
+            // ._type checks
+            AssertJsonValueEquality(actual_json, "$._type", "DV_SCALE");
+            AssertJsonValueEquality(actual_json, "$.symbol._type", "DV_CODED_TEXT");
+            AssertJsonValueEquality(actual_json, "$.normal_status.terminology_id._type", "TERMINOLOGY_ID");
+            AssertJsonValueEquality(actual_json, "$.normal_range._type", "DV_INTERVAL");
+            AssertJsonValueEquality(actual_json, "$.normal_range.lower._type", "DV_ORDINAL");
+            AssertJsonValueEquality(actual_json, "$.normal_range.lower.symbol._type", "DV_CODED_TEXT");
+            AssertJsonValueEquality(actual_json, "$.normal_range.upper._type", "DV_ORDINAL");
+            AssertJsonValueEquality(actual_json, "$.normal_range.upper.symbol._type", "DV_CODED_TEXT");
+            AssertJsonValueEquality(actual_json, "$.other_reference_ranges[0].meaning._type", "DV_TEXT");
+            AssertJsonValueEquality(actual_json, "$.other_reference_ranges[0].range._type", "DV_INTERVAL");
+            AssertJsonValueEquality(actual_json, "$.other_reference_ranges[0].range.lower._type", "DV_ORDINAL");
+            AssertJsonValueEquality(actual_json, "$.other_reference_ranges[0].range.upper._type", "DV_ORDINAL");
+            AssertJsonValueEquality(actual_json, "$.other_reference_ranges[1].meaning._type", "DV_TEXT");
+            AssertJsonValueEquality(actual_json, "$.other_reference_ranges[1].range._type", "DV_INTERVAL");
+            AssertJsonValueEquality(actual_json, "$.other_reference_ranges[1].range.lower._type", "DV_ORDINAL");
+            AssertJsonValueEquality(actual_json, "$.other_reference_ranges[1].range.upper._type", "DV_ORDINAL");
 
+            // value checks
+            AssertJsonValueEquality(actual_json, "$.value", 20.22);
+            AssertJsonValueEquality(actual_json, "$.symbol.value", "SymbolText");
+            AssertJsonValueEquality(actual_json, "$.normal_status.terminology_id.version_id", "1.0.1");
+            AssertJsonValueEquality(actual_json, "$.normal_status.code_string", "CodeString");
+            AssertJsonValueEquality(actual_json, "$.normal_status.preferred_term", "PreferredTerm");
+            AssertJsonValueEquality(actual_json, "$.normal_range.lower.value", 10);   // fail
+            AssertJsonValueEquality(actual_json, "$.normal_range.upper.value", 20);
+            AssertJsonValueEquality(actual_json, "$.normal_range.lower.symbol.value", "SymbolText");
+            AssertJsonValueEquality(actual_json, "$.normal_range.upper.symbol.value", "SymbolText");            
+        }
+
+        
+        
+        
+        // DvQuantity           : DvAmount
+        // DvCount              : DvAmount
+        // DvProportion         : DvAmount
+        // ProportionKind
+        // DvAbsoluteQuantity   : DvQuantified
 
         #endregion
 

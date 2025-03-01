@@ -14,9 +14,16 @@
         internal IConfiguration? Configuration => _fixture.Configuration;
         internal IServiceProvider? Services => _fixture.ServiceProvider;
 
-        // AsssertJsonValueEquality(string actual_json, string json_path, object? expected_value)
-        //internal readonly Action<string, string, object?> AssertJsonValueEquality = HelperMethods.AsssertJsonValueEquality;        
 
+        /// <summary>
+        /// Check that a value at a given json path location matches an expected value and type which
+        /// also includes possible expected null values
+        /// </summary>
+        /// <param name="actual_json"></param>
+        /// <param name="json_path"></param>
+        /// <param name="expected_value"></param>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         internal void AssertJsonValueEquality(string actual_json, string json_path, object? expected_value) 
             => HelperMethods.AsssertJsonValueEquality(actual_json, json_path, expected_value);
 

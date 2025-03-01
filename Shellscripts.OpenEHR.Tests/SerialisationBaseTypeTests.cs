@@ -26,13 +26,12 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
             AssertJsonValueEquality(actual_json, "$._type", "ISO_OID");
             AssertJsonValueEquality(actual_json, "$.value", "12345");
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
         [Fact]
@@ -45,13 +44,12 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
             AssertJsonValueEquality(actual_json, "$._type", "UUID");
             AssertJsonValueEquality(actual_json, "$.value", "12345");
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
         [Fact]
@@ -64,13 +62,12 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
             AssertJsonValueEquality(actual_json, "$._type", "INTERNET_ID");
             AssertJsonValueEquality(actual_json, "$.value", "12345");
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
         #endregion
@@ -87,13 +84,12 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
             AssertJsonValueEquality(actual_json, "$._type", "UID_BASED_ID");
             AssertJsonValueEquality(actual_json, "$.value", "12345");
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
         [Fact]
@@ -106,13 +102,12 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
             AssertJsonValueEquality(actual_json, "$._type", "HIER_OBJECT_ID");
             AssertJsonValueEquality(actual_json, "$.value", "12345");
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
         [Fact]
@@ -125,13 +120,12 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
             AssertJsonValueEquality(actual_json, "$._type", "OBJECT_VERSION_ID");
             AssertJsonValueEquality(actual_json, "$.value", "12345");
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
         [Fact]
@@ -144,13 +138,12 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
             AssertJsonValueEquality(actual_json, "$._type", "ARCHETYPE_ID");
             AssertJsonValueEquality(actual_json, "$.value", "12345");
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
         [Fact]
@@ -163,13 +156,12 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
             AssertJsonValueEquality(actual_json, "$._type", "TEMPLATE_ID");
             AssertJsonValueEquality(actual_json, "$.value", "12345");
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
         [Fact]
@@ -186,6 +178,7 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
@@ -193,8 +186,6 @@
             AssertJsonValueEquality(actual_json, "$.value", "12345");
             AssertJsonValueEquality(actual_json, "$.name", "SomeTerminology");
             AssertJsonValueEquality(actual_json, "$.version_id", "SomeVersion");
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
         [Fact]
@@ -207,14 +198,13 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
             AssertJsonValueEquality(actual_json, "$._type", "GENERIC_ID");
             AssertJsonValueEquality(actual_json, "$.value", "12345");
             AssertJsonValueEquality(actual_json, "$.scheme", "Scheme");
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
         #endregion
@@ -235,6 +225,7 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
@@ -243,8 +234,6 @@
             AssertJsonValueEquality(actual_json, "$.type", "SomeType");
             AssertJsonValueEquality(actual_json, "$.id._type", "UID_BASED_ID");
             AssertJsonValueEquality(actual_json, "$.id.value", "12345");
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
         [Fact]
@@ -262,6 +251,7 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
@@ -270,8 +260,6 @@
             AssertJsonValueEquality(actual_json, "$.type", "SomeType");
             AssertJsonValueEquality(actual_json, "$.id._type", "HIER_OBJECT_ID");
             AssertJsonValueEquality(actual_json, "$.id.value", "12345");
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
         [Fact]
@@ -290,6 +278,7 @@
 
             // act
             var actual_json = await Task.Run(() => JsonSerializer.Serialize(data, serialiserOptions));
+            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
 
             // assert
             Assert.NotNull(actual_json);
@@ -299,8 +288,6 @@
             AssertJsonValueEquality(actual_json, "$.type", "SomeType");
             AssertJsonValueEquality(actual_json, "$.id._type", "UID_BASED_ID");
             AssertJsonValueEquality(actual_json, "$.id.value", "12345");
-
-            OutputHelper?.WriteLine($"Actual Json: \n{actual_json}");
         }
 
         #endregion
